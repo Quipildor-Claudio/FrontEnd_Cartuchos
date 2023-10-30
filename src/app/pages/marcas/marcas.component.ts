@@ -16,10 +16,7 @@ export class MarcasComponent implements OnInit {
     this.getData();
   }
   getData():void{
-      this.marcaService.getAll().subscribe(res=>{
-        this.marcas=res;
-        console.log(this.marcas);
-      });
+      this.marcaService.getAll().subscribe(res=> this.marcas=res );
   }
 
   delete(item:any){

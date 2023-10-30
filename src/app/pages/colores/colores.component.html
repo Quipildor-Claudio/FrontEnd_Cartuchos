@@ -3,7 +3,7 @@
       <h3 class="card-title">{{title}}</h3>
     </div>
     <div class="card-body">
-      <button type="button" class="btn btn-primary " [routerLink]="['/formmarca']">Agregar Marca</button>
+      <button type="button" class="btn btn-primary " [routerLink]="['/formmarca']">Agregar Color</button>
       <div id="" class=" dt-bootstrap4">
         <br/>
         <div class="row">
@@ -23,7 +23,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr class="odd" *ngFor="let item of marcas">
+                <tr class="odd" *ngFor="let item of colores">
                   <td >{{item.id}}</td>
                   <td>{{item.nombre}}</td>
                   <td>

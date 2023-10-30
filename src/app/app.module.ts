@@ -8,12 +8,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './pages/header/header.component';
 import { FooterComponent } from './pages/footer/footer.component';
 import { MarcasComponent } from './pages/marcas/marcas.component';
+import { ColoresComponent } from './pages/colores/colores.component';
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
     MarcasComponent,
+    ColoresComponent,
 
   ],
   imports: [
