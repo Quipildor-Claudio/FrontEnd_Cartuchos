@@ -9,6 +9,8 @@ import { HeaderComponent } from './pages/header/header.component';
 import { FooterComponent } from './pages/footer/footer.component';
 import { MarcasComponent } from './pages/marcas/marcas.component';
 import { ColoresComponent } from './pages/colores/colores.component';
+import { TipoCargaComponent } from './pages/tipo-carga/tipo-carga.component';
+import { TipoCartuchoComponent } from './pages/tipo-cartucho/tipo-cartucho.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,6 +18,8 @@ import { ColoresComponent } from './pages/colores/colores.component';
     FooterComponent,
     MarcasComponent,
     ColoresComponent,
+    TipoCargaComponent,
+    TipoCartuchoComponent,
 
   ],
   imports: [
