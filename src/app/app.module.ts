@@ -11,6 +11,9 @@ import { MarcasComponent } from './pages/marcas/marcas.component';
 import { ColoresComponent } from './pages/colores/colores.component';
 import { TipoCargaComponent } from './pages/tipo-carga/tipo-carga.component';
 import { TipoCartuchoComponent } from './pages/tipo-cartucho/tipo-cartucho.component';
+import { CartuchoComponent } from './pages/cartucho/cartucho.component';
+import { TipoImpresoraComponent } from './pages/tipo-impresora/tipo-impresora.component';
+import { ImpresoraComponent } from './pages/impresora/impresora.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,6 +23,9 @@ import { TipoCartuchoComponent } from './pages/tipo-cartucho/tipo-cartucho.compo
     ColoresComponent,
     TipoCargaComponent,
     TipoCartuchoComponent,
+    CartuchoComponent,
+    TipoImpresoraComponent,
+    ImpresoraComponent,
 
   ],
   imports: [
