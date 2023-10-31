@@ -14,6 +14,8 @@ import { TipoCartuchoComponent } from './pages/tipo-cartucho/tipo-cartucho.compo
 import { CartuchoComponent } from './pages/cartucho/cartucho.component';
 import { TipoImpresoraComponent } from './pages/tipo-impresora/tipo-impresora.component';
 import { ImpresoraComponent } from './pages/impresora/impresora.component';
+import { EstadoComponent } from './pages/estado/estado.component';
+import { SolicitudComponent } from './pages/solicitud/solicitud.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +28,8 @@ import { ImpresoraComponent } from './pages/impresora/impresora.component';
     CartuchoComponent,
     TipoImpresoraComponent,
     ImpresoraComponent,
+    EstadoComponent,
+    SolicitudComponent,
 
   ],
   imports: [

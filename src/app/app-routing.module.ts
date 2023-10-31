@@ -7,6 +7,8 @@ import { TipoCartuchoComponent } from './pages/tipo-cartucho/tipo-cartucho.compo
 import { CartuchoComponent } from './pages/cartucho/cartucho.component';
 import { ImpresoraComponent } from './pages/impresora/impresora.component';
 import { TipoImpresoraComponent } from './pages/tipo-impresora/tipo-impresora.component';
+import { EstadoComponent } from './pages/estado/estado.component';
+import { SolicitudComponent } from './pages/solicitud/solicitud.component';
 
 const routes: Routes = [
   { path: 'cartuchos', component: CartuchoComponent },
@@ -17,6 +19,12 @@ const routes: Routes = [
 
   { path: 'impresoras', component: ImpresoraComponent },
   { path: 'tipodeimpresoras', component: TipoImpresoraComponent },
+
+
+  { path: 'estados', component:EstadoComponent },
+
+
+  { path: 'solicitudes', component: SolicitudComponent },
 
 
 
