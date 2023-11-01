@@ -16,6 +16,7 @@ import { TipoImpresoraComponent } from './pages/tipo-impresora/tipo-impresora.co
 import { ImpresoraComponent } from './pages/impresora/impresora.component';
 import { EstadoComponent } from './pages/estado/estado.component';
 import { SolicitudComponent } from './pages/solicitud/solicitud.component';
+import { HomeComponent } from './pages/home/home.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,6 +31,7 @@ import { SolicitudComponent } from './pages/solicitud/solicitud.component';
     ImpresoraComponent,
     EstadoComponent,
     SolicitudComponent,
+    HomeComponent,
 
   ],
   imports: [

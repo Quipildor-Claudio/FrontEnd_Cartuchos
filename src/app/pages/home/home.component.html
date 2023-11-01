@@ -1,0 +1,106 @@
+<div class="row">
+    <h1>Solicitudes</h1>
+    <div class="card">
+        <div class="card-header">
+            Busqueda
+        </div>
+        <div class="card-body">
+            <div class="container text-center">
+                <div class="row">
+                    <div class="col">
+                        <div class="dropdown-center">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Estado de Solicitud
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Solicitado</a></li>
+                                <li><a class="dropdown-item" href="#">Aprobado</a></li>
+                                <li><a class="dropdown-item" href="#">Rechasado</a></li>
+                                <li><a class="dropdown-item" href="#">Observado</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                   
+                            <div class="container-fluid">
+                                <form class="d-flex" role="search">
+                                    <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+                                    <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+                                </form>
+                            </div>
+                       
+                    </div>
+                    <div class="col">
+                        <button type="button" class="btn btn-secondary">Mostrar Todo</button>
+                    </div>
+                </div>
+              
+            </div>
+            <div class="row m-2">
+
+            </div>
+            <div class="row ">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Divicion</th>
+                            <th scope="col">Usuario</th>
+                            <th scope="col">Cartucho</th>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Justificacion</th>
+                            <th scope="col">Estado</th>
+                      
+                            <th scope="col">Fecha</th>
+                            <th></th>
+                         
+                        </tr>
+                    </thead>
+                    <tbody>
+                      
+                            <tr  class="odd" *ngFor="let item of solicitudes">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td *ngFor="let car of item.cartuchos">
+                                    {{car.marca.nombre}}
+                                    {{car.modelo}}
+                                </td>
+                                <td>
+                                    {{item.descripcion}}
+                                </td>
+                                <td>
+                                    {{item.justificacion}}
+                                </td>
+                                <td>
+                                    <span class="text-bg-warning">{{item.estado.descripcion}}</span>
+                                </td>
+                                <td>
+                                    {{item.fecha_creacion}}
+                                </td>
+                                <td>
+                                    <!-- Example single danger button -->
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Accion
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">Aprobar</a></li>
+                                            <li><a class="dropdown-item" href="#">Observar</a></li>
+                                            <li><a class="dropdown-item" href="#">Rechazar</a></li>
+                                            
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        
+                    </tbody>
+                  
+          
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+

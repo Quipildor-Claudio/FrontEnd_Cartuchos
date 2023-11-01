@@ -9,8 +9,13 @@ import { ImpresoraComponent } from './pages/impresora/impresora.component';
 import { TipoImpresoraComponent } from './pages/tipo-impresora/tipo-impresora.component';
 import { EstadoComponent } from './pages/estado/estado.component';
 import { SolicitudComponent } from './pages/solicitud/solicitud.component';
+import { HomeComponent } from './pages/home/home.component';
 
 const routes: Routes = [
+
+  
+  { path: 'home', component: HomeComponent },
+
   { path: 'cartuchos', component: CartuchoComponent },
   { path: 'marcas', component: MarcasComponent },
   { path: 'colores', component: ColoresComponent },

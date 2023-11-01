@@ -13,15 +13,9 @@ export class SolicitudComponent implements OnInit {
   constructor(private solicitudService:SolicitudService) { }
 
   ngOnInit(): void {
-    this.getData();
+   
   }
   
-  getData(){
-    this.solicitudService.getAll().subscribe(res=>this.solicitudes=res);
-  }
 
-  delete(item):void{
-
-  }
 
 }
