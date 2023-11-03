@@ -3,7 +3,7 @@
         <h3 class="card-title">{{title}}</h3>
     </div>
     <div class="card-body">
-        <button type="button" class="btn btn-primary " [routerLink]="['/formmarca']">Agregar Impresora</button>
+        <button type="button" class="btn btn-primary " [routerLink]="['/form-impresora']">Agregar Impresora</button>
         <div id="" class=" dt-bootstrap4">
             <br />
             <div class="row">
@@ -33,7 +33,7 @@
                                 <td>
                                     <div class="btn-group">
                                         <button type="button" class="btn  btn-warning"
-                                            [routerLink]="['/formmarca',item.id]">
+                                            [routerLink]="['/form-impresora',item.id]">
                                             <i class="fa fa-pen"></i>
                                         </button>&nbsp;
                                         <button type="button" class="btn btn-danger" (click)="delete(item)">

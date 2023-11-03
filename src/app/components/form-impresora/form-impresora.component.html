@@ -1,0 +1,46 @@
+<div class="card bg-dark text-white">
+    <div class="card-header">{{ titulo }}</div>
+    <div class="card-body">
+  
+      <form #impresoraForm="ngForm">
+        <div class="form-group row">
+          <label for="modelo" class="col-form-label col-sm-2">Modelo</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" [(ngModel)]="impresora.modelo" name="modelo" #modelo="ngModel"> <!-- required minlength="4" -->
+           
+          </div>
+        </div>
+        <div class="form-group row">
+            <label for="marca" class="col-form-label col-sm-2">Marcas</label>
+            <div class="col-sm-6">
+              <select [compareWith]="" class="form-control" [(ngModel)]="impresora.marca" name="marca" style="width:500px;">
+                <option [ngValue]="undefined">--- selecionar una marca ---</option>
+                <option *ngFor="let marca of marcas" [ngValue]="marca">{{marca.nombre}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="tipoImpresora" class="col-form-label col-sm-2">Tipo Impresora</label>
+            <div class="col-sm-6">
+              <select [compareWith]="" class="form-control" [(ngModel)]="impresora.tipoImpresora" name="tipoImpresora" style="width:500px;">
+                <option [ngValue]="undefined">--- selecionar  ---</option>
+                <option *ngFor="let tipoImpresora of tipoImpresoras" [ngValue]="tipoImpresora">{{tipoImpresora.descripcion}}</option>
+              </select>
+            </div>
+          </div>
+
+  
+        <div class="form-group row">
+          <div class="col-sm-6">
+            <button class="btn btn-primary" role="button" (click)='create()' *ngIf="!impresora.id else elseBlock">Crear</button>
+  
+            <ng-template #elseBlock>
+              <button class="btn btn-primary" role="button" (click)='update()' >Editar</button>
+            </ng-template>
+          </div>
+        </div>
+      </form>
+  
+    </div>
+  </div>
+  
