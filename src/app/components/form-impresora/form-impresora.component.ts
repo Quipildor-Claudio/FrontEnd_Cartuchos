@@ -54,6 +54,12 @@ export class FormImpresoraComponent implements OnInit {
 
   }
 
+  comparar(o1: any, o2: any): boolean {
+    if (o1 === undefined && o2 === undefined) {
+      return true;
+    }
 
+    return o1 === null || o2 === null || o1 === undefined || o2 === undefined ? false : o1.id === o2.id;
+  }
 
 }
