@@ -19,6 +19,11 @@ import { SolicitudComponent } from './pages/solicitud/solicitud.component';
 import { HomeComponent } from './pages/home/home.component';
 import { FormImpresoraComponent } from './components/form-impresora/form-impresora.component';
 import { FormCartuchoComponent } from './components/form-cartucho/form-cartucho.component';
+import { RolComponent } from './pages/rol/rol.component';
+import { UsuarioComponent } from './pages/usuario/usuario.component';
+import { FormRolComponent } from './components/form-rol/form-rol.component';
+import { FormUsuarioComponent } from './components/form-usuario/form-usuario.component';
+import { FormSolicitudComponent } from './components/form-solicitud/form-solicitud.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +41,11 @@ import { FormCartuchoComponent } from './components/form-cartucho/form-cartucho.
     HomeComponent,
     FormImpresoraComponent,
     FormCartuchoComponent,
+    RolComponent,
+    UsuarioComponent,
+    FormRolComponent,
+    FormUsuarioComponent,
+    FormSolicitudComponent,
 
   ],
   imports: [
