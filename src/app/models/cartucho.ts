@@ -5,9 +5,9 @@ import { TipoCartucho } from "./tipo-cartucho";
 
 export class Cartucho {
     id:number;
-    nombre:string;
     modelo:string;
     capacidad:string;
+    descripcion:string;
     color:Color;
     marca:Marca;
     tipoCartucho:TipoCartucho;

@@ -3,7 +3,7 @@
         <h3 class="card-title">{{title}}</h3>
     </div>
     <div class="card-body">
-        <button type="button" class="btn btn-primary " [routerLink]="['/formmarca']">Agregar Marca</button>
+        <button type="button" class="btn btn-primary " [routerLink]="['/form-cartucho']">Agregar Cartucho</button>
         <div id="" class=" dt-bootstrap4">
             <br />
             <div class="row">
@@ -23,6 +23,7 @@
                                 <th>COLOR</th>
                                 <th>TIPO</th>
                                 <th>CARGA</th>
+                                <th>DESCRIPCION</th>
                                 <th>ACCIONES</th>
 
                             </tr>
@@ -36,10 +37,12 @@
                                 <td>{{item.color.nombre}}</td>
                                 <td>{{item.tipoCartucho.descripcion}}</td>
                                 <td>{{item.tipoCarga.descripcion}}</td>
+                                <td>{{item.descripcion}}</td>
+
                                 <td>
                                     <div class="btn-group">
                                         <button type="button" class="btn  btn-warning"
-                                            [routerLink]="['/formmarca',item.id]">
+                                            [routerLink]="['/form-cartucho',item.id]">
                                             <i class="fa fa-pen"></i>
                                         </button>&nbsp;
                                         <button type="button" class="btn btn-danger" (click)="delete(item)">

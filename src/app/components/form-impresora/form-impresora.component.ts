@@ -6,6 +6,7 @@ import { TipoImpresora } from 'src/app/models/tipo-impresora';
 import { ImpresoraService } from 'src/app/services/impresora.service';
 import { MarcaService } from 'src/app/services/marca.service';
 import { TipoImpresoraService } from 'src/app/services/tipo-impresora.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-form-impresora',
@@ -13,17 +14,17 @@ import { TipoImpresoraService } from 'src/app/services/tipo-impresora.service';
   styleUrls: ['./form-impresora.component.css']
 })
 export class FormImpresoraComponent implements OnInit {
-   titulo:string= "Formulario";
-   impresora:Impresora =  new Impresora(); 
-   marcas:Marca[]=[];
-   tipoImpresoras:TipoImpresora[]=[];
-  constructor(private impresoraService:ImpresoraService,
-     private router:Router,
-     private activatedRoute:ActivatedRoute,
-     private marcaService:MarcaService,
-     private tipoImpresoraService:TipoImpresoraService
-     
-     ) { }
+  titulo: string = "Formulario";
+  impresora: Impresora = new Impresora();
+  marcas: Marca[] = [];
+  tipoImpresoras: TipoImpresora[] = [];
+  constructor(private impresoraService: ImpresoraService,
+    private activatedRoute: ActivatedRoute,
+    private marcaService: MarcaService,
+    private tipoImpresoraService: TipoImpresoraService,
+    private route: Router
+
+  ) { }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(params => {
@@ -39,20 +40,42 @@ export class FormImpresoraComponent implements OnInit {
 
   }
 
-  getMarcas():void{
-      this.marcaService.getAll().subscribe(res=>this.marcas=res);
+  getMarcas(): void {
+    this.marcaService.getAll().subscribe(res => this.marcas = res);
   }
-  getTipos():void{
-    this.tipoImpresoraService.getAll().subscribe(res=>this.tipoImpresoras=res);
-  }
-
-  create():void{
-      console.log(this.impresora);
+  getTipos(): void {
+    this.tipoImpresoraService.getAll().subscribe(res => this.tipoImpresoras = res);
   }
 
-  update():void{
+  create(): void {
+    console.log(this.impresora);
+    this.impresoraService.add(this.impresora).subscribe(
+      res => {
+        Swal.fire(
+          'Exito',
+          `Categoria ${res.modelo}  Creada!`,
+          'success'
+        )
+        this.route.navigate(['/impresoras']);
+      }
+    )
+  }
+
+  update(): void {
+    console.log(this.impresora);
+    this.impresoraService.update(this.impresora,this.impresora.id).subscribe(
+      res => {
+        Swal.fire(
+          'Exito',
+          `Categoria ${res.modelo}  Actulizada!`,
+          'success'
+        )
+        this.route.navigate(['/impresoras']);
+      }
+    )
 
   }
+
 
   comparar(o1: any, o2: any): boolean {
     if (o1 === undefined && o2 === undefined) {
