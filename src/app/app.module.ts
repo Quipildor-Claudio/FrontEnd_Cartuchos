@@ -24,6 +24,10 @@ import { UsuarioComponent } from './pages/usuario/usuario.component';
 import { FormRolComponent } from './components/form-rol/form-rol.component';
 import { FormUsuarioComponent } from './components/form-usuario/form-usuario.component';
 import { FormSolicitudComponent } from './components/form-solicitud/form-solicitud.component';
+import { PersonaComponent } from './pages/persona/persona.component';
+import { ServicioComponent } from './pages/servicio/servicio.component';
+import { FormServicioComponent } from './components/form-servicio/form-servicio.component';
+import { FormPersonaComponent } from './components/form-persona/form-persona.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,6 +50,10 @@ import { FormSolicitudComponent } from './components/form-solicitud/form-solicit
     FormRolComponent,
     FormUsuarioComponent,
     FormSolicitudComponent,
+    PersonaComponent,
+    ServicioComponent,
+    FormServicioComponent,
+    FormPersonaComponent,
 
   ],
   imports: [

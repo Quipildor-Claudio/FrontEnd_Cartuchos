@@ -17,6 +17,10 @@ import { FormRolComponent } from './components/form-rol/form-rol.component';
 import { UsuarioComponent } from './pages/usuario/usuario.component';
 import { FormUsuarioComponent } from './components/form-usuario/form-usuario.component';
 import { FormSolicitudComponent } from './components/form-solicitud/form-solicitud.component';
+import { ServicioComponent } from './pages/servicio/servicio.component';
+import { FormServicioComponent } from './components/form-servicio/form-servicio.component';
+import { PersonaComponent } from './pages/persona/persona.component';
+import { FormPersonaComponent } from './components/form-persona/form-persona.component';
 
 const routes: Routes = [
 
@@ -39,9 +43,17 @@ const routes: Routes = [
   { path: 'form-usuario', component: FormUsuarioComponent },
   { path: 'form-usuario/:id', component: FormUsuarioComponent },
 
+  { path: 'personas', component: PersonaComponent },
+  { path: 'form-persona', component: FormPersonaComponent },
+  { path: 'form-persona/:id', component: FormPersonaComponent },
+
   { path: 'solicitudes', component: SolicitudComponent },
   { path: 'form-solicitud', component: FormSolicitudComponent },
   { path: 'form-solicitud/:id', component: FormSolicitudComponent },
+
+  { path: 'servicios', component: ServicioComponent },
+  { path: 'form-servicio', component: FormServicioComponent },
+  { path: 'form-servicio/:id', component: FormServicioComponent },
 
 
   { path: 'tipodeimpresoras', component: TipoImpresoraComponent },

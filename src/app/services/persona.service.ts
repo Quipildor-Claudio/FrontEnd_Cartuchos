@@ -20,9 +20,9 @@ export class PersonaService {
     );
   }
 
-  getOne(id):Observable<Impresora>{
+  getOne(id):Observable<Persona>{
     return this.http.get(`${API_URI}/personas/${id}`).pipe(
-      map(response=>response as Impresora)
+      map(response=>response as Persona)
     );
   }
 

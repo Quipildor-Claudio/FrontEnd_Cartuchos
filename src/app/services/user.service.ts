@@ -21,9 +21,9 @@ export class UserService {
     );
   }
 
-  getOne(id):Observable<Impresora>{
+  getOne(id):Observable<User>{
     return this.http.get(`${API_URI}/user/${id}`).pipe(
-      map(response=>response as Impresora)
+      map(response=>response as User)
     );
   }
 
