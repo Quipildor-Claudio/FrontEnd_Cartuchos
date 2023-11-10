@@ -20,6 +20,8 @@
                     ID</th>
                   <th>usuario</th>
                   <th>persona</th>
+                  <th>dni</th>
+                  <th>rol</th>
 
                   <th>Activo</th>
 
@@ -31,8 +33,11 @@
                   <td >{{item.id}}</td>
                   <td >{{item.username}}</td>
                   <td >{{item.persona.apellido}}</td>
-
-                  <td >{{item.enable}}</td>
+                  <td >{{item.persona.dni}}</td>
+                  <div *ngFor="let rol of item.roles">
+                    <td >{{rol.descripcion}}</td>
+                  </div>
+                  <td >{{item.enabled}}</td>
 
                   <td>
                     <div class="btn-group">

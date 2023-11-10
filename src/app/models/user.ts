@@ -7,6 +7,11 @@ export class User {
     password:string;
     persona:Persona = new Persona();
     roles:Rol[]=[];
-    enable:boolean;
+    enabled:boolean;
     create_at:string;
+
+    activo():string{
+        return this.enabled?"Activo":"Descativado";
+    }
 }
+

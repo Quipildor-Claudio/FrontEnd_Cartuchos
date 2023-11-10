@@ -27,6 +27,7 @@ export class FormUsuarioComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargar();
+    this.getRoles();
   }
 
   cargar(): void {
@@ -38,12 +39,33 @@ export class FormUsuarioComponent implements OnInit {
     }
     );
   }
-  create(){
+  getRoles(): void {
+    this.rolService.getAll().subscribe(res => {
+      this.roles = res
+      console.log(this.roles);
+    });
+  }
 
+  getPersona(): void {
+    this.personaService.getDni(this.user.persona.dni).subscribe(res => {
+     this.user.persona=res;
+    });
+  }
+
+  create(){
+    this.user.roles=this.result();
+    this.getPersona();
+    console.log(this.user);
   }
 
   update(){
 
+
+
+  }
+
+   result() {
+    return this.roles.filter(item => item.checked);
   }
 
 }

@@ -27,6 +27,8 @@ export class UserService {
     );
   }
 
+
+
   add(user:User):Observable<any>{
     return this.http.post<any>(`${API_URI}/user`,user,{headers:this.httpheaders});
   }
