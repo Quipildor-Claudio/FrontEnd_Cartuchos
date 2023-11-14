@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EstadoService } from 'src/app/services/estado.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-estado',

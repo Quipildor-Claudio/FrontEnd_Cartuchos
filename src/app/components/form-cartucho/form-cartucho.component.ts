@@ -27,9 +27,6 @@ export class FormCartuchoComponent implements OnInit {
   tipoCargas:TipoCarga[]=[];
 
 
-
-
-
   constructor(
     private cartuchoService:CartuchoService,
     private colorService:ColorService,

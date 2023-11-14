@@ -21,6 +21,7 @@ import { ServicioComponent } from './pages/servicio/servicio.component';
 import { FormServicioComponent } from './components/form-servicio/form-servicio.component';
 import { PersonaComponent } from './pages/persona/persona.component';
 import { FormPersonaComponent } from './components/form-persona/form-persona.component';
+import { FormEstadoComponent } from './components/form-estado/form-estado.component';
 
 const routes: Routes = [
 
@@ -63,6 +64,8 @@ const routes: Routes = [
   { path: 'tipodecartucho', component: TipoCartuchoComponent },
 
   { path: 'estados', component: EstadoComponent },
+  { path: 'form-estado', component: FormEstadoComponent },
+  { path: 'form-estado/:id', component: FormEstadoComponent },
 
 
 

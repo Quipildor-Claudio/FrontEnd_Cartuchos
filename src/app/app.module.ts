@@ -28,6 +28,7 @@ import { PersonaComponent } from './pages/persona/persona.component';
 import { ServicioComponent } from './pages/servicio/servicio.component';
 import { FormServicioComponent } from './components/form-servicio/form-servicio.component';
 import { FormPersonaComponent } from './components/form-persona/form-persona.component';
+import { FormEstadoComponent } from './components/form-estado/form-estado.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,6 +55,7 @@ import { FormPersonaComponent } from './components/form-persona/form-persona.com
     ServicioComponent,
     FormServicioComponent,
     FormPersonaComponent,
+    FormEstadoComponent,
 
   ],
   imports: [
