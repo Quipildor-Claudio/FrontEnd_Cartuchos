@@ -34,4 +34,11 @@ export class CartuchoService {
   delete(id:number):Observable<any>{
     return this.http.delete<any>(`${API_URI}/cartuchos/${id}`,{headers:this.httpheaders});
   }
+
+
+  getCartuchoMarcaAndModelo(nombre:string,modelo:string): Observable<any[]> {
+    return this.http.get(`${API_URI}/buscar-cartucho/${nombre}/${modelo}`,{headers:this.httpheaders}).pipe(
+      map(response=>response as any[])
+    );
+  }
 }

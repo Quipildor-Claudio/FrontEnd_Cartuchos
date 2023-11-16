@@ -7,6 +7,7 @@ import { Marca } from 'src/app/models/marca';
 import { Solicitud } from 'src/app/models/solicitud';
 import { TipoCarga } from 'src/app/models/tipo-carga';
 import { TipoCartucho } from 'src/app/models/tipo-cartucho';
+import { CartuchoService } from 'src/app/services/cartucho.service';
 import { ColorService } from 'src/app/services/color.service';
 import { EstadoService } from 'src/app/services/estado.service';
 import { ImpresoraService } from 'src/app/services/impresora.service';
@@ -14,6 +15,15 @@ import { MarcaService } from 'src/app/services/marca.service';
 import { SolicitudService } from 'src/app/services/solicitud.service';
 import { TipoCargaService } from 'src/app/services/tipo-carga.service';
 import { TipoCartuchoService } from 'src/app/services/tipo-cartucho.service';
+
+import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
+import {AsyncPipe} from '@angular/common';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+
 
 @Component({
   selector: 'app-solicitud',
@@ -31,7 +41,11 @@ export class SolicitudComponent implements OnInit {
   tipoCartuchos: TipoCartucho[] = [];
   tipoCargas: TipoCarga[] = [];
   estados: Estado[] = [];
+  cartuchos:Cartucho[]=[];
 
+  myControl = new FormControl('');
+  options: string[] = ['One', 'Two', 'Three'];
+  filteredOptions: Observable<string[]>;
 
   constructor(
     private solicitudService: SolicitudService,
@@ -40,7 +54,9 @@ export class SolicitudComponent implements OnInit {
     private colorService: ColorService,
     private tipoService: TipoCartuchoService,
     private cargaService: TipoCargaService,
-    private estadoService: EstadoService) { }
+    private estadoService: EstadoService,
+    private cartuchoService:CartuchoService
+    ) { }
 
   ngOnInit(): void {
     this.getMarcas();
@@ -48,7 +64,20 @@ export class SolicitudComponent implements OnInit {
     this.getTipos();
     this.getCarga();
     this.getEstados();
+
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '')),
+    );
+
   }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  }
+  
   getMarcas(): void {
     this.marcaService.getAll().subscribe(res => this.marcas = res);
   }
@@ -68,7 +97,16 @@ export class SolicitudComponent implements OnInit {
 
 
   agregarCartucho(): void {
-    console.log(this.cartucho);
+    let nombre = this.cartucho.marca.nombre;
+    let modelo = this.cartucho.modelo;
+
+    console.log(nombre);
+    console.log(modelo);
+    this.cartuchoService.getCartuchoMarcaAndModelo(nombre,modelo).subscribe(
+      res => this.cartuchos =res
+    );
+
+    console.log(this.cartuchos);
   }
 
   agregarImpresora(): void {
@@ -90,4 +128,5 @@ export class SolicitudComponent implements OnInit {
 
     return o1 === null || o2 === null || o1 === undefined || o2 === undefined ? false : o1.id === o2.id;
   }
+
 }
