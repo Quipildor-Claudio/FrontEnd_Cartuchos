@@ -32,6 +32,7 @@ import { FormEstadoComponent } from './components/form-estado/form-estado.compon
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { InformesComponent } from './pages/informes/informes.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     FormServicioComponent,
     FormPersonaComponent,
     FormEstadoComponent,
+    InformesComponent,
   
 
 

@@ -1,47 +1,37 @@
 <div class="row">
-    <h1>Solicitudes</h1>
     <div class="card">
         <div class="card-header">
-            Busqueda
+            {{title}}
         </div>
         <div class="card-body">
             <div class="container text-center">
                 <div class="row">
-                    <div class="col">
-                        <div class="dropdown-center">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                Estado de Solicitud
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Solicitado</a></li>
-                                <li><a class="dropdown-item" href="#">Aprobado</a></li>
-                                <li><a class="dropdown-item" href="#">Rechasado</a></li>
-                                <li><a class="dropdown-item" href="#">Observado</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-6">
+                    <h4>Seleccionar un rago de fechas </h4>
 
-                        <div class="container-fluid">
-                            <form class="d-flex" role="search">
-                                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
-                                <button class="btn btn-outline-secondary" type="submit">Buscar</button>
-                            </form>
-                        </div>
-
-                    </div>
-                    <div class="col">
-                        <button type="button" class="btn btn-secondary">Mostrar Todo</button>
-                    </div>
                 </div>
+
+
+                <form #informeForm="ngForm">
+                    <div>
+                        <label for="fechaInicio">Fecha de inicio:</label>
+                        <input type="date" id="fechaInicio" name="fechaInicio" [(ngModel)]="rangoFechas.fechaInicio"
+                            required>
+                    </div>
+                    <div>
+                        <label for="fechaFinal">Fecha final:</label>
+                        <input type="date" id="fechaFinal" name="fechaFinal" [(ngModel)]="rangoFechas.fechaFinal"
+                            required>
+                    </div>
+                    <button class="btn btn-primary" role="button" (click)='buscar()'>Buscar</button>
+                </form>
+
 
             </div>
             <div class="row m-2">
-
+                <button type="button" class="btn  btn-danger" (click)="irALink()" style="width: 50px;">
+                    <i class=" fas fa-light fa-file-pdf"></i></button>
             </div>
             <div class="row ">
-
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
@@ -92,21 +82,6 @@
                             <td>
                                 {{item.fechaCreacion}}
                             </td>
-                            <td>
-                                <!-- Example single danger button -->
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-danger dropdown-toggle"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        Accion
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Aprobar</a></li>
-                                        <li><a class="dropdown-item" href="#">Observar</a></li>
-                                        <li><a class="dropdown-item" href="#">Rechazar</a></li>
-
-                                    </ul>
-                                </div>
-                            </td>
 
                         </tr>
 
@@ -114,8 +89,6 @@
 
 
                 </table>
-
-
             </div>
 
         </div>

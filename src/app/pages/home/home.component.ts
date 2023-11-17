@@ -14,7 +14,10 @@ export class HomeComponent implements OnInit {
     this.getData();
   }
   getData(){
-    this.solicitudService.getAll().subscribe(res=>this.solicitudes=res);
+    this.solicitudService.getAll().subscribe(res=>{
+      this.solicitudes=res
+      console.log(this.solicitudes);
+    });
   }
 
   delete(item):void{

@@ -22,6 +22,7 @@ import { FormServicioComponent } from './components/form-servicio/form-servicio.
 import { PersonaComponent } from './pages/persona/persona.component';
 import { FormPersonaComponent } from './components/form-persona/form-persona.component';
 import { FormEstadoComponent } from './components/form-estado/form-estado.component';
+import { InformesComponent } from './pages/informes/informes.component';
 
 const routes: Routes = [
 
@@ -66,6 +67,10 @@ const routes: Routes = [
   { path: 'estados', component: EstadoComponent },
   { path: 'form-estado', component: FormEstadoComponent },
   { path: 'form-estado/:id', component: FormEstadoComponent },
+
+
+  { path: 'informes', component: InformesComponent },
+
 
 
 
