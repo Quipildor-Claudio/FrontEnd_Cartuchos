@@ -33,3 +33,6 @@
     color:rgb(255,255,255); 
     margin-right: 10px;
 }
+mat-form-field{
+    width: 500px;
+  }

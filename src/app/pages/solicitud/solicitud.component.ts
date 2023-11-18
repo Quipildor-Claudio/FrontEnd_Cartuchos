@@ -16,13 +16,13 @@ import { SolicitudService } from 'src/app/services/solicitud.service';
 import { TipoCargaService } from 'src/app/services/tipo-carga.service';
 import { TipoCartuchoService } from 'src/app/services/tipo-cartucho.service';
 
-import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
-import {AsyncPipe} from '@angular/common';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { flatMap, map, startWith } from 'rxjs/operators';
+import { AsyncPipe } from '@angular/common';
+import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 
 @Component({
@@ -41,11 +41,11 @@ export class SolicitudComponent implements OnInit {
   tipoCartuchos: TipoCartucho[] = [];
   tipoCargas: TipoCarga[] = [];
   estados: Estado[] = [];
-  cartuchos:Cartucho[]=[];
+  cartuchos: Cartucho[] = [];
 
-  myControl = new FormControl('');
+  myCartuchoControl = new FormControl();
   options: string[] = ['One', 'Two', 'Three'];
-  filteredOptions: Observable<string[]>;
+  cartuchosFiltrados: Observable<Cartucho[]>;
 
   constructor(
     private solicitudService: SolicitudService,
@@ -55,8 +55,8 @@ export class SolicitudComponent implements OnInit {
     private tipoService: TipoCartuchoService,
     private cargaService: TipoCargaService,
     private estadoService: EstadoService,
-    private cartuchoService:CartuchoService
-    ) { }
+    private cartuchoService: CartuchoService
+  ) { }
 
   ngOnInit(): void {
     this.getMarcas();
@@ -65,19 +65,28 @@ export class SolicitudComponent implements OnInit {
     this.getCarga();
     this.getEstados();
 
-    this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value || '')),
+    this.cartuchosFiltrados = this.myCartuchoControl.valueChanges.pipe(
+      map(value => typeof value === 'string' ? value : value.modelo),
+      flatMap(value => value ? this._filter(value) : [])
     );
 
   }
 
-  private _filter(value: string): string[] {
+  private _filter(value: string): Observable<Cartucho[]> {
     const filterValue = value.toLowerCase();
-
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+    let nombre = this.cartucho.marca.nombre;
+    return this.cartuchoService.getCartuchoMarcaAndModelo(nombre, filterValue);
   }
-  
+  viewCartucho(cartucho?: Cartucho): string | undefined {
+    return cartucho ? cartucho.modelo+" "+cartucho.color.nombre+" "+cartucho.tipoCartucho.descripcion: undefined;
+  }
+
+  selectedCartucho(event:MatAutocompleteSelectedEvent):void{
+    this.cartucho = event.option.value as Cartucho;
+    console.log(this.cartucho);
+  }
+
+
   getMarcas(): void {
     this.marcaService.getAll().subscribe(res => this.marcas = res);
   }
@@ -102,8 +111,8 @@ export class SolicitudComponent implements OnInit {
 
     console.log(nombre);
     console.log(modelo);
-    this.cartuchoService.getCartuchoMarcaAndModelo(nombre,modelo).subscribe(
-      res => this.cartuchos =res
+    this.cartuchoService.getCartuchoMarcaAndModelo(nombre, modelo).subscribe(
+      res => this.cartuchos = res
     );
 
     console.log(this.cartuchos);

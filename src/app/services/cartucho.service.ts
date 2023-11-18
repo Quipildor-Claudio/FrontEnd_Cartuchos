@@ -36,9 +36,9 @@ export class CartuchoService {
   }
 
 
-  getCartuchoMarcaAndModelo(nombre:string,modelo:string): Observable<any[]> {
+  getCartuchoMarcaAndModelo(nombre:string,modelo:string): Observable<Cartucho[]> {
     return this.http.get(`${API_URI}/buscar-cartucho/${nombre}/${modelo}`,{headers:this.httpheaders}).pipe(
-      map(response=>response as any[])
+      map(response=>response as Cartucho[])
     );
   }
 }

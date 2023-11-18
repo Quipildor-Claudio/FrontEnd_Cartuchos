@@ -16,14 +16,19 @@
           </select>
         </div>
 
-        <div class="col-sm-8">
-          <input type="text" class="form-control" [(ngModel)]="cartucho.modelo" name="modelo" #modelo="ngModel">
-          <!-- required minlength="4" -->
+        <div class="col-md-10">
+          <mat-form-field>
+            <mat-label>Modelo</mat-label>
+            <input type="text" placeholder="Escribir Modelo" aria-label="cartuchos" matInput
+              [formControl]="myCartuchoControl" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="viewCartucho"
+              (optionSelected)="selectedCartucho($event)">
+              <mat-option *ngFor=" let cartucho of cartuchosFiltrados | async" [value]="cartucho">
+                {{cartucho.modelo}}&nbsp; {{cartucho.color.nombre}}&nbsp;{{cartucho.tipoCartucho.descripcion}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
         </div>
-
-      
-
-        <button class="btn btn-primary" role="button" (click)='agregarCartucho()'>Agregar</button>
       </div>
 
       <div class="form-group col-sm-4">
@@ -47,6 +52,8 @@
         <label class="control-label h5">Datos</label>
         <div>
           <div class="card card-body">
+            {{cartucho.modelo!==undefined?cartucho.modelo:""}}&nbsp;
+
           </div>
         </div>
       </div>
