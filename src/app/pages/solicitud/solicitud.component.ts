@@ -42,10 +42,14 @@ export class SolicitudComponent implements OnInit {
   tipoCargas: TipoCarga[] = [];
   estados: Estado[] = [];
   cartuchos: Cartucho[] = [];
+  impresoras:Impresora[]=[];
 
   myCartuchoControl = new FormControl();
-  options: string[] = ['One', 'Two', 'Three'];
+  myImpresoraControl = new FormControl();
+
   cartuchosFiltrados: Observable<Cartucho[]>;
+  impresorasFiltrados: Observable<Impresora[]>;
+
 
   constructor(
     private solicitudService: SolicitudService,
@@ -70,6 +74,10 @@ export class SolicitudComponent implements OnInit {
       flatMap(value => value ? this._filter(value) : [])
     );
 
+    this.impresorasFiltrados = this.myImpresoraControl.valueChanges.pipe(
+      map(value => typeof value === 'string' ? value : value.modelo),
+      flatMap(value => value ? this._filterr(value) : [])
+    );
   }
 
   private _filter(value: string): Observable<Cartucho[]> {
@@ -85,6 +93,23 @@ export class SolicitudComponent implements OnInit {
     this.cartucho = event.option.value as Cartucho;
     console.log(this.cartucho);
   }
+
+  private _filterr(value: string): Observable<Impresora[]> {
+    const filterValuee = value.toLowerCase();
+    let nombree = this.impresora.marca.nombre;
+    return this.impresoraService.getImpresoraMarcaAndModelo(nombree, filterValuee);
+  }
+  viewImpresora(impresora?: Impresora): string | undefined {
+    return impresora ? impresora.modelo+" "+impresora.tipoImpresora.descripcion: undefined;
+  }
+
+  selectedImpresora(event:MatAutocompleteSelectedEvent):void{
+    this.impresora = event.option.value as Impresora;
+    console.log(this.impresora);
+  }
+
+  
+
 
 
   getMarcas(): void {

@@ -33,30 +33,45 @@
 
       <div class="form-group col-sm-4">
         <label class="control-label h5">Impresosa</label>
-        <label for="marca" class="col-form-label col-sm-2">Marca</label>
         <div class="col-sm-6">
           <select [compareWith]="comparar" class="form-control" [(ngModel)]="impresora.marca" name="marca"
             style="width:250px;">
             <option [ngValue]="undefined">--- selecionar una marca ---</option>
             <option *ngFor="let marca of marcas" [ngValue]="marca">{{marca.nombre}}</option>
           </select>
-          <div class="col-sm-8">
-            <input type="text" class="form-control" [(ngModel)]="impresora.modelo" name="modelo" #modelo="ngModel">
-            <!-- required minlength="4" -->
+
+          <div class="col-md-10">
+            <mat-form-field>
+              <mat-label>Modelo</mat-label>
+              <input type="text" placeholder="Escribir Modelo" aria-label="impresoras" matInput
+                [formControl]="myImpresoraControl" [matAutocomplete]="autoo">
+              <mat-autocomplete #autoo="matAutocomplete" [displayWith]="viewImpresora"
+                (optionSelected)="selectedImpresora($event)">
+                <mat-option *ngFor=" let impresora of impresorasFiltrados | async" [value]="impresora">
+                  {{impresora.modelo}}&nbsp; {{impresora.tipoImpresora.descripcion}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
           </div>
-          <button class="btn btn-primary" role="button" (click)='agregarImpresora()'>Agregar</button>
+
         </div>
       </div>
 
-      <div class="form-group col-sm-12">
-        <label class="control-label h5">Datos</label>
-        <div>
-          <div class="card card-body">
-            {{cartucho.modelo!==undefined?cartucho.modelo:""}}&nbsp;
-
-          </div>
+      <br />
+      <br />
+      <div class="form-group row">
+        <label for="tipoCarga" class="col-form-label col-sm-2">TIPO DE CARGA </label>
+        <div class="col-sm-6">
+          <select [compareWith]="comparar" class="form-control" [(ngModel)]="cartucho.tipoCarga" name="tipoCarga"
+            style="width:500px;">
+            <option [ngValue]="undefined">--- selecionar ---</option>
+            <option *ngFor="let tipoCarga of tipoCargas" [ngValue]="tipoCarga">{{tipoCarga.descripcion}}</option>
+          </select>
         </div>
       </div>
+
+      <br /><br />
+
 
       <div class="form-group col-sm-4">
         <label class="control-label h5">Cantidad</label>
@@ -76,6 +91,15 @@
         <div class="invalid-feedback">Este campo es obligatorio.</div>
       </div>
 
+      <div class="form-group col-sm-12">
+        <label class="control-label h5">Datos</label>
+        <div>
+          <div class="card card-body">
+            {{cartucho.modelo!==undefined?cartucho.modelo:""}}&nbsp;
+
+          </div>
+        </div>
+      </div>
 
       <div>
 
