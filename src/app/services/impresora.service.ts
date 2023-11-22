@@ -37,9 +37,17 @@ export class ImpresoraService {
     return this.http.delete<any>(`${API_URI}/impresoras/${id}`,{headers:this.httpheaders});
   }
 
-  getImpresoraMarcaAndModelo(nombre:string,modelo:string): Observable<any[]> {
-    return this.http.get(`${API_URI}/buscar-impresora/${nombre}/${modelo}`,{headers:this.httpheaders}).pipe(
-      map(response=>response as any[])
-    );
+  getModelo(impresora:Impresora,nombre:string):Observable <any>{
+    return this.http.get(`${API_URI}/cartuchos/${nombre}`).pipe(
+      map(response => response as any)   
+      );
   }
+
+  getMarca(impresora:Impresora,nombre:string):Observable <any>{
+    return this.http.get(`${API_URI}/cartuchos/${nombre}`).pipe(
+      map(response => response as any)   
+      );
+}
+
+
 }

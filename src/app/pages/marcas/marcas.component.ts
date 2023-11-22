@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Marca } from 'src/app/models/marca';
 import { MarcaService } from 'src/app/services/marca.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-marcas',
@@ -8,7 +10,7 @@ import { MarcaService } from 'src/app/services/marca.service';
 })
 export class MarcasComponent implements OnInit {
   marcas:any[];
-  title:string="Gestion de Marcas";
+  title:string="Gestión de Marcas";
   
   constructor(private marcaService:MarcaService) { }
 
@@ -19,8 +21,31 @@ export class MarcasComponent implements OnInit {
       this.marcaService.getAll().subscribe(res=> this.marcas=res );
   }
 
-  delete(item:any){
+  delete(item: Marca): void {
+    Swal.fire({
+      title: 'Estas Seguro?',
+      text: `Eliminar la marca: ${item.nombre}`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Eliminar!',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.marcaService.delete(item.id).subscribe(() => {
+          this.marcas = this.marcas.filter(cat => cat != item);
+          Swal.fire(
+            'Eliminado!',
+            'Su archivo ha sido eliminado',
+            'success'
+          )
+        }
+        );
 
+      }
+    })
   }
+
 
 }

@@ -1,38 +1,32 @@
-#border{
-    border:solid 1px; 
-    border-color: rgb(0, 92, 93);
+
+.odd{
+    border: 2px solid rgb(0, 92, 93);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+   
 }
-.form-select{
-    border:solid 2px; 
-    border-color: rgb(0, 92, 93); 
-    color:rgb(84, 102, 100);
+
+.divisiones{
+    border: 1px solid rgb(0, 92, 93);
 }
-#textarea{
-    border:solid 2px;
-    border-color: rgb(0, 92, 93); 
-    color:rgb(84, 102, 100);
+.btn{
+    background: rgb(0, 92, 93);
+    color: white;
+    border: rgb(0, 92, 93);
 }
-.Modelo{
-    border:solid 2px; 
-    border-color: rgb(0, 92, 93); 
-    color:rgb(84, 102, 100)
+#btn-agregar{
+    font-size: 17px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
-#formulario{
-    border:solid 2px; 
-    border-color: rgb(0, 93, 93);
-    border-radius:30px;
+.btn:hover{
+    background: rgb(16, 40, 40);
+    color: white;
+    position: relative;
+    display: inline-block;
 }
-#pdfButton{
-    background: rgb(0, 92, 93); 
-    padding: 10px; 
-    color:rgb(255,255,255);
+tr th{
+    font-size: 18px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-#submitButton{
-    background: rgb(0, 92, 93); 
-    padding: 10px; 
-    color:rgb(255,255,255); 
-    margin-right: 10px;
+tfoot{
+    border: 1px solid rgb(0, 92, 93);
 }
-mat-form-field{
-    width: 500px;
-  }

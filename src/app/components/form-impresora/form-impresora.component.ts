@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./form-impresora.component.css']
 })
 export class FormImpresoraComponent implements OnInit {
-  titulo: string = "Formulario";
+  titulo: string = "Formulario de Impresora";
   impresora: Impresora = new Impresora();
   marcas: Marca[] = [];
   tipoImpresoras: TipoImpresora[] = [];
@@ -67,7 +67,7 @@ export class FormImpresoraComponent implements OnInit {
       res => {
         Swal.fire(
           'Exito',
-          `Categoria ${res.modelo}  Actulizada!`,
+          `Categoria ${res.modelo}  Actualizada!`,
           'success'
         )
         this.route.navigate(['/impresoras']);

@@ -1,0 +1,32 @@
+#titulo{
+    padding-left:9px; 
+    font-size:20px; 
+    display:inline-block;
+}
+#logo{
+    align-items:start;
+    width: 70px;
+    display:inline-block;
+}
+#nav-link{
+ background:rgb(0,92,93);
+}
+#header{
+    margin-top:0; 
+    background:rgb(0,92,93)
+}
+.dropdown-item{
+    background:rgb(0,92,93);
+    
+}
+.dropdown-item:hover{
+    background:rgb(16, 40, 40);
+    
+}
+.dropdown-menu{
+    margin: 0px;
+    padding: 0px;
+}
+.nav-link:hover{
+    color: rgb(65, 187, 170);
+}

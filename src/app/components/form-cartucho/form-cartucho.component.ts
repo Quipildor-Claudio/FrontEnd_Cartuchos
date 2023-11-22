@@ -19,12 +19,15 @@ import Swal from 'sweetalert2';
 })
 
 export class FormCartuchoComponent implements OnInit {
-  titulo: string = "Formulario";
+  titulo: string = "Formulario de Cartucho";
   cartucho:Cartucho= new Cartucho();
   colores:Color[]=[];
   marcas:Marca[]=[];
   tipoCartuchos:TipoCartucho[]=[];
   tipoCargas:TipoCarga[]=[];
+
+
+
 
 
   constructor(
@@ -70,18 +73,20 @@ export class FormCartuchoComponent implements OnInit {
 
 
 
-  create():void {
+  create(): void {
     console.log(this.cartucho);
-    this.cartuchoService.add(this.cartucho).subscribe(res => {
-      Swal.fire(
-        'Exito',
-        `Categoria ${res.modelo}  Creada!`,
-        'success'
-      )
-      this.route.navigate(['/cartuchos']);
-    });
-
-  };
+    this.cartuchoService.add(this.cartucho).subscribe(
+      res => {
+        Swal.fire(
+          'Exito',
+          `Categoria ${res.modelo}  Creada!`,
+          'success'
+        )
+        this.route.navigate(['/cartuchos']);
+        
+      }
+    )
+  }
   update(): void {
     console.log(this.cartucho);
     this.cartuchoService.update(this.cartucho,this.cartucho.id).subscribe(() => {

@@ -23,6 +23,7 @@ import { AsyncPipe } from '@angular/common';
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -49,27 +50,21 @@ export class SolicitudComponent implements OnInit {
 
   constructor(
     private solicitudService: SolicitudService,
-    private marcaService: MarcaService,
-    private impresoraService: ImpresoraService,
-    private colorService: ColorService,
-    private tipoService: TipoCartuchoService,
-    private cargaService: TipoCargaService,
-    private estadoService: EstadoService,
     private cartuchoService: CartuchoService
   ) { }
 
   ngOnInit(): void {
-    this.getMarcas();
-    this.getColores();
-    this.getTipos();
-    this.getCarga();
-    this.getEstados();
+
+    this.getData();  
 
     this.cartuchosFiltrados = this.myCartuchoControl.valueChanges.pipe(
       map(value => typeof value === 'string' ? value : value.modelo),
       flatMap(value => value ? this._filter(value) : [])
     );
 
+  }
+  getData(): void{
+    this.solicitudService.getAll().subscribe(res=>this.solicitudes=res);
   }
 
   private _filter(value: string): Observable<Cartucho[]> {
@@ -87,22 +82,6 @@ export class SolicitudComponent implements OnInit {
   }
 
 
-  getMarcas(): void {
-    this.marcaService.getAll().subscribe(res => this.marcas = res);
-  }
-  getColores(): void {
-    this.colorService.getAll().subscribe(res => this.colores = res);
-  }
-  getTipos(): void {
-    this.tipoService.getAll().subscribe(res => this.tipoCartuchos = res);
-  }
-  getCarga(): void {
-    this.cargaService.getAll().subscribe(res => this.tipoCargas = res);
-  }
-
-  getEstados(): void {
-    this.estadoService.getAll().subscribe(res => this.estados = res);
-  }
 
 
   agregarCartucho(): void {
@@ -137,5 +116,31 @@ export class SolicitudComponent implements OnInit {
 
     return o1 === null || o2 === null || o1 === undefined || o2 === undefined ? false : o1.id === o2.id;
   }
+  delete(item: Solicitud): void {
+    Swal.fire({
+      title: 'Estas Seguro?',
+      text: `Eliminar la solicitud número: ${item.id} `,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Eliminar!',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.solicitudService.delete(item.id).subscribe(() => {
+          this.solicitudes = this.solicitudes.filter(cat => cat != item);
+          Swal.fire(
+            'Eliminado!',
+            'Su archivo ha sido eliminado',
+            'success'
+          )
+        }
+        );
+
+      }
+    })
+  }
+
 
 }

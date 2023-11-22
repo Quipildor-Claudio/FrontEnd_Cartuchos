@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./impresora.component.css']
 })
 export class ImpresoraComponent implements OnInit {
-  title: string = "Gestion  de Impresora";
+  title: string = "Gestión  de Impresora";
   impresoras: any[];
   constructor(private impresoraService: ImpresoraService) { }
 
@@ -28,14 +28,15 @@ export class ImpresoraComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Eliminar!'
+      confirmButtonText: 'Yes, Eliminar!',
+      cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
         this.impresoraService.delete(item.id).subscribe(() => {
           this.impresoras = this.impresoras.filter(cat => cat != item);
           Swal.fire(
             'Eliminado!',
-            'Su archivo a sido eliminado',
+            'Su archivo ha sido eliminado',
             'success'
           )
         }

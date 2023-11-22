@@ -1,1 +1,95 @@
-<p>form-solicitud works!</p>
+<br>
+<div class="row col-sm-10 offset-sm-1 p-4" id="formulario">
+  <h3 class=" pb-3">Solicitud </h3>
+  <hr id="borde" />
+  <div class="col-md-10 offset-sm-1">
+    <form #Form="ngForm" class="was-validated" novalidate>
+      <div class="form-group col-sm-4">
+        <label class="control-label h5">Cartucho</label>
+        <br>
+        <label for="marca" class="col-form-label col-sm-2">Marca</label>
+        <div class="col-sm-4">
+          <select [compareWith]="comparar" class="form-control" [(ngModel)]="cartucho.marca" name="marca"
+            style="width:250px;">
+            <option [ngValue]="undefined">--- selecionar una marca ---</option>
+            <option *ngFor="let marca of marcas" [ngValue]="marca">{{marca.nombre}}</option>
+          </select>
+        </div>
+
+        <div class="col-md-10">
+          <!--<form>
+          <mat-form-field>
+            <mat-label>Modelo</mat-label>
+            <input type="text" placeholder="Escribir Modelo" aria-label="cartuchos" matInput
+              [formControl]="myCartuchoControl" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="viewCartucho"
+              (optionSelected)="selectedCartucho($event)">
+              <mat-option *ngFor=" let cartucho of cartuchosFiltrados | async" [value]="cartucho">
+                {{cartucho.modelo}}&nbsp; {{cartucho.color.nombre}}&nbsp;{{cartucho.tipoCartucho.descripcion}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+
+        </form> -->
+        </div>
+      </div>
+
+      <div class="form-group col-sm-4">
+        <label class="control-label h5">Impresosa</label>
+        <label for="marca" class="col-form-label col-sm-2">Marca</label>
+        <div class="col-sm-6">
+          <select [compareWith]="comparar" class="form-control" [(ngModel)]="impresora.marca" name="marca"
+            style="width:250px;">
+            <option [ngValue]="undefined">--- selecionar una marca ---</option>
+            <option *ngFor="let marca of marcas" [ngValue]="marca">{{marca.nombre}}</option>
+          </select>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" [(ngModel)]="impresora.modelo" name="modelo" #modelo="ngModel">
+            <!-- required minlength="4" -->
+          </div>
+          <button class="btn btn-primary" role="button" (click)='agregarImpresora()'>Agregar</button>
+        </div>
+      </div>
+
+      <div class="form-group col-sm-12">
+        <label class="control-label h5">Datos</label>
+        <div>
+          <div class="card card-body">
+            {{cartucho.modelo!==undefined?cartucho.modelo:""}}&nbsp;
+
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group col-sm-4">
+        <label class="control-label h5">Cantidad</label>
+        <select class="form-control" [(ngModel)]="solicitud.cantidad" name="cantidad" equired>
+          <option [ngValue]="undefined">Seleccione la cantidad</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+        <div class="invalid-feedback">Este campo es obligatorio.</div>
+      </div>
+
+
+      <div class="mb-3" id="justificacionContainer">
+        <label for="textarea" class="form-label h5 mt-3">Justificación</label>
+        <textarea class="form-control" id="justificacion" rows="3" required></textarea>
+        <div class="invalid-feedback">Este campo es obligatorio.</div>
+      </div>
+
+
+      <div>
+
+        <button type="button" id="submitButton" class="btn mt-4 mb-4 pls-5 col-sm-2 text-sm-center fs-5 float-end mr-3"
+          role="button" (click)='enviarSolicitud()'>Enviar</button>
+
+        <div id="validationMessage" class="alert alert-danger mt-3">
+          Complete todos los campos antes de enviar el formulario.
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<br>
