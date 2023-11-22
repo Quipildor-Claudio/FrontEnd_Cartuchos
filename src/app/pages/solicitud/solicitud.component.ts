@@ -23,6 +23,8 @@ import { AsyncPipe } from '@angular/common';
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import Swal from 'sweetalert2';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -43,6 +45,7 @@ export class SolicitudComponent implements OnInit {
   estados: Estado[] = [];
   cartuchos: Cartucho[] = [];
   impresoras:Impresora[]=[];
+  tipoCarga:TipoCarga= new TipoCarga();
 
   myCartuchoControl = new FormControl();
   myImpresoraControl = new FormControl();
@@ -59,7 +62,10 @@ export class SolicitudComponent implements OnInit {
     private tipoService: TipoCartuchoService,
     private cargaService: TipoCargaService,
     private estadoService: EstadoService,
-    private cartuchoService: CartuchoService
+    private cartuchoService: CartuchoService,
+  
+    private route: Router,
+    public activateRoute:ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -130,28 +136,26 @@ export class SolicitudComponent implements OnInit {
   }
 
 
-  agregarCartucho(): void {
-    let nombre = this.cartucho.marca.nombre;
-    let modelo = this.cartucho.modelo;
-
-    console.log(nombre);
-    console.log(modelo);
-    this.cartuchoService.getCartuchoMarcaAndModelo(nombre, modelo).subscribe(
-      res => this.cartuchos = res
-    );
-
-    console.log(this.cartuchos);
-  }
-
-  agregarImpresora(): void {
-    console.log(this.impresora);
-  }
 
   enviarSolicitud(): void {
-    const est = this.estados.filter((res) => res.descripcion == "Aprobada");
+  
+    this.solicitud.cartuchos.push(this.cartucho);
+    this.solicitud.impresora.push(this.impresora);
+  
+    const est = this.estados.filter((res) => res.descripcion == "Solicitada");
     this.solicitud.estado = est[0];
 
     console.log(this.solicitud);
+
+    this.solicitudService.add(this.solicitud).subscribe(res => {
+      Swal.fire(
+        'Exito',
+        `Categoria ${res.id}  Creada!`,
+        'success'
+      )
+      this.route.navigate(['/home']);
+    });
+  
 
   }
 

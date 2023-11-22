@@ -21,6 +21,10 @@ export class SolicitudService {
     return this.http.get(`${API_URI}/solicitudes/buscarPorFecha/${fechaInicio}/${fechaFinal}`,{headers:this.httpheaders}).pipe(
       map(response=>response as any[])
     );
+  }
 
+
+  add(solicitud:Solicitud):Observable<any>{
+    return this.http.post<any>(`${API_URI}/solicitudes`,solicitud,{headers:this.httpheaders});
   }
 }

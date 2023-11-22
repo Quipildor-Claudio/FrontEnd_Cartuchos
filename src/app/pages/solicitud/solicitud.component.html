@@ -34,10 +34,10 @@
       <div class="form-group col-sm-4">
         <label class="control-label h5">Impresosa</label>
         <div class="col-sm-6">
-          <select [compareWith]="comparar" class="form-control" [(ngModel)]="impresora.marca" name="marca"
+          <select [compareWith]="comparar" class="form-control" [(ngModel)]="impresora.marca" name="imarca"
             style="width:250px;">
             <option [ngValue]="undefined">--- selecionar una marca ---</option>
-            <option *ngFor="let marca of marcas" [ngValue]="marca">{{marca.nombre}}</option>
+            <option *ngFor="let imarca of marcas" [ngValue]="imarca">{{imarca.nombre}}</option>
           </select>
 
           <div class="col-md-10">
@@ -62,7 +62,7 @@
       <div class="form-group row">
         <label for="tipoCarga" class="col-form-label col-sm-2">TIPO DE CARGA </label>
         <div class="col-sm-6">
-          <select [compareWith]="comparar" class="form-control" [(ngModel)]="cartucho.tipoCarga" name="tipoCarga"
+          <select [compareWith]="comparar" class="form-control" [(ngModel)]="solicitud.tipoCarga" name="tipoCarga"
             style="width:500px;">
             <option [ngValue]="undefined">--- selecionar ---</option>
             <option *ngFor="let tipoCarga of tipoCargas" [ngValue]="tipoCarga">{{tipoCarga.descripcion}}</option>
@@ -86,8 +86,8 @@
 
 
       <div class="mb-3" id="justificacionContainer">
-        <label for="textarea" class="form-label h5 mt-3">Justificación</label>
-        <textarea class="form-control" id="justificacion" rows="3" required></textarea>
+        <label for="textarea" class="form-label h5 mt-3" >Justificación</label>
+        <textarea class="form-control"   [(ngModel)]="solicitud.justificacion" name="justificacion" rows="3" required></textarea>
         <div class="invalid-feedback">Este campo es obligatorio.</div>
       </div>
 
@@ -96,6 +96,11 @@
         <div>
           <div class="card card-body">
             {{cartucho.modelo!==undefined?cartucho.modelo:""}}&nbsp;
+
+            {{solicitud.cantidad!==undefined?solicitud.cantidad:""}}&nbsp;
+
+
+            {{impresora.modelo!==undefined?impresora.modelo:""}}&nbsp;
 
           </div>
         </div>
@@ -106,9 +111,6 @@
         <button type="button" id="submitButton" class="btn mt-4 mb-4 pls-5 col-sm-2 text-sm-center fs-5 float-end mr-3"
           role="button" (click)='enviarSolicitud()'>Enviar</button>
 
-        <div id="validationMessage" class="alert alert-danger mt-3">
-          Complete todos los campos antes de enviar el formulario.
-        </div>
       </div>
     </form>
   </div>
