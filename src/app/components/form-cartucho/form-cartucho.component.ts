@@ -24,7 +24,6 @@ export class FormCartuchoComponent implements OnInit {
   colores:Color[]=[];
   marcas:Marca[]=[];
   tipoCartuchos:TipoCartucho[]=[];
-  tipoCargas:TipoCarga[]=[];
 
 
   constructor(
@@ -32,7 +31,6 @@ export class FormCartuchoComponent implements OnInit {
     private colorService:ColorService,
     private marcaService:MarcaService,
     private tipoService:TipoCartuchoService,
-    private cargaService:TipoCargaService,
     private route: Router,
     public activateRoute:ActivatedRoute
   ) { }
@@ -42,7 +40,6 @@ export class FormCartuchoComponent implements OnInit {
     this.getMarcas();
     this.getColores();
     this.getTipos();
-    this.getCarga();
   }
 
   cargar(): void {
@@ -64,9 +61,7 @@ export class FormCartuchoComponent implements OnInit {
   getTipos(): void {
     this.tipoService.getAll().subscribe(res => this.tipoCartuchos = res);
   }
-  getCarga(): void {
-    this.cargaService.getAll().subscribe(res => this.tipoCargas = res);
-  }
+
 
 
 

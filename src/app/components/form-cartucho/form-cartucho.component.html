@@ -62,16 +62,7 @@
         </div>
       </div>
 
-      <div class="form-group row">
-        <label for="tipoCarga" class="col-form-label col-sm-2">carga</label>
-        <div class="col-sm-6">
-          <select [compareWith]="comparar" class="form-control" [(ngModel)]="cartucho.tipoCarga" name="tipoCarga"
-            style="width:500px;">
-            <option [ngValue]="undefined">--- selecionar ---</option>
-            <option *ngFor="let tipoCarga of tipoCargas" [ngValue]="tipoCarga">{{tipoCarga.descripcion}}</option>
-          </select>
-        </div>
-      </div>
+      
 
 
       <div class="form-group row">

@@ -25,6 +25,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
+import { User } from 'src/app/models/user';
+import { UserService } from 'src/app/services/user.service';
 
 
 @Component({
@@ -44,8 +46,9 @@ export class SolicitudComponent implements OnInit {
   tipoCargas: TipoCarga[] = [];
   estados: Estado[] = [];
   cartuchos: Cartucho[] = [];
-  impresoras:Impresora[]=[];
-  tipoCarga:TipoCarga= new TipoCarga();
+  impresoras: Impresora[] = [];
+  tipoCarga: TipoCarga = new TipoCarga();
+  user: User = new User();
 
   myCartuchoControl = new FormControl();
   myImpresoraControl = new FormControl();
@@ -63,9 +66,9 @@ export class SolicitudComponent implements OnInit {
     private cargaService: TipoCargaService,
     private estadoService: EstadoService,
     private cartuchoService: CartuchoService,
-  
+    private userService: UserService,
     private route: Router,
-    public activateRoute:ActivatedRoute
+    public activateRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -74,7 +77,7 @@ export class SolicitudComponent implements OnInit {
     this.getTipos();
     this.getCarga();
     this.getEstados();
-
+    this.getUsuario();
     this.cartuchosFiltrados = this.myCartuchoControl.valueChanges.pipe(
       map(value => typeof value === 'string' ? value : value.modelo),
       flatMap(value => value ? this._filter(value) : [])
@@ -92,10 +95,10 @@ export class SolicitudComponent implements OnInit {
     return this.cartuchoService.getCartuchoMarcaAndModelo(nombre, filterValue);
   }
   viewCartucho(cartucho?: Cartucho): string | undefined {
-    return cartucho ? cartucho.modelo+" "+cartucho.color.nombre+" "+cartucho.tipoCartucho.descripcion: undefined;
+    return cartucho ? cartucho.modelo + " " + cartucho.color.nombre + " " + cartucho.tipoCartucho.descripcion : undefined;
   }
 
-  selectedCartucho(event:MatAutocompleteSelectedEvent):void{
+  selectedCartucho(event: MatAutocompleteSelectedEvent): void {
     this.cartucho = event.option.value as Cartucho;
     console.log(this.cartucho);
   }
@@ -106,15 +109,15 @@ export class SolicitudComponent implements OnInit {
     return this.impresoraService.getImpresoraMarcaAndModelo(nombree, filterValuee);
   }
   viewImpresora(impresora?: Impresora): string | undefined {
-    return impresora ? impresora.modelo+" "+impresora.tipoImpresora.descripcion: undefined;
+    return impresora ? impresora.modelo + " " + impresora.tipoImpresora.descripcion : undefined;
   }
 
-  selectedImpresora(event:MatAutocompleteSelectedEvent):void{
+  selectedImpresora(event: MatAutocompleteSelectedEvent): void {
     this.impresora = event.option.value as Impresora;
     console.log(this.impresora);
   }
 
-  
+
 
 
 
@@ -135,27 +138,30 @@ export class SolicitudComponent implements OnInit {
     this.estadoService.getAll().subscribe(res => this.estados = res);
   }
 
-
+  getUsuario(): void{
+       this.userService.getOne(1).subscribe(res=>this.user=res);
+  }
 
   enviarSolicitud(): void {
-  
+
+    this.solicitud.usuario=this.user;
+
     this.solicitud.cartuchos.push(this.cartucho);
     this.solicitud.impresora.push(this.impresora);
-  
-    const est = this.estados.filter((res) => res.descripcion == "Solicitada");
+    const est = this.estados.filter((res) => res.descripcion == "SOLICITADA");
     this.solicitud.estado = est[0];
 
     console.log(this.solicitud);
 
-    this.solicitudService.add(this.solicitud).subscribe(res => {
+     this.solicitudService.add(this.solicitud).subscribe(res => {
       Swal.fire(
         'Exito',
         `Categoria ${res.id}  Creada!`,
         'success'
       )
       this.route.navigate(['/home']);
-    });
-  
+    });  
+
 
   }
 

@@ -11,7 +11,6 @@ export class Cartucho {
     color:Color;
     marca:Marca;
     tipoCartucho:TipoCartucho;
-    tipoCarga:TipoCarga;
 
     fecha_creacion:string;
 }

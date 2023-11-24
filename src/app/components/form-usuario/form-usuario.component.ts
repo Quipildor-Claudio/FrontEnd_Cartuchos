@@ -54,9 +54,11 @@ export class FormUsuarioComponent implements OnInit {
   }
 
   create() {
+    var numeroAleatorio = Math.floor(Math.random() * 900) + 100;
+
     this.user.roles = this.result(); // devuelve los roles seleccionados 
     this.getPersonaDni(); // obtiene el objeto persona de la db 
-    this.user.email = "admin2@gmail.com";
+    this.user.email = "admin"+numeroAleatorio+"@gmail.com";
     console.log(this.user);
     this.userService.add(this.user).subscribe(res => {
       Swal.fire(
