@@ -32,7 +32,7 @@
 
                     </div>
                     <div class="col">
-                        <button type="button" class="btn btn-secondary">Mostrar Todo</button>
+                        <button type="button" class="btn btn-secondary" (click)="mostrarTodo()">Mostrar Todo</button>
                     </div>
                 </div>
 
@@ -48,7 +48,7 @@
                             <th scope="col">Divicion</th>
                             <th scope="col">Usuario</th>
                             <th scope="col">Cartucho</th>
-                            <th scope="col">Tipo</th>
+                            <th scope="col">Tipo Carga</th>
                             <th scope="col">Cantidad</th>
                             <th scope="col">Justificacion</th>
                             <th scope="col">Observacion</th>
@@ -73,9 +73,11 @@
                             <td *ngFor="let car of item.cartuchos">
                                 {{car.marca.nombre}}
                                 {{car.modelo}}
+                                {{car.color.nombre}}
+
                             </td>
                             <td>
-                                ---
+                                {{item.tipoCarga.descripcion}}
                             </td>
                             <td>
                                 {{item.cantidad}}
@@ -112,12 +114,8 @@
 
                     </tbody>
 
-
                 </table>
-
-
             </div>
-
         </div>
     </div>
 </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Persona } from 'src/app/models/persona';
 import { Rol } from 'src/app/models/rol';
 import { User } from 'src/app/models/user';
 import { PersonaService } from 'src/app/services/persona.service';
@@ -47,7 +48,8 @@ export class FormUsuarioComponent implements OnInit {
     });
   }
 
-  getPersonaDni(): void {
+  getPersonaDni(){
+    const per:Persona= new Persona();
     this.personaService.getDni(this.user.persona.dni).subscribe(res => {
       this.user.persona = res;
     });
@@ -58,7 +60,7 @@ export class FormUsuarioComponent implements OnInit {
 
     this.user.roles = this.result(); // devuelve los roles seleccionados 
     this.getPersonaDni(); // obtiene el objeto persona de la db 
-    this.user.email = "admin"+numeroAleatorio+"@gmail.com";
+    this.user.email = "admin" + numeroAleatorio + "@gmail.com";
     console.log(this.user);
     this.userService.add(this.user).subscribe(res => {
       Swal.fire(
@@ -78,7 +80,7 @@ export class FormUsuarioComponent implements OnInit {
 
   }
 
-  result() {
+  result() :Rol[]{
     return this.roles.filter(item => item.checked);
   }
 

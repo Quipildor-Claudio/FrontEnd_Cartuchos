@@ -20,6 +20,10 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  mostrarTodo():void{
+     this.getData();
+  }
+
   delete(item):void{
 
   }
