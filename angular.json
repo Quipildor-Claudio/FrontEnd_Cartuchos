@@ -71,10 +71,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "cartuchos-app:build:production"
+              "buildTarget": "cartuchos-app:build:production"
             },
             "development": {
-              "browserTarget": "cartuchos-app:build:development"
+              "buildTarget": "cartuchos-app:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -82,7 +82,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "cartuchos-app:build"
+            "buildTarget": "cartuchos-app:build"
           }
         },
         "test": {
