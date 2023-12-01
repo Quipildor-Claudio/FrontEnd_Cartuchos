@@ -139,7 +139,7 @@ export class SolicitudComponent implements OnInit {
   }
 
   getUsuario(): void{
-       this.userService.getOne(1).subscribe(res=>this.user=res);
+       this.userService.getOne(4).subscribe(res=>this.user=res);
   }
 
   enviarSolicitud(): void {
@@ -147,7 +147,7 @@ export class SolicitudComponent implements OnInit {
     this.solicitud.usuario=this.user;
 
     this.solicitud.cartuchos.push(this.cartucho);
-    this.solicitud.impresora.push(this.impresora);
+    this.solicitud.impresoras.push(this.impresora);
     const est = this.estados.filter((res) => res.descripcion == "SOLICITADA");
     this.solicitud.estado = est[0];
 

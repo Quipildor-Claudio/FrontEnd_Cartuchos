@@ -11,7 +11,7 @@ export class Solicitud {
     cantidad: number;
     usuario:User;
     cartuchos: Cartucho[] = [];
-    impresora:Impresora[]=[];
+    impresoras:Impresora[]=[];
     estado: Estado;
     tipoCarga:TipoCarga;
     fechaCreacion: string;
