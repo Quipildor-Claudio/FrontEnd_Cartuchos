@@ -1,1 +1,31 @@
-<p>form-solicitud works!</p>
+<div class="card ">
+    <div class="card-header">{{ title }}</div>
+    <div class="card-body">
+  
+      <form #solicitudForm="ngForm">
+        Solicitado por Servicio : {{solitud.usuario.persona.servicio.nombre}}
+        <br/>
+        Lo solicita: {{solitud.usuario.roles[0].descripcion}} - {{solitud.usuario.persona.nombre}} {{solitud.usuario.persona.apellido}}
+        <br/>
+        SOLICITA:
+        <br/>
+        <div *ngFor="let so of solitud.cartuchos" >
+            CARTUCHO : {{so.modelo}} {{so.marca.nombre}} {{so.color.nombre}}
+        </div>
+
+        PARA IMPRESORA:
+
+        <div *ngFor="let im of solitud.impresoras" >
+            {{im.marca.nombre}} {{im.modelo}}
+        </div>
+
+        TIPO DE CARGA:  {{solitud.tipoCarga.descripcion}}
+        <br/>
+        CANTIDAD: {{solitud.cantidad}}
+        <br/>
+        
+  
+      </form>
+  
+    </div>
+  </div>

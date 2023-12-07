@@ -65,6 +65,7 @@ const routes: Routes = [
   { path: 'tipodecartucho', component: TipoCartuchoComponent },
 
   { path: 'estados', component: EstadoComponent },
+
   { path: 'form-estado', component: FormEstadoComponent },
   { path: 'form-estado/:id', component: FormEstadoComponent },
 

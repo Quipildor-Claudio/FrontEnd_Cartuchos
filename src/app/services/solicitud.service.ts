@@ -17,6 +17,14 @@ export class SolicitudService {
     );
   }
 
+
+  getOne(id:any):Observable<Solicitud>{
+    return this.http.get(`${API_URI}/solicitudes/${id}`).pipe(
+      map(response=>response as Solicitud)
+    );
+  }
+
+  
   getBuscarFecha(fechaInicio:string,fechaFinal:string): Observable<any[]> {
     return this.http.get(`${API_URI}/solicitudes/buscarPorFecha/${fechaInicio}/${fechaFinal}`,{headers:this.httpheaders}).pipe(
       map(response=>response as any[])

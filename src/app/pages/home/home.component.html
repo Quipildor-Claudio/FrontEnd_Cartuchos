@@ -15,6 +15,7 @@
                 <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
                     <thead>
                         <tr>
+                            <th>ID</th>
                             <th scope="col">Divicion</th>
                             <th scope="col">Usuario</th>
                             <th scope="col">Cartucho</th>
@@ -30,8 +31,12 @@
                         </tr>
                     </thead>
                     <tbody>
+                     
 
                         <tr class="odd" *ngFor="let item of solicitudes">
+                            <td>
+                                {{item.id}}
+                            </td>
                             <td>{{item.usuario.persona.servicio.nombre !== null?item.usuario.persona.servicio.nombre
                                 :"---"}}
                             </td>
@@ -73,7 +78,7 @@
                                 {{item.fechaCreacion}}
                             </td>
                             <td>
-                                <button type="button" class="btn btn-danger" (click)="openPopUp(item)">
+                                <button type="button" class="btn btn-danger" [routerLink]="['/form-solicitud',item.id]">
                                     check
                                   </button>
             
