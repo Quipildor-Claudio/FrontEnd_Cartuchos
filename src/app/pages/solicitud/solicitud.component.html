@@ -5,33 +5,7 @@
   <div class="col-md-10 offset-sm-1">
     <form #Form="ngForm" class="was-validated" novalidate>
       <div class="form-group col-sm-4">
-        <label class="control-label h5">Cartucho</label>
-        <br>
-        <label for="marca" class="col-form-label col-sm-2">Marca</label>
-        <div class="col-sm-4">
-          <select [compareWith]="comparar" class="form-control" [(ngModel)]="cartucho.marca" name="marca"
-            style="width:250px;">
-            <option [ngValue]="undefined">--- selecionar una marca ---</option>
-            <option *ngFor="let marca of marcas" [ngValue]="marca">{{marca.nombre}}</option>
-          </select>
-        </div>
 
-        <div class="col-md-10">
-          <mat-form-field>
-            <mat-label>Modelo</mat-label>
-            <input type="text" placeholder="Escribir Modelo" aria-label="cartuchos" matInput
-              [formControl]="myCartuchoControl" [matAutocomplete]="auto">
-            <mat-autocomplete #auto="matAutocomplete" [displayWith]="viewCartucho"
-              (optionSelected)="selectedCartucho($event)">
-              <mat-option *ngFor=" let cartucho of cartuchosFiltrados | async" [value]="cartucho">
-                {{cartucho.modelo}}&nbsp; {{cartucho.color.nombre}}&nbsp;{{cartucho.tipoCartucho.descripcion}}
-              </mat-option>
-            </mat-autocomplete>
-          </mat-form-field>
-        </div>
-      </div>
-
-      <div class="form-group col-sm-4">
         <label class="control-label h5">Impresosa</label>
         <div class="col-sm-6">
           <select [compareWith]="comparar" class="form-control" [(ngModel)]="impresora.marca" name="imarca"
@@ -55,6 +29,59 @@
           </div>
 
         </div>
+
+
+
+
+
+        <label class="control-label h5">Cartucho Y TONER</label>
+        <div class="row">
+          <div class="col-sm-12">
+            <table class="table table-striped table-bordered table-hover dtr-inline">
+              <thead>
+                <tr>
+                  <th style="width: 10px">
+                    ID</th>
+                  <th>MODELO</th>
+                  <th>Marca</th>
+                  <th>CAPACIDAD</th>
+                  <th>COLOR</th>
+                  <th>TIPO</th>
+                  <th>DESCRIPCION</th>
+                  <th>AGREGAR</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="odd" *ngFor="let item of impresora.cartuchos">
+                  <td>{{item.id}}</td>
+                  <td>{{item.modelo}}</td>
+                  <td>{{item.marca.nombre}}</td>
+                  <td>{{item.capacidad}}</td>
+                  <td>{{item.color.nombre}}</td>
+                  <td>{{item.tipoCartucho.descripcion}}</td>
+                  <td>{{item.descripcion}}</td>
+
+                  <td>
+                    <div class="btn-group">
+                      <button type="button" class="btn  btn-primary" (click)="addCartuchos(item)">
+                        <i class="fa fa-solid fa-plus"></i>
+                      </button>&nbsp;
+
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+
+
+
       </div>
 
       <br />
@@ -73,41 +100,65 @@
       <br /><br />
 
 
-      <div class="form-group col-sm-4">
-        <label class="control-label h5">Cantidad</label>
-        <select class="form-control" [(ngModel)]="solicitud.cantidad" name="cantidad" equired>
-          <option [ngValue]="undefined">Seleccione la cantidad</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-        </select>
-        <div class="invalid-feedback">Este campo es obligatorio.</div>
-      </div>
-
-
       <div class="mb-3" id="justificacionContainer">
-        <label for="textarea" class="form-label h5 mt-3" >Justificación</label>
-        <textarea class="form-control"   [(ngModel)]="solicitud.justificacion" name="justificacion" rows="3" required></textarea>
+        <label for="textarea" class="form-label h5 mt-3">Justificación</label>
+        <textarea class="form-control" [(ngModel)]="solicitud.justificacion" name="justificacion" rows="3"
+          required></textarea>
         <div class="invalid-feedback">Este campo es obligatorio.</div>
       </div>
 
       <div class="form-group col-sm-12">
-        <label class="control-label h5">Datos</label>
-        <div>
-          <div class="card card-body">
-            {{cartucho.modelo!==undefined?cartucho.modelo:""}}&nbsp;
 
-            {{solicitud.cantidad!==undefined?solicitud.cantidad:""}}&nbsp;
+        <label class="control-label h5">Datos de Solicitud</label>
+        <br />
+        IMPRESORAS
+        <table class="table table-hover">
+          <thead>
+          </thead>
+          <tbody>
+            <tr *ngFor="let iSol of  solicitud.impresoras">
+              <td>{{iSol.id}}</td>
+              <td>{{iSol.modelo}}</td>
+              <td>{{iSol.marca.nombre}}</td>
+              <td>{{iSol.tipoImpresora.descripcion}}</td>
+              <td>
+                <div class="btn-group">
 
+                  <button type="button" class="btn btn-danger" (click)="iDelete(iSol)">
+                    <i class="fa fa-times"></i>
+                  </button>
+                </div>
+              </td>
 
-            {{impresora.modelo!==undefined?impresora.modelo:""}}&nbsp;
+            </tr>
+          </tbody>
+        </table>
+        <br />
 
-          </div>
-        </div>
+        CARTUCHOS
+        <table class="table table-hover">
+          <thead>
+          </thead>
+          <tbody>
+            <tr *ngFor="let cSol of  solicitud.cartuchos">
+              <td>{{cSol.id}}</td>
+              <td>{{cSol.modelo}}</td>
+              <td>{{cSol.marca.nombre}}</td>
+              <td>{{cSol.tipoCartucho.descripcion}}</td>
+              <td>
+                <div class="btn-group">
+
+                  <button type="button" class="btn btn-danger" (click)="cDelete(cSol)">
+                    <i class="fa fa-times"></i>
+                  </button>
+                </div>
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
       </div>
-
       <div>
-
         <button type="button" id="submitButton" class="btn mt-4 mb-4 pls-5 col-sm-2 text-sm-center fs-5 float-end mr-3"
           role="button" (click)='enviarSolicitud()'>Enviar</button>
 

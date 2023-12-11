@@ -20,6 +20,7 @@
                                 <th>MARCA</th>
                                 <th>MODELO</th>             
                                 <th>TIPO</th>
+                                <th>CARTUCHOS</th>
                                 <th>DESCRIPCION</th>
                                 <th>ACCIONES</th>
 
@@ -31,6 +32,9 @@
                                 <td>{{item.marca.nombre}}</td>
                                 <td>{{item.modelo}}</td>
                                 <td>{{item.tipoImpresora.descripcion}}</td>
+                                <div *ngFor="let car of item.cartuchos">
+                                    <td >{{car.modelo}}  {{car.color.nombre}}</td>
+                                  </div>
                                 <td>{{item.descripcion}}</td>
                                 <td>
                                     <div class="btn-group">

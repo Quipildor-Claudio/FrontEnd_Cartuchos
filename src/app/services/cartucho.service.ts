@@ -41,4 +41,10 @@ export class CartuchoService {
       map(response=>response as Cartucho[])
     );
   }
+
+  getCartuchoModelo(modelo:string): Observable<Cartucho[]> {
+    return this.http.get(`${API_URI}/cartucho-modelo/${modelo}`,{headers:this.httpheaders}).pipe(
+      map(response=>response as Cartucho[])
+    );
+  }
 }

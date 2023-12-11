@@ -78,10 +78,7 @@ export class SolicitudComponent implements OnInit {
     this.getCarga();
     this.getEstados();
     this.getUsuario();
-    this.cartuchosFiltrados = this.myCartuchoControl.valueChanges.pipe(
-      map(value => typeof value === 'string' ? value : value.modelo),
-      flatMap(value => value ? this._filter(value) : [])
-    );
+
 
     this.impresorasFiltrados = this.myImpresoraControl.valueChanges.pipe(
       map(value => typeof value === 'string' ? value : value.modelo),
@@ -114,6 +111,7 @@ export class SolicitudComponent implements OnInit {
 
   selectedImpresora(event: MatAutocompleteSelectedEvent): void {
     this.impresora = event.option.value as Impresora;
+    this.solicitud.impresoras.push(this.impresora);
     console.log(this.impresora);
   }
 
@@ -142,26 +140,49 @@ export class SolicitudComponent implements OnInit {
        this.userService.getOne(4).subscribe(res=>this.user=res);
   }
 
+
+  addCartuchos(item:Cartucho):void{
+    this.solicitud.cartuchos.push(item);
+
+  }
+
+  // elimina cartucho de la tabla de pedidos
+  cDelete(item:Cartucho):void{
+      this.solicitud.cartuchos = this.solicitud.cartuchos.filter(res=>res!=item);
+  }
+  // elimina impresora de la tabla de pedidos
+  iDelete(iSol:Impresora):void{
+    this.solicitud.impresoras = this.solicitud.impresoras.filter(res=>res!=iSol);
+  }
+
   enviarSolicitud(): void {
 
     this.solicitud.usuario=this.user;
-
-    this.solicitud.cartuchos.push(this.cartucho);
-    this.solicitud.impresoras.push(this.impresora);
+    
+    // obtiene el objeto de stado solicitado del array 
     const est = this.estados.filter((res) => res.descripcion == "SOLICITADA");
     this.solicitud.estado = est[0];
 
+    this.solicitud.cantidad = this.solicitud.cartuchos.length;
+
+
     console.log(this.solicitud);
 
-     this.solicitudService.add(this.solicitud).subscribe(res => {
+   /** this.solicitudService.add(this.solicitud).subscribe(res => {
       Swal.fire(
         'Exito',
         `Categoria ${res.id}  Creada!`,
         'success'
       )
       this.route.navigate(['/home']);
-    });  
+    });  */
 
+    
+  }
+
+  recetear():void{
+    this.solicitud.cartuchos=[];
+    this.solicitud.impresoras=[];
 
   }
 

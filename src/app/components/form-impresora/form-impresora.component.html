@@ -1,4 +1,4 @@
-<div class="card bg-dark text-white">
+<div class="card ">
     <div class="card-header">{{ titulo }}</div>
     <div class="card-body">
   
@@ -36,6 +36,47 @@
             </div>
           </div>
 
+          <div class="form-group row">
+            <label for="tipoImpresora" class="col-form-label col-sm-2">Cartuchos</label>
+            <mat-form-field>
+              <mat-label>Modelo de Cartucho</mat-label>
+              <input type="text" placeholder="Escribir Modelo del Cartucho" aria-label="impresoras" matInput
+                [formControl]="myCartuchoControl" [matAutocomplete]="autoo">
+              <mat-autocomplete #autoo="matAutocomplete" [displayWith]="viewCartucho"
+                (optionSelected)="selectedCartucho($event)">
+                <mat-option *ngFor=" let cartucho of cartuchosFiltrados | async" [value]="cartucho">
+                  {{cartucho.modelo}}&nbsp; {{cartucho.marca.nombre}}&nbsp; {{cartucho.color.nombre}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+
+          <div class="form-group row" >
+            CARTUCHOS Y TONNER
+        <table class="table table-hover">
+          <thead>
+          </thead>
+          <tbody>
+            <tr *ngFor="let cSol of  impresora.cartuchos">
+              <td>{{cSol.id}}</td>
+              <td>{{cSol.modelo}}</td>
+              <td>{{cSol.marca.nombre}}</td>
+              <td>{{cSol.color.nombre}}</td>
+              <td>{{cSol.tipoCartucho.descripcion}}</td>
+              <td>
+                <div class="btn-group">
+
+                  <button type="button" class="btn btn-danger" (click)="cDelete(cSol)">
+                    <i class="fa fa-times"></i>
+                  </button>
+                </div>
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+
+          </div>
   
         <div class="form-group row">
           <div class="col-sm-6">
