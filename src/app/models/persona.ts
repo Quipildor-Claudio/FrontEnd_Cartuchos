@@ -4,6 +4,6 @@ export class Persona {
     id:number;
     apellido:string;
     nombre:string;
-    dni:number;
+    dni:string;
     servicio:Servicio= new Servicio();
 }

@@ -1,22 +1,33 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Persona } from 'src/app/models/persona';
 import { Rol } from 'src/app/models/rol';
 import { User } from 'src/app/models/user';
 import { PersonaService } from 'src/app/services/persona.service';
 import { RolService } from 'src/app/services/rol.service';
 import { UserService } from 'src/app/services/user.service';
+import { flatMap, map } from 'rxjs/operators';
+
 import Swal from 'sweetalert2';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+
 
 @Component({
   selector: 'app-form-usuario',
   templateUrl: './form-usuario.component.html',
   styleUrls: ['./form-usuario.component.css']
 })
+
+
 export class FormUsuarioComponent implements OnInit {
   titulo: string = "Formulario";
   user: User = new User();
   roles: Rol[] = [];
+  persona: Persona = new Persona();
+  myPersonaControl = new FormControl();
+  personasFiltrados: Observable<Persona[]>;
 
   constructor(
     public activatedRoute: ActivatedRoute,
@@ -30,6 +41,12 @@ export class FormUsuarioComponent implements OnInit {
   ngOnInit(): void {
     this.cargar();
     this.getRoles();
+
+    this.personasFiltrados = this.myPersonaControl.valueChanges.pipe(
+      map(value => typeof value === 'string' ? value : value.dni),
+      flatMap(value => value ? this._filter(value) : [])
+    );
+
   }
 
   cargar(): void {
@@ -41,6 +58,20 @@ export class FormUsuarioComponent implements OnInit {
     }
     );
   }
+
+  private _filter(value: string): Observable<Persona[]> {
+    const filterValue = value.toLowerCase();
+    return this.personaService.getListaDni(filterValue);
+  }
+  viewPersona(persona?: Persona): string | undefined {
+    return persona ? persona.apellido + " " + persona.nombre + " " + persona.dni : undefined;
+  }
+
+  selectedPersona(event: MatAutocompleteSelectedEvent): void {
+    this.persona = event.option.value as Persona;
+    console.log(this.persona);
+  }
+
   getRoles(): void {
     this.rolService.getAll().subscribe(res => {
       this.roles = res
@@ -48,8 +79,8 @@ export class FormUsuarioComponent implements OnInit {
     });
   }
 
-  getPersonaDni(){
-    const per:Persona= new Persona();
+  getPersonaDni() {
+    const per: Persona = new Persona();
     this.personaService.getDni(this.user.persona.dni).subscribe(res => {
       this.user.persona = res;
     });
@@ -59,7 +90,6 @@ export class FormUsuarioComponent implements OnInit {
     var numeroAleatorio = Math.floor(Math.random() * 900) + 100;
 
     this.user.roles = this.result(); // devuelve los roles seleccionados 
-    this.getPersonaDni(); // obtiene el objeto persona de la db 
     this.user.email = "admin" + numeroAleatorio + "@gmail.com";
     console.log(this.user);
     this.userService.add(this.user).subscribe(res => {
@@ -80,7 +110,7 @@ export class FormUsuarioComponent implements OnInit {
 
   }
 
-  result() :Rol[]{
+  result(): Rol[] {
     return this.roles.filter(item => item.checked);
   }
 

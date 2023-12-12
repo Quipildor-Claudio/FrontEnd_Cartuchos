@@ -31,6 +31,11 @@ export class PersonaService {
       map(response=>response as Persona)
     );
   }
+  getListaDni(dni):Observable<Persona[]>{
+      return  this.http.get(`${API_URI}/constrainDni/${dni}`).pipe(
+        map(response=>response as Persona[])
+      );
+  }
 
   add(persona:Persona):Observable<any>{
     return this.http.post<any>(`${API_URI}/personas`,persona,{headers:this.httpheaders});
