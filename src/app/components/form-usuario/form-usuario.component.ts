@@ -63,13 +63,13 @@ export class FormUsuarioComponent implements OnInit {
     const filterValue = value.toLowerCase();
     return this.personaService.getListaDni(filterValue);
   }
+
   viewPersona(persona?: Persona): string | undefined {
     return persona ? persona.apellido + " " + persona.nombre + " " + persona.dni : undefined;
   }
 
   selectedPersona(event: MatAutocompleteSelectedEvent): void {
-    this.persona = event.option.value as Persona;
-    console.log(this.persona);
+    this.user.persona = event.option.value as Persona;
   }
 
   getRoles(): void {
@@ -92,14 +92,16 @@ export class FormUsuarioComponent implements OnInit {
     this.user.roles = this.result(); // devuelve los roles seleccionados 
     this.user.email = "admin" + numeroAleatorio + "@gmail.com";
     console.log(this.user);
-    this.userService.add(this.user).subscribe(res => {
+
+
+   this.userService.add(this.user).subscribe(res => {
       Swal.fire(
         'Exito',
         `Categoria ${res.username}  Creada!`,
         'success'
       )
       this.route.navigate(['/usuarios']);
-    });
+    });  
 
 
   }
