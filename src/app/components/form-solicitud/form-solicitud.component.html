@@ -3,27 +3,50 @@
     <div class="card-body">
   
       <form #solicitudForm="ngForm">
-        Solicitado por Servicio : {{solitud.usuario.persona.servicio.nombre}}
+        Solicitado por Servicio : {{solicitud.usuario.persona.servicio.nombre}}
         <br/>
-        Lo solicita: {{solitud.usuario.roles[0].descripcion}} - {{solitud.usuario.persona.nombre}} {{solitud.usuario.persona.apellido}}
+        Lo solicita: {{solicitud.usuario.roles[0].descripcion}} - {{solicitud.usuario.persona.nombre}} {{solicitud.usuario.persona.apellido}}
         <br/>
         SOLICITA:
         <br/>
-        <div *ngFor="let so of solitud.cartuchos" >
+        <div *ngFor="let so of solicitud.cartuchos" >
             CARTUCHO : {{so.modelo}} {{so.marca.nombre}} {{so.color.nombre}}
         </div>
 
         PARA IMPRESORA:
 
-        <div *ngFor="let im of solitud.impresoras" >
+        <div *ngFor="let im of solicitud.impresoras" >
             {{im.marca.nombre}} {{im.modelo}}
         </div>
 
-        TIPO DE CARGA:  {{solitud.tipoCarga.descripcion}}
+        TIPO DE CARGA:  {{solicitud.tipoCarga.descripcion}}
         <br/>
-        CANTIDAD: {{solitud.cantidad}}
+        CANTIDAD: {{solicitud.cantidad}}
         <br/>
+
+        <div class="form-group row">
+          <label for="estado" class="col-form-label col-sm-2">Estado de Solicitud</label>
+          <div class="col-sm-6">
+            <select [compareWith]="comparar" class="form-control" [(ngModel)]="solicitud.estado" name="estado"
+              style="width:500px;">
+              <option [ngValue]="undefined">--- selecionar un Estado---</option>
+              <option *ngFor="let estado of estados" [ngValue]="estado">{{estado.descripcion}}</option>
+            </select>
+          </div>
+        </div>
         
+      <div  *ngIf="solicitud.estado.descripcion == 'OBSERVADA' " class="mb-3" id="justificacionContainer">
+        <label for="textarea" class="form-label h5 mt-3">Observacion</label>
+        <textarea class="form-control" [(ngModel)]="solicitud.observacion" name="observacion" rows="3"
+          required></textarea>
+        <div class="invalid-feedback">Este campo es obligatorio.</div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <button class="btn btn-primary" role="button" (click)='create()'>Crear</button>
+        </div>
+      </div>
   
       </form>
   

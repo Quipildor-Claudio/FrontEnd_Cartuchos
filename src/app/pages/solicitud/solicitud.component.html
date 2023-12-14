@@ -159,8 +159,16 @@
         </table>
       </div>
       <div>
-        <button type="button" id="submitButton" class="btn mt-4 mb-4 pls-5 col-sm-2 text-sm-center fs-5 float-end mr-3"
-          role="button" (click)='enviarSolicitud()'>Enviar</button>
+        <div class="form-group row">
+          <div class="col-sm-6">
+            <button class="btn btn-primary" role="button" (click)='enviarSolicitud()'
+              *ngIf="!cartucho.id else elseBlock">Crear</button>
+  
+            <ng-template #elseBlock>
+              <button class="btn btn-primary" role="button" (click)='update()'>Editar</button>
+            </ng-template>
+          </div>
+        </div>
 
       </div>
     </form>

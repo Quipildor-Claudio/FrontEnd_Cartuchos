@@ -50,6 +50,8 @@ const routes: Routes = [
   { path: 'form-persona/:id', component: FormPersonaComponent },
 
   { path: 'solicitudes', component: SolicitudComponent },
+  { path: 'solicitudes/:id', component: SolicitudComponent },
+
   { path: 'form-solicitud', component: FormSolicitudComponent },
   { path: 'form-solicitud/:id', component: FormSolicitudComponent },
 

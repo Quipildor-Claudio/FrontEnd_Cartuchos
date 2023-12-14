@@ -35,6 +35,7 @@ import { InformesComponent } from './pages/informes/informes.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material-module';
 import { DataTablesModule } from "angular-datatables";
+import { FilterPipe } from './pipes/filter.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -75,7 +76,9 @@ import { DataTablesModule } from "angular-datatables";
     ReactiveFormsModule,
     MaterialModule,
     DataTablesModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FilterPipe,
+    
     
    
     

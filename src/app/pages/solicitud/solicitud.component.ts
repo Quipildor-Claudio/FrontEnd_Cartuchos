@@ -19,10 +19,7 @@ import { TipoCartuchoService } from 'src/app/services/tipo-cartucho.service';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { flatMap, map, startWith } from 'rxjs/operators';
-import { AsyncPipe } from '@angular/common';
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/user';
@@ -49,6 +46,7 @@ export class SolicitudComponent implements OnInit {
   impresoras: Impresora[] = [];
   tipoCarga: TipoCarga = new TipoCarga();
   user: User = new User();
+
 
   myCartuchoControl = new FormControl();
   myImpresoraControl = new FormControl();
@@ -78,7 +76,7 @@ export class SolicitudComponent implements OnInit {
     this.getCarga();
     this.getEstados();
     this.getUsuario();
-
+    this.cargar();
 
     this.impresorasFiltrados = this.myImpresoraControl.valueChanges.pipe(
       map(value => typeof value === 'string' ? value : value.modelo),
@@ -115,8 +113,19 @@ export class SolicitudComponent implements OnInit {
     console.log(this.impresora);
   }
 
+  cargar(): void {
+    this.activateRoute.params.subscribe(params => {
+      let id = params['id']
+      if (id) {
+        this.solicitudService.getOne(id).subscribe(res=> this.solicitud= res);
+      }
+    }
+    );
+  }
 
+  update():void{
 
+  }
 
 
   getMarcas(): void {
@@ -168,15 +177,14 @@ export class SolicitudComponent implements OnInit {
 
     console.log(this.solicitud);
 
-   /** this.solicitudService.add(this.solicitud).subscribe(res => {
+    this.solicitudService.add(this.solicitud).subscribe(res => {
       Swal.fire(
         'Exito',
         `Categoria ${res.id}  Creada!`,
         'success'
       )
       this.route.navigate(['/home']);
-    });  */
-
+    });  
     
   }
 

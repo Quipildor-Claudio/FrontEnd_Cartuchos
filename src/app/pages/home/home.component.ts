@@ -1,10 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { Subject } from 'rxjs';
-import { PopupSolicitudComponent } from 'src/app/components/popup-solicitud/popup-solicitud.component';
+import { Component, OnInit } from '@angular/core';
 import { SolicitudService } from 'src/app/services/solicitud.service';
-
-
+import Swal from 'sweetalert2';
+import { Solicitud } from 'src/app/models/solicitud';
+import { EstadoService } from 'src/app/services/estado.service';
+import { Estado } from 'src/app/models/estado';
 
 
 
@@ -13,58 +12,84 @@ import { SolicitudService } from 'src/app/services/solicitud.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit, OnDestroy {
-  solicitudes: any[];
+export class HomeComponent implements OnInit {
+  solicitudes: Solicitud[] = [];
+  estados: Estado[] = [];
+  estado:any;
+  filteredSol:Solicitud[] = [];
+  filterText:'';
 
-  dtOptions: DataTables.Settings = {};
-  dtTrigger: Subject<any> = new Subject<any>();
+  constructor(
+    private solicitudService: SolicitudService,
+    private estadoService: EstadoService
 
-
-  constructor(private solicitudService: SolicitudService,private dialog:MatDialog) { }
+  ) { }
 
   ngOnInit(): void {
-    this.dtOptions = {
-      language: {
-        "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
-      },
-      pagingType: 'full_numbers'
-    };
+
     this.getData();
+    this.getEstados();
   }
+
   getData() {
     this.solicitudService.getAll().subscribe(res => {
       this.solicitudes = res
-      this.dtTrigger.next(this.solicitudes);
+
+      console.log(this.solicitudes);
+    });
+  }
+  getEstados(): void {
+    this.estadoService.getAll().subscribe(res => this.estados = res);
+  }
+
+
+
+  delete(item): void {
+    Swal.fire({
+      title: 'Estas Seguro?',
+      text: `Eliminar ${item.id}`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Eliminar!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.solicitudService.delete(item.id).subscribe(() => {
+          this.solicitudes = this.solicitudes.filter(sol => sol != item);
+          Swal.fire(
+            'Eliminado!',
+            'Su archivo a sido eliminado',
+            'success'
+          )
+        }
+        );
+
+      }
+    })
+  }
+  onEstadoChange(event){
+    let est = event.target.value;
+    est= est.substring(3);
+    this.solicitudService.getBusquedaEstado(est).subscribe(res=>{
+      this.solicitudes=res
       console.log(this.solicitudes);
     });
   }
 
-  mostrarTodo(): void {
-    this.getData();
-  }
-
-  delete(item): void {
+  onChange(val:string){
 
   }
 
-
-  updateEstado(item:any){
-
+  comparar(o1: any, o2: any): boolean {
+    if (o1 === undefined && o2 === undefined) {
+      return true;
+    }
+    return o1 === null || o2 === null || o1 === undefined || o2 === undefined ? false : o1.id === o2.id;
   }
-  ngOnDestroy(): void {
-    this.dtTrigger.unsubscribe();
-  }
 
 
-  openPopUp(item:any):void{
-    this.dialog.open(PopupSolicitudComponent,{
-      width:'60%',
-      height:'400px',
-      data:{
-        title:'Atorizar Solicitudes',
-        data:item,
-      }
-    });
-  }
+
+
 
 }
