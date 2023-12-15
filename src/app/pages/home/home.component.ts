@@ -13,11 +13,13 @@ import { Estado } from 'src/app/models/estado';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  title:string="Solicitudes"
   solicitudes: Solicitud[] = [];
   estados: Estado[] = [];
-  estado:any;
-  filteredSol:Solicitud[] = [];
-  filterText:'';
+  estado: any;
+  filteredSol: Solicitud[] = [];
+  filterText: any;
+  filterId: any;
 
   constructor(
     private solicitudService: SolicitudService,
@@ -68,16 +70,28 @@ export class HomeComponent implements OnInit {
       }
     })
   }
-  onEstadoChange(event){
-    let est = event.target.value;
-    est= est.substring(3);
-    this.solicitudService.getBusquedaEstado(est).subscribe(res=>{
-      this.solicitudes=res
-      console.log(this.solicitudes);
-    });
+  onEstadoChange(event: any) {
+    if (event) {
+      this.solicitudService.getBusquedaEstado(event).subscribe(res => {
+        this.solicitudes = res
+      });
+    }
+
   }
 
-  onChange(val:string){
+  
+
+  searchId(id: any) {
+    console.log(id);
+    if (id !== '') {
+      this.solicitudService.getOne(id).subscribe(res => {
+        this.solicitudes = [];
+        this.solicitudes.push(res);
+      }
+      );
+    } else {
+      this.getData();
+    }
 
   }
 

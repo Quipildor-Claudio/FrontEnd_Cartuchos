@@ -35,6 +35,7 @@ import { InformesComponent } from './pages/informes/informes.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material-module';
 import { DataTablesModule } from "angular-datatables";
+import { FilterPipeModule } from 'ngx-filter-pipe';
 import { FilterPipe } from './pipes/filter.pipe';
 @NgModule({
   declarations: [
@@ -64,7 +65,7 @@ import { FilterPipe } from './pipes/filter.pipe';
     FormPersonaComponent,
     FormEstadoComponent,
     InformesComponent,
-  
+
 
 
   ],
@@ -77,11 +78,10 @@ import { FilterPipe } from './pipes/filter.pipe';
     MaterialModule,
     DataTablesModule,
     BrowserAnimationsModule,
-    FilterPipe,
-    
-    
-   
-    
+    FilterPipe
+
+
+
   ],
   providers: [],
   bootstrap: [AppComponent]

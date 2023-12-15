@@ -24,6 +24,7 @@
     "datatables.net": "^1.11.3",
     "datatables.net-dt": "^1.11.3",
     "jquery": "^3.6.0",
+    "ngx-filter-pipe": "^2.1.2",
     "rxjs": "~7.5.0",
     "sweetalert2": "^11.7.32",
     "tslib": "^2.3.0",
