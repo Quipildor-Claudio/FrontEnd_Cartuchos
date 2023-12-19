@@ -41,8 +41,7 @@
                     <th scope="col">Usuario</th>
                     <th scope="col">Cartucho</th>
                     <th scope="col">Impresora</th>
-                    <th scope="col">Tipo Carga</th>
-                    <th scope="col">Cantidad</th>
+             
                     <th scope="col">Justificacion</th>
                     <th scope="col">Observacion</th>
                     <th scope="col">Estado</th>
@@ -68,10 +67,12 @@
                     </td>
 
                     <td>
-                        <div *ngFor="let car of item.cartuchos">
-                            {{car.marca.nombre}}
-                            {{car.modelo}}
-                            {{car.color.nombre}}
+                        <div *ngFor="let car of item.itemSolicituds">
+                            {{car.cantidad}}-
+                            {{car.cartucho.marca.nombre}}
+                            {{car.cartucho.modelo}}
+                            {{car.cartucho.color.nombre}}
+                            {{car.tipoCarga.descripcion}}
                         </div>
                         <br>
                     </td>
@@ -83,12 +84,8 @@
                         <br>
 
                     </td>
-                    <td>
-                        {{item.tipoCarga.descripcion}}
-                    </td>
-                    <td>
-                        {{item.cantidad}}
-                    </td>
+               
+              
                     <td>
                         {{item.justificacion !== null ?item.justificacion:"---"}}
                     </td>

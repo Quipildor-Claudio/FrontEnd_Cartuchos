@@ -29,11 +29,6 @@
           </div>
 
         </div>
-
-
-
-
-
         <label class="control-label h5">Cartucho Y TONER</label>
         <div class="row">
           <div class="col-sm-12">
@@ -79,27 +74,11 @@
             </table>
           </div>
         </div>
-
-
-
       </div>
 
       <br />
       <br />
-      <div class="form-group row">
-        <label for="tipoCarga" class="col-form-label col-sm-2">TIPO DE CARGA </label>
-        <div class="col-sm-6">
-          <select [compareWith]="comparar" class="form-control" [(ngModel)]="solicitud.tipoCarga" name="tipoCarga"
-            style="width:500px;">
-            <option [ngValue]="undefined">--- selecionar ---</option>
-            <option *ngFor="let tipoCarga of tipoCargas" [ngValue]="tipoCarga">{{tipoCarga.descripcion}}</option>
-          </select>
-        </div>
-      </div>
-
       <br /><br />
-
-
       <div class="mb-3" id="justificacionContainer">
         <label for="textarea" class="form-label h5 mt-3">Justificación</label>
         <textarea class="form-control" [(ngModel)]="solicitud.justificacion" name="justificacion" rows="3"
@@ -140,11 +119,23 @@
           <thead>
           </thead>
           <tbody>
-            <tr *ngFor="let cSol of  solicitud.cartuchos">
-              <td>{{cSol.id}}</td>
-              <td>{{cSol.modelo}}</td>
-              <td>{{cSol.marca.nombre}}</td>
-              <td>{{cSol.tipoCartucho.descripcion}}</td>
+            <tr *ngFor="let cSol of  solicitud.itemSolicituds">
+              <td>{{cSol.cartucho.id}}</td>
+              <td>{{cSol.cartucho.modelo}}</td>
+              <td>{{cSol.cartucho.marca.nombre}}</td>
+              <td>{{cSol.cartucho.tipoCartucho.descripcion}}</td>
+              <td>{{cSol.cantidad}}</td>
+              <td>
+                <div>
+                  <select [compareWith]="comparar" class="form-control" [(ngModel)]="cSol.tipoCarga" name="tipoCarga"
+                    style="width:150px;">
+                    <option *ngFor="let tipoCarga of tipoCargas" [ngValue]="tipoCarga">{{tipoCarga.descripcion}}
+                    </option>
+                  </select>
+                </div>
+              </td>
+
+
               <td>
                 <div class="btn-group">
 
@@ -163,7 +154,7 @@
           <div class="col-sm-6">
             <button class="btn btn-primary" role="button" (click)='enviarSolicitud()'
               *ngIf="!cartucho.id else elseBlock">Crear</button>
-  
+
             <ng-template #elseBlock>
               <button class="btn btn-primary" role="button" (click)='update()'>Editar</button>
             </ng-template>

@@ -9,8 +9,8 @@
         <br/>
         SOLICITA:
         <br/>
-        <div *ngFor="let so of solicitud.cartuchos" >
-            CARTUCHO : {{so.modelo}} {{so.marca.nombre}} {{so.color.nombre}}
+        <div *ngFor="let so of solicitud.itemSolicituds" >
+            CARTUCHO : {{so.cartucho.modelo}} {{so.cartucho.marca.nombre}} {{so.cartucho.color.nombre}}
         </div>
 
         PARA IMPRESORA:
@@ -19,9 +19,7 @@
             {{im.marca.nombre}} {{im.modelo}}
         </div>
 
-        TIPO DE CARGA:  {{solicitud.tipoCarga.descripcion}}
         <br/>
-        CANTIDAD: {{solicitud.cantidad}}
         <br/>
 
         <div class="form-group row">

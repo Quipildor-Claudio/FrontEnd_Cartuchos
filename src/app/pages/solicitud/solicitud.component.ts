@@ -24,6 +24,7 @@ import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
+import { ItemSolicitud } from 'src/app/models/item-solicitud';
 
 
 @Component({
@@ -110,20 +111,19 @@ export class SolicitudComponent implements OnInit {
   selectedImpresora(event: MatAutocompleteSelectedEvent): void {
     this.impresora = event.option.value as Impresora;
     this.solicitud.impresoras.push(this.impresora);
-    console.log(this.impresora);
   }
 
   cargar(): void {
     this.activateRoute.params.subscribe(params => {
       let id = params['id']
       if (id) {
-        this.solicitudService.getOne(id).subscribe(res=> this.solicitud= res);
+        this.solicitudService.getOne(id).subscribe(res => this.solicitud = res);
       }
     }
     );
   }
 
-  update():void{
+  update(): void {
 
   }
 
@@ -145,54 +145,100 @@ export class SolicitudComponent implements OnInit {
     this.estadoService.getAll().subscribe(res => this.estados = res);
   }
 
-  getUsuario(): void{
-       this.userService.getOne(4).subscribe(res=>this.user=res);
+  getUsuario(): void {
+    this.userService.getOne(4).subscribe(res => this.user = res);
   }
 
 
-  addCartuchos(item:Cartucho):void{
-    this.solicitud.cartuchos.push(item);
+  addCartuchos(car: Cartucho): void {
 
+    if (this.existItem(car.id)) {
+      this.incrementLot(car.id)
+    } else {
+      let item = new ItemSolicitud();
+      item.cartucho = car;
+      item.cantidad = 1;
+      item.tipoCarga = null;
+      this.solicitud.itemSolicituds.push(item);
+
+    }
   }
 
   // elimina cartucho de la tabla de pedidos
-  cDelete(item:Cartucho):void{
-      this.solicitud.cartuchos = this.solicitud.cartuchos.filter(res=>res!=item);
+  cDelete(item: any): void {
+    if (item.cantidad == 1) {
+      this.solicitud.itemSolicituds = this.solicitud.itemSolicituds.filter(res => res != item);
+    } else {
+
+      this.solicitud.itemSolicituds = this.solicitud.itemSolicituds.map((aux: ItemSolicitud) => {
+        if (item.cartucho.id === aux.cartucho.id) {
+          aux.cantidad -=1;
+          
+        }
+        return aux;
+      });
+    }
+
+
+
+
   }
   // elimina impresora de la tabla de pedidos
-  iDelete(iSol:Impresora):void{
-    this.solicitud.impresoras = this.solicitud.impresoras.filter(res=>res!=iSol);
+  iDelete(iSol: Impresora): void {
+
+    this.solicitud.impresoras = this.solicitud.impresoras.filter(res => res != iSol);
   }
 
   enviarSolicitud(): void {
 
-    this.solicitud.usuario=this.user;
-    
+    this.solicitud.usuario = this.user;
+
     // obtiene el objeto de stado solicitado del array 
     const est = this.estados.filter((res) => res.descripcion == "SOLICITADA");
     this.solicitud.estado = est[0];
 
-    this.solicitud.cantidad = this.solicitud.cartuchos.length;
 
 
     console.log(this.solicitud);
 
-    this.solicitudService.add(this.solicitud).subscribe(res => {
-      Swal.fire(
-        'Exito',
-        `Categoria ${res.id}  Creada!`,
-        'success'
-      )
-      this.route.navigate(['/home']);
-    });  
-    
-  }
-
-  recetear():void{
-    this.solicitud.cartuchos=[];
-    this.solicitud.impresoras=[];
+   this.solicitudService.add(this.solicitud).subscribe(res => {
+        Swal.fire(
+          'Exito',
+          `Categoria ${res.id}  Creada!`,
+          'success'
+        )
+        this.route.navigate(['/home']);
+      });     
 
   }
+
+  recetear(): void {
+    this.solicitud.impresoras = [];
+    this.solicitud.itemSolicituds = [];
+  }
+
+  existItem(id: number): boolean {
+    let pres = false;
+    this.solicitud.itemSolicituds.forEach((item: ItemSolicitud) => {
+      if (id === item.cartucho.id) {
+        pres = true;
+      }
+    });
+    return pres;
+  }
+
+  incrementLot(id: number): void {
+    this.solicitud.itemSolicituds = this.solicitud.itemSolicituds.map((item: ItemSolicitud) => {
+      if (id === item.cartucho.id) {
+        ++item.cantidad;
+      }
+      return item;
+    });
+  }
+
+
+
+
 
   comparar(o1: any, o2: any): boolean {
     if (o1 === undefined && o2 === undefined) {

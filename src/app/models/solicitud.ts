@@ -1,6 +1,7 @@
 import { Cartucho } from "./cartucho";
 import { Estado } from "./estado";
 import { Impresora } from "./impresora";
+import { ItemSolicitud } from "./item-solicitud";
 import { TipoCarga } from "./tipo-carga";
 import { User } from "./user";
 
@@ -8,12 +9,11 @@ export class Solicitud {
     id: number;
     observacion: string;
     justificacion: string;
-    cantidad: number;
+    total: number;
     usuario:User;
-    cartuchos: Cartucho[] = [];
     impresoras:Impresora[]=[];
     estado: Estado;
-    tipoCarga:TipoCarga;
+    itemSolicituds:ItemSolicitud[]=[];
     fechaCreacion: string;
     fecha_actualizacion: string;
 
