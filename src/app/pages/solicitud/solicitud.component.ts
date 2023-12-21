@@ -55,6 +55,12 @@ export class SolicitudComponent implements OnInit {
   cartuchosFiltrados: Observable<Cartucho[]>;
   impresorasFiltrados: Observable<Impresora[]>;
 
+  mostrarTabla: boolean = false;
+  mostrarDatos: boolean = false;
+  mostrarAutocompletado: boolean = false;
+  cartuchoAgregado: boolean = false;
+  impresoraForm: any;
+
 
   constructor(
     private solicitudService: SolicitudService,
@@ -111,6 +117,8 @@ export class SolicitudComponent implements OnInit {
   selectedImpresora(event: MatAutocompleteSelectedEvent): void {
     this.impresora = event.option.value as Impresora;
     this.solicitud.impresoras.push(this.impresora);
+    this.mostrarTabla = true;
+
   }
 
   cargar(): void {
@@ -148,12 +156,24 @@ export class SolicitudComponent implements OnInit {
   getUsuario(): void {
     this.userService.getOne(4).subscribe(res => this.user = res);
   }
-
+  
+  imarca() {
+    this.mostrarAutocompletado = this.impresora.marca != null;
+  }
+  
+  enviaSolicitud() {
+    if (this.impresoraForm && this.impresoraForm.valid && this.impresora.marca) {
+      console.log('Estado del formulario:', this.impresoraForm.valid);
+    } else {
+      console.log('Formulario inválido. No se puede enviar.');
+    }
+  }
 
   addCartuchos(car: Cartucho): void {
 
     if (this.existItem(car.id)) {
       this.incrementLot(car.id)
+
     } else {
       let item = new ItemSolicitud();
       item.cartucho = car;
@@ -161,6 +181,13 @@ export class SolicitudComponent implements OnInit {
       item.tipoCarga = null;
       this.solicitud.itemSolicituds.push(item);
 
+      this.mostrarTabla=false;
+      this.mostrarAutocompletado=false;
+      this.mostrarDatos=true;
+
+      this.impresora = new Impresora(); 
+      this.myImpresoraControl.setValue('');
+     this.cartuchoAgregado = true;
     }
   }
 
@@ -236,9 +263,19 @@ export class SolicitudComponent implements OnInit {
     });
   }
 
-
-
-
+  Volver (): void {
+    Swal.fire({
+      title: 'Estas seguro de salir del formulario ?',
+      text: `Se perderan todos los datos del formulario`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.route.navigate(['/home']);
+      }});}
 
   comparar(o1: any, o2: any): boolean {
     if (o1 === undefined && o2 === undefined) {

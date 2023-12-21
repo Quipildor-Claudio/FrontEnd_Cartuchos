@@ -6,6 +6,4 @@ export class ItemSolicitud {
     cantidad:number;
     cartucho:Cartucho;
     tipoCarga:TipoCarga;
-    
-
 }

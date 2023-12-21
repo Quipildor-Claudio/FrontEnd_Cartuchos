@@ -3,18 +3,17 @@
   <h3 class=" pb-3">Solicitud </h3>
   <hr id="borde" />
   <div class="col-md-10 offset-sm-1">
-    <form #Form="ngForm" class="was-validated" novalidate>
-      <div class="form-group col-sm-4">
+    <form #Form="ngForm" #impresoraForm="ngForm" (ngSubmit)="enviaSolicitud()" >
+      <div class="form-group col-sm-10">
 
-        <label class="control-label h5">Impresosa</label>
         <div class="col-sm-6">
-          <select [compareWith]="comparar" class="form-control" [(ngModel)]="impresora.marca" name="imarca"
-            style="width:250px;">
-            <option [ngValue]="undefined">--- selecionar una marca ---</option>
+          <label class="control-label h5">Impresora</label>
+          <select class="col-sm-6" [compareWith]="comparar" class="form-control" [(ngModel)]="impresora.marca" name="imarca " (change)="imarca()" required>
+            <option [ngValue]="undefined">Selecionar una marca...</option>
             <option *ngFor="let imarca of marcas" [ngValue]="imarca">{{imarca.nombre}}</option>
           </select>
 
-          <div class="col-md-10">
+          <div class="col-sm-10"  *ngIf="mostrarAutocompletado">
             <mat-form-field>
               <mat-label>Modelo</mat-label>
               <input type="text" placeholder="Escribir Modelo" aria-label="impresoras" matInput
@@ -29,9 +28,10 @@
           </div>
 
         </div>
-        <label class="control-label h5">Cartucho Y TONER</label>
+        <br>
         <div class="row">
-          <div class="col-sm-12">
+          <div class="col-sm-12" *ngIf="mostrarTabla">
+            <label class="control-label h5">Cartuchos y Toners</label>
             <table class="table table-striped table-bordered table-hover dtr-inline">
               <thead>
                 <tr>
@@ -77,8 +77,6 @@
       </div>
 
       <br />
-      <br />
-      <br /><br />
       <div class="mb-3" id="justificacionContainer">
         <label for="textarea" class="form-label h5 mt-3">Justificación</label>
         <textarea class="form-control" [(ngModel)]="solicitud.justificacion" name="justificacion" rows="3"
@@ -86,11 +84,11 @@
         <div class="invalid-feedback">Este campo es obligatorio.</div>
       </div>
 
-      <div class="form-group col-sm-12">
+      <br />
 
-        <label class="control-label h5">Datos de Solicitud</label>
-        <br />
-        IMPRESORAS
+      <div class="form-group col-sm-12" *ngIf="mostrarDatos && (solicitud.impresoras.length > 0 || solicitud.itemSolicituds.length>0)">
+        <label class="control-label h5 row">Datos de Solicitud (Previsualización)</label>
+        <label class="control-label h6 row ">Impresoras seleccionadas</label>
         <table class="table table-hover">
           <thead>
           </thead>
@@ -113,8 +111,7 @@
           </tbody>
         </table>
         <br />
-
-        CARTUCHOS
+        <label class="control-label h6 row" >Cartuchos</label>
         <table class="table table-hover">
           <thead>
           </thead>
@@ -152,6 +149,8 @@
       <div>
         <div class="form-group row">
           <div class="col-sm-6">
+            <button class="btn btn-primary" role="button" (click)='Volver()' >Volver</button>
+            
             <button class="btn btn-primary" role="button" (click)='enviarSolicitud()'
               *ngIf="!cartucho.id else elseBlock">Crear</button>
 

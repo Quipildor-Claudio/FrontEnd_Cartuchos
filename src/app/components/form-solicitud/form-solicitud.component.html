@@ -1,52 +1,154 @@
-<div class="card ">
-    <div class="card-header">{{ title }}</div>
-    <div class="card-body">
-  
-      <form #solicitudForm="ngForm">
-        Solicitado por Servicio : {{solicitud.usuario.persona.servicio.nombre}}
-        <br/>
-        Lo solicita: {{solicitud.usuario.roles[0].descripcion}} - {{solicitud.usuario.persona.nombre}} {{solicitud.usuario.persona.apellido}}
-        <br/>
-        SOLICITA:
-        <br/>
-        <div *ngFor="let so of solicitud.itemSolicituds" >
-            CARTUCHO : {{so.cartucho.modelo}} {{so.cartucho.marca.nombre}} {{so.cartucho.color.nombre}}
-        </div>
+<div class="card">
+  <div class="card-header">{{ title }}</div>
+  <div class="card-body ">
+    <table id="tabla" class="col-sm-12 ">
+      <tr>
+        <td>
+          <form #solicitudForm="ngForm" id="original" #originalForm>
+            <div class="row">
+              <img src="/assets/images/Logo_HPS.png" id="logo" class="col-sm-1 me-5">
+                  <div class="row col-sm-10 ms-4">
+                    <div class="col-sm-12 text-end"><h5>Pedido de Provision N°: {{solicitud.id}}</h5></div>
+                    <div class="col-sm-12 text-end"><h5>San Salvador de Jujuy, {{solicitud.fechaCreacion}}</h5></div>  
+                  </div>
+            </div>
+            <br/>
+            <h5>Articulo destinado a: {{solicitud.usuario?.persona?.servicio?.nombre}}</h5>
+            <h5>Para utilizar en el: SERVICIO</h5>
+            <h5>Solicitado por: {{solicitud.usuario?.roles[0]?.descripcion}} DE {{solicitud.usuario?.persona?.servicio?.nombre}} - {{solicitud.usuario?.persona?.nombre}} {{solicitud.usuario?.persona?.apellido}}</h5>
 
-        PARA IMPRESORA:
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Renglón</th>
+                  <th scope="col">Cantidad</th>
+                  <th scope="col">Descripcion</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let so of solicitud.itemSolicituds">
+                  <td >1</td>
+                  <td>{{so.cantidad}}</td>
+                  <td>{{so.cartucho.modelo}}, {{so.cartucho.marca.nombre}}, {{so.cartucho.color.nombre}}, {{so.cartucho.tipoCartucho.descripcion}}</td>
+                </tr>
+              </tbody>
+            </table>
 
-        <div *ngFor="let im of solicitud.impresoras" >
-            {{im.marca.nombre}} {{im.modelo}}
-        </div>
+            <div class="form-group row" id="estados">
+              <label for="estado" class="col-form-label col-sm-2">Estado de Solicitud</label>
+              <div class="col-sm-6">
+                <select [compareWith]="comparar" class="form-control" [(ngModel)]="solicitud.estado" name="estado" id="estado" style="width:500px;">
+                  <option [ngValue]="undefined">--- seleccionar un Estado---</option>
+                  <option *ngFor="let estado of estados" [ngValue]="estado">{{estado.descripcion}}</option>
+                </select>
+              </div>
+            </div>
 
-        <br/>
-        <br/>
-
-        <div class="form-group row">
-          <label for="estado" class="col-form-label col-sm-2">Estado de Solicitud</label>
-          <div class="col-sm-6">
-            <select [compareWith]="comparar" class="form-control" [(ngModel)]="solicitud.estado" name="estado"
-              style="width:500px;">
-              <option [ngValue]="undefined">--- selecionar un Estado---</option>
-              <option *ngFor="let estado of estados" [ngValue]="estado">{{estado.descripcion}}</option>
-            </select>
+            <div *ngIf="solicitud.estado?.descripcion === 'OBSERVADA'" class="mb-3" id="justificacionContainer">
+              <label for="observacion" class="form-label h5 mt-3">Observacion</label>
+              <textarea class="form-control" [(ngModel)]="solicitud.observacion" name="observacion" rows="3" required></textarea>
+              <div class="invalid-feedback">Este campo es obligatorio.</div>
+            </div>
+          </form>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div *ngIf="solicitudForm.invalid">
+            <div class="form-group row">
+              <div class="col-sm-6">
+                <label for="errorOriginal" class="text-danger">Por favor, complete todos los campos obligatorios en el formulario original.</label>
+              </div>
+            </div>
           </div>
-        </div>
-        
-      <div  *ngIf="solicitud.estado.descripcion == 'OBSERVADA' " class="mb-3" id="justificacionContainer">
-        <label for="textarea" class="form-label h5 mt-3">Observacion</label>
-        <textarea class="form-control" [(ngModel)]="solicitud.observacion" name="observacion" rows="3"
-          required></textarea>
-        <div class="invalid-feedback">Este campo es obligatorio.</div>
-      </div>
+        </td>
+      </tr>
+            <tr>
+        <td>
+          <form #solicitudFormDuplicate="ngForm" id="duplicado" hidden >
+            <br>
+            <br>
+            <br>
+            <hr>
+            <br>
+            <br>
+            <br>
+            <div class="row">
+              <img src="/assets/images/Logo_HPS.png" id="logo" class="col-sm-1 me-5">
+                  <div class="row col-sm-10 ms-4">
+                    <div class="col-sm-12 text-end"><h5>Pedido de Provision N°: {{solicitud.id}}</h5></div>
+                    <div class="col-sm-12 text-end"><h5>San Salvador de Jujuy, {{solicitud.fechaCreacion}}</h5></div>  
+                  </div>
+            </div>
+          <h5>Articulo destinado a: {{solicitud.usuario?.persona?.servicio?.nombre}}</h5>
+          <h5>Para utilizar en el: SERVICIO</h5>
+          <h5>Solicitado por: {{solicitud.usuario?.roles[0]?.descripcion}} DE {{solicitud.usuario?.persona?.servicio?.nombre}} - {{solicitud.usuario?.persona?.nombre}} {{solicitud.usuario?.persona?.apellido}}</h5>
 
-      <div class="form-group row">
-        <div class="col-sm-6">
-          <button class="btn btn-primary" role="button" (click)='create()'>Crear</button>
-        </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Renglón</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Descripcion</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let so of solicitud.itemSolicituds">
+                <td >1</td>
+                <td>{{so.cantidad}}</td>
+                <td>{{so.cartucho.modelo}}, {{so.cartucho.marca.nombre}}, {{so.cartucho.color.nombre}}, {{so.cartucho.tipoCartucho.descripcion}}, {{so.tipoCarga.id}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <br>
+          <div class="row ">
+                <div class="col-sm-6 text-center  ">
+
+                  <img src="/assets/images/FirmaGarabito.png" id="logoFirma" class=" col-sm-10">   
+                </div>
+                <div class="col-sm-6 ">
+                  <img src="/assets/images/autorizacion.png" id="logoAuto" >
+                </div>
+          </div>
+
+            <div class="form-group row" id="estados1">
+              <label for="estadoDuplicate" class="col-form-label col-sm-2">Estado de Solicitud</label>
+              <div class="col-sm-6">
+                <select [compareWith]="comparar" class="form-control" [(ngModel)]="solicitud.estado" name="estadoDuplicate" id="estadoDuplicate" style="width:500px;">
+                  <option [ngValue]="undefined">--- seleccionar un Estado---</option>
+                  <option *ngFor="let estado of estados" [ngValue]="estado">{{estado.descripcion}}</option>
+                </select>
+              </div>
+            </div>
+
+            <div *ngIf="solicitud.estado?.descripcion === 'OBSERVADA'" class="mb-3" id="justificacionContainerDuplicate">
+              <label for="observacionDuplicate" class="form-label h5 mt-3">Observacion</label>
+              <textarea class="form-control" [(ngModel)]="solicitud.observacion" name="observacionDuplicate" rows="3" required></textarea>
+              <div class="invalid-feedback">Este campo es obligatorio.</div>
+            </div>
+          </form>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div *ngIf="solicitudFormDuplicate.invalid">
+            <div class="form-group row">
+              <div class="col-sm-6">
+                <label for="errorDuplicate" class="text-danger">Por favor, complete todos los campos obligatorios en el formulario duplicado.</label>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+    <div class="form-group row">
+      <div class="col-sm-6">
+        <!-- Botones -->
+        <button class="btn btn-primary" role="button" (click)='Volver()' >Cancelar</button>
+        <button class="btn btn-primary" role="button" (click)="create()">Crear</button>
+        <button class="btn btn-primary" role="button" (click)="Final()">pdf</button>
       </div>
-  
-      </form>
-  
     </div>
   </div>
+</div>

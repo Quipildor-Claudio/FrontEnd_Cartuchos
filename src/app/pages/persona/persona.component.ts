@@ -8,7 +8,7 @@ import { PersonaService } from 'src/app/services/persona.service';
   styleUrls: ['./persona.component.css']
 })
 export class PersonaComponent implements OnInit {
-  title:string="persona"
+  title:string="Gestión de Personas"
   personas:Persona[]=[];
   constructor(private personaService:PersonaService) { }
 

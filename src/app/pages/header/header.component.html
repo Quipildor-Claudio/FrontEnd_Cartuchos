@@ -1,71 +1,72 @@
+
 <header>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="home">Navbar</a>
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3 text-light" id="header">
+    <div class="container-fluid" style="display: block;">
+      <div>
+          <div style="display: inline-block;">
+          <img src="/assets/images/logo_oscuro.png" id="logo"></div>
+          <a class="navbar-brand text-light h-5" id="titulo" asp-area="" asp-controller="Home" asp-action="Index">Sistema de Cartuchos</a><br>
+          </div>
+      
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
         aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
+
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="home">Home</a>
+            <a class="nav-link text-light" aria-current="page" href="home">Home</a>
           </li>
 
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Gestion de Solitudes
+            <a class="nav-link dropdown-toggle text-light" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Gestión de Solicitudes
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="solicitudes">Solicitudes</a></li>
-              <li><a class="dropdown-item" href="estados">Estados</a></li>
-              <li><a class="dropdown-item" href="tipodecarga">Tipo de Carga</a></li>
+              <!-- <li><a class="dropdown-item" href="estados">Estados</a></li> --> 
             </ul>
           </li>
 
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Gestion de Cartuchos
+            <a class="nav-link text-light dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Gestión de Cartuchos
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="cartuchos">Cartuchos</a></li>
-              <li><a class="dropdown-item" href="marcas">Marca de Cartucho</a></li>
+           <!--   <li><a class="dropdown-item" href="marcas">Marca de Cartucho</a></li> -->
               <li><a class="dropdown-item" href="colores">Color de Cartucho</a></li>
+              <li><a class="dropdown-item" href="tipodecarga">Tipo de Carga</a></li>
               <li><a class="dropdown-item" href="tipodecartucho">Tipo de Cartucho</a></li>
             </ul>
           </li>
 
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Gestion de Impresoras
+            <a class="nav-link text-light dropdown-toggle"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Gestión de Impresoras
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="impresoras">Impresoras</a></li>
-              <li><a class="dropdown-item" href="tipodeimpresoras">Tipo de Impresora</a></li>
-              <li><a class="dropdown-item" href="marcas">Marca</a></li>
+              <li><a class="dropdown-item text-light" href="impresoras">Impresoras</a></li>
+              <li><a class="dropdown-item text-light" href="tipodeimpresoras">Tipo de Impresora</a></li>
+              <li><a class="dropdown-item text-light" href="marcas">Marcas</a></li>
             </ul>
           </li>
 
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Gestion de Informes
+            <a class="nav-link text-light dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Gestión de Usuarios
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="informes">Informes</a></li>        
+              <li><a class="dropdown-item text-light " href="usuarios">Usuarios</a></li>
+              <li><a class="dropdown-item text-light" href="personas">Personal</a></li>
+        <!--      <li><a class="dropdown-item text-light" href="roles">Rol</a></li> -->
+              <li><a class="dropdown-item text-light" href="servicios">Servicio</a></li>
             </ul>
           </li>
 
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Gestion de Usuarios
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="usuarios">Usuarios</a></li>  
-              <li><a class="dropdown-item" href="personas">persona</a></li>    
-              <li><a class="dropdown-item" href="servicios">servicio</a></li>    
-            </ul>
-
-          </li>
+         
 
         </ul>
       </div>

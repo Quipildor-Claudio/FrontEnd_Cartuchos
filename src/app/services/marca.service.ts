@@ -1,13 +1,15 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { API_URI } from 'config/config';
 import { Observable, map } from 'rxjs';
+import { Marca } from '../models/marca';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MarcaService {
 
+  private httpheaders = new HttpHeaders({ 'content-type': 'application/json' });
   constructor(private http:HttpClient) { }
 
   getAll(): Observable<any[]> {
@@ -15,4 +17,18 @@ export class MarcaService {
       map(response=>response as any[])
     );
   }
+
+  add(marca:Marca):Observable<any>{
+    return this.http.post<any>(`${API_URI}/marcas`,marca,{headers:this.httpheaders});
+  }
+  update(marca:Marca,id:number):Observable<any>{
+    return this.http.put<any>(`${API_URI}/marcas/${id}`,marca,{headers:this.httpheaders});
+  }
+
+  delete(id:number):Observable<any>{
+    return this.http.delete<any>(`${API_URI}/marcas/${id}`,{headers:this.httpheaders});
+  }
 }
+
+
+

@@ -102,4 +102,20 @@ export class FormCartuchoComponent implements OnInit {
     return o1 === null || o2 === null || o1 === undefined || o2 === undefined ? false : o1.id === o2.id;
   }
 
-}
+  Volver (): void {
+    Swal.fire({
+      title: 'Estas seguro de salir del formulario ?',
+      text: `Se perderan todos los datos del formulario`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.route.navigate(['/cartuchos']);
+      }});}
+  }
+
+
+

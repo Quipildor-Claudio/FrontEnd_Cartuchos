@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Marca } from 'src/app/models/marca';
 import { MarcaService } from 'src/app/services/marca.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-marcas',
@@ -9,8 +12,12 @@ import { MarcaService } from 'src/app/services/marca.service';
 export class MarcasComponent implements OnInit {
   marcas:any[];
   title:string="Gestion de Marcas";
-  
-  constructor(private marcaService:MarcaService) { }
+  marca: Marca = new Marca();
+  agregandoNuevaMarca = false;
+  editarIndex = -1;
+  edicionEnProgreso = false;
+    
+  constructor(private marcaService:MarcaService , private route: Router) { }
 
   ngOnInit(): void {
     this.getData();
@@ -19,8 +26,94 @@ export class MarcasComponent implements OnInit {
       this.marcaService.getAll().subscribe(res=> this.marcas=res );
   }
 
-  delete(item:any){
+  delete(item: Marca): void {
+    Swal.fire({
+      title: 'Estas Seguro?',
+      text: `Eliminar la marca: ${this.marca.nombre}}`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Eliminar!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+    if (confirm(`Eliminar ${item.nombre}`)) {
+      this.marcaService.delete(item.id).subscribe(() => {
+        this.marcas = this.marcas.filter(cat => cat !== item);
+        Swal.fire('Eliminado!', 'Su archivo a sido eliminado', 'success');
+      });
+    }
+    this.route.navigate(['/tipo_cargas']);
+  } 
+ })
+}
 
+/* Agregar*/ 
+agregar(): void {
+  this.agregandoNuevaMarca = true;
+  this.marca = new Marca();
+}
+
+confirmarAgregar(): void {
+  Swal.fire({
+    title: 'Estas Seguro?',
+    text: `Agregar la marca: ${this.marca.nombre}}`,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, Agregar!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+    this.marcaService.add(this.marca).subscribe(() => {
+    Swal.fire('Éxito', `Categoría ${this.marca.nombre} Creada!`, 'success');
+    this.route.navigate(['/tipo_cargas']);
+    this.agregandoNuevaMarca = false;
+    this.getData();
+    })
+    }
+  })
+}
+
+cancelarAgregar(): void {
+  this.agregandoNuevaMarca = false;
+  this.marca = new Marca();
+}
+
+getNextId(): number {
+  return Math.max(...this.marcas.map(c => c.id), 0) + 1;
+}
+/* Modificar */  
+
+  habilitarModificacion(index: number): void {
+    this.editarIndex = index;
+    this.edicionEnProgreso = true;
   }
 
+  cancelarModificacion(): void {
+    this.editarIndex = -1;
+    this.edicionEnProgreso = false;
+  }
+
+  update(item: Marca): void {
+    Swal.fire({
+      title: 'Estas Seguro?',
+      text: `Modificar el color: ${this.marca.nombre}}`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Modificar!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+    this.marcaService.update(item, item.id).subscribe(() => {
+      Swal.fire('Exito', `${item.nombre} Modificada!`, 'success');
+      this.route.navigate(['/tipo_cargas']);
+      this.editarIndex = -1;
+      this.edicionEnProgreso = false;
+    })
+  }
+});
 }
+}
+ 

@@ -1,0 +1,41 @@
+#border{
+    border:solid 1px; 
+    border-color: rgb(0, 92, 93);
+}
+.form-select{
+    border:solid 2px; 
+    border-color: rgb(0, 92, 93); 
+    color:rgb(84, 102, 100);
+}
+#textarea{
+    border:solid 2px;
+    border-color: rgb(0, 92, 93); 
+    color:rgb(84, 102, 100);
+}
+.Modelo{
+    border:solid 2px; 
+    border-color: rgb(0, 92, 93); 
+    color:rgb(84, 102, 100)
+}
+#formulario{
+    border:solid 2px; 
+    border-color: rgb(0, 93, 93);
+    border-radius:30px;
+}
+#pdfButton{
+    background: rgb(0, 92, 93); 
+    padding: 10px; 
+    color:rgb(255,255,255);
+}
+.btn{
+    background: rgb(0, 92, 93); 
+    padding: 10px; 
+    color:rgb(255,255,255); 
+    margin-right: 10px;
+    border: none;
+    align-items: flex-end;
+}
+.form-group {
+    margin-top: 15px;
+    margin-bottom: 5px;
+}

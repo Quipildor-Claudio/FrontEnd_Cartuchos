@@ -105,15 +105,25 @@ export class FormUsuarioComponent implements OnInit {
 
 
   }
-
-  update() {
-
-
-
-  }
+  update(){}
 
   result(): Rol[] {
     return this.roles.filter(item => item.checked);
   }
+
+  Volver (): void {
+    Swal.fire({
+      title: 'Estas seguro de salir del formulario ?',
+      text: `Se perderan todos los datos del formulario`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.route.navigate(['/impresoras']);
+      }});}
+
 
 }

@@ -1,0 +1,66 @@
+.custom-nombre-column {
+    width: 500px; 
+  }
+  .odd {
+    border: 2px solid rgb(0, 92, 93);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .divisiones {
+    border: 1px solid rgb(0, 92, 93);
+  }
+  
+  .btn {
+    background: rgb(0, 92, 93);
+    color: white;
+    border: rgb(0, 92, 93);
+  }
+  
+  #btn-agregar {
+    font-size: 17px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+  }
+  
+  .btn:hover {
+    background: rgb(16, 40, 40);
+    color: white;
+    position: relative;
+    display: inline-block;
+  }
+  
+  tr th {
+    font-size: 18px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  tfoot {
+    border: 1px solid rgb(0, 92, 93);
+  }
+  
+  .custom-input {
+    border: none;
+    background-color: transparent;
+    color: none;
+  }
+  
+  .custom-input:focus {
+    outline: none;
+    color: none;
+  }
+  
+  input:focus {
+    outline: none;
+    box-shadow: none;
+  }
+  
+  input {
+    border: none;
+    background-color: transparent;
+    color: none;
+    margin:0px;
+  }
+  
+  input:focus {
+    color: none;
+  }
+  

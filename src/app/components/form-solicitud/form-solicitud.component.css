@@ -1,0 +1,14 @@
+#logo{
+
+    align-items:start;
+    width: 120px;
+    display:inline-block;
+}
+#logoFirma{
+    width: 120px;
+    display:inline-block;
+}
+#logoAuto{
+    width: 300px;
+    display:inline-block;
+}

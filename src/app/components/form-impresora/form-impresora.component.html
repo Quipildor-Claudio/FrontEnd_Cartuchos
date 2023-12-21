@@ -1,63 +1,89 @@
-<div class="card ">
-    <div class="card-header">{{ titulo }}</div>
-    <div class="card-body">
-  
-      <form #impresoraForm="ngForm">
-        <div class="form-group row">
-          <label for="modelo" class="col-form-label col-sm-2">Modelo</label>
-          <div class="col-sm-6">
-            <input type="text" class="form-control" [(ngModel)]="impresora.modelo" name="modelo" #modelo="ngModel"> <!-- required minlength="4" -->
-           
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="descripcion" class="col-form-label col-sm-2">Descripcion</label>
-          <div class="col-sm-6">
-            <input type="text" class="form-control" [(ngModel)]="impresora.descripcion" name="descripcion" #modelo="ngModel"> <!-- required minlength="4" -->
-           
-          </div>
-        </div>
-        <div class="form-group row">
-            <label for="marca" class="col-form-label col-sm-2">Marcas</label>
-            <div class="col-sm-6">
-              <select [compareWith]="comparar" class="form-control" [(ngModel)]="impresora.marca" name="marca" style="width:500px;">
-                <option [ngValue]="undefined">--- selecionar una marca ---</option>
-                <option *ngFor="let marca of marcas" [ngValue]="marca">{{marca.nombre}}</option>
-              </select>
+<div id="formulario" class="row col-sm-10 offset-sm-1 p-4">
+  <div class="header"><h3>{{ titulo }}</h3></div>
+  <hr id="borde"/>
+  <form #impresoraForm="ngForm">
+    <div class="offset-sm-1 pl-5">
+      <div class="form-group row">
+        <div class="col-sm-5">
+          <label for="modelo" class="control-label h5">Modelo</label>
+          <input type="text" class="form-control" [(ngModel)]="impresora.modelo" name="modelo" #modelo="ngModel" required minlength="4">
+          <div *ngIf="modelo.invalid && (modelo.dirty || modelo.touched)" class="text-danger">
+            <div *ngIf="modelo.errors['required']">
+              El modelo es requerido.
+            </div>
+            <div *ngIf="modelo.errors['minlength']">
+              El modelo debe tener al menos 4 caracteres.
             </div>
           </div>
-          <div class="form-group row">
-            <label for="tipoImpresora" class="col-form-label col-sm-2">Tipo Impresora</label>
-            <div class="col-sm-6">
-              <select [compareWith]="comparar" class="form-control" [(ngModel)]="impresora.tipoImpresora" name="tipoImpresora" style="width:500px;">
-                <option [ngValue]="undefined">--- selecionar  ---</option>
-                <option *ngFor="let tipoImpresora of tipoImpresoras" [ngValue]="tipoImpresora">{{tipoImpresora.descripcion}}</option>
-              </select>
+        </div>
+
+        <div class="col-sm-5">
+          <label for="descripcion" class="control-label h5">Descripción</label>
+          <input type="text" class="form-control" [(ngModel)]="impresora.descripcion" name="descripcion" #descripcion="ngModel" required minlength="4">
+          <div *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)" class="text-danger">
+            <div *ngIf="descripcion.errors['required']">
+              La descripción es requerida.
+            </div>
+            <div *ngIf="descripcion.errors['minlength']">
+              La descripción debe tener al menos 4 caracteres.
             </div>
           </div>
+        </div>
+      </div>
 
-          <div class="form-group row">
-            <label for="tipoImpresora" class="col-form-label col-sm-2">Cartuchos</label>
-            <mat-form-field>
-              <mat-label>Modelo de Cartucho</mat-label>
-              <input type="text" placeholder="Escribir Modelo del Cartucho" aria-label="impresoras" matInput
-                [formControl]="myCartuchoControl" [matAutocomplete]="autoo">
-              <mat-autocomplete #autoo="matAutocomplete" [displayWith]="viewCartucho"
-                (optionSelected)="selectedCartucho($event)">
-                <mat-option *ngFor=" let cartucho of cartuchosFiltrados | async" [value]="cartucho">
-                  {{cartucho.modelo}}&nbsp; {{cartucho.marca.nombre}}&nbsp; {{cartucho.color.nombre}}
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
+      <div class="form-group row">
+        <div class="col-sm-5">
+          <label for="marca" class="control-label h5">Marcas</label>
+          <select [compareWith]="comparar" class="form-control" [(ngModel)]="impresora['marca']" name="marca" required>
+            <option [ngValue]="undefined">Seleccione marca de impresora...</option>
+            <option *ngFor="let marca of marcas" [ngValue]="marca">{{marca.nombre}}</option>
+          </select>
+          <div *ngIf="impresoraForm.controls['marca'].invalid && (impresoraForm.controls['marca'].dirty || impresoraForm.controls['marca'].touched)" class="text-danger">
+            Seleccione una marca de impresora.
           </div>
+        </div>
+      
+        <div class="col-sm-5">
+          <label for="tipoImpresora" class="control-label h5">Tipo Impresora</label>
+          <select [compareWith]="comparar" class="form-control" [(ngModel)]="impresora['tipoImpresora']" name="tipoImpresora" required>
+            <option [ngValue]="undefined">Seleccione tipo de impresora</option>
+            <option *ngFor="let tipoImpresora of tipoImpresoras" [ngValue]="tipoImpresora">{{tipoImpresora.descripcion}}</option>
+      
+          </select>
+          <div *ngIf="impresoraForm.controls['tipoImpresora'].invalid && (impresoraForm.controls['tipoImpresora'].dirty || impresoraForm.controls['tipoImpresora'].touched)" class="text-danger">
+            Seleccione un tipo de impresora.
+          </div>
+        </div>
+      </div>
 
-          <div class="form-group row" >
-            CARTUCHOS Y TONNER
+      <div class="form-group row">
+        <div class="row">
+          <label for="tipoImpresora" class="control-label h5 col-sm-2">Cartuchos</label>
+        </div>
+        <mat-form-field class="col-sm-10">
+          <mat-label>Modelo de Cartucho</mat-label>
+          <input type="text" placeholder="Escribir Modelo del Cartucho" aria-label="impresoras" matInput [formControl]="myCartuchoControl" [matAutocomplete]="autoo" required>
+          <div *ngIf="myCartuchoControl.invalid && (myCartuchoControl.dirty || myCartuchoControl.touched)" class="text-danger">
+            <div *ngIf="myCartuchoControl.errors['required']">
+              El modelo de cartucho es requerido.
+            </div>
+          </div>
+          <mat-autocomplete #autoo="matAutocomplete" [displayWith]="viewCartucho" (optionSelected)="selectedCartucho($event)">
+            <mat-option *ngFor="let cartucho of cartuchosFiltrados | async" [value]="cartucho">
+              {{cartucho.modelo}}&nbsp; {{cartucho.marca.nombre}}&nbsp; {{cartucho.color.nombre}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+      
+      <!-- Tabla de Cartuchos y toners que se quieren asociar a la impresora -->
+      <div class="form-group row" *ngIf="mostrarTabla">
+        <label class="control-label h5">Cartuchos y Toners</label>
         <table class="table table-hover">
           <thead>
           </thead>
           <tbody>
-            <tr *ngFor="let cSol of  impresora.cartuchos">
+            <tr *ngFor="let cSol of impresora.cartuchos">
               <td>{{cSol.id}}</td>
               <td>{{cSol.modelo}}</td>
               <td>{{cSol.marca.nombre}}</td>
@@ -65,30 +91,26 @@
               <td>{{cSol.tipoCartucho.descripcion}}</td>
               <td>
                 <div class="btn-group">
-
                   <button type="button" class="btn btn-danger" (click)="cDelete(cSol)">
                     <i class="fa fa-times"></i>
                   </button>
                 </div>
               </td>
-
             </tr>
           </tbody>
         </table>
-
-          </div>
-  
-        <div class="form-group row">
-          <div class="col-sm-6">
-            <button class="btn btn-primary" role="button" (click)='create()' *ngIf="!impresora.id else elseBlock">Crear</button>
-  
-            <ng-template #elseBlock>
-              <button class="btn btn-primary" role="button" (click)='update()' >Editar</button>
-            </ng-template>
-          </div>
+      </div>
+      
+      <!-- Botones -->
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <button class="btn btn-primary" role="button" (click)='Volver()' >Volver</button>
+          <button class="btn btn-primary" role="button" (click)='create()' *ngIf="!impresora.id else elseBlock" [disabled]="impresoraForm.invalid || myCartuchoControl.invalid">Crear</button>
+          <ng-template #elseBlock>
+            <button class="btn btn-primary" role="button" (click)='update()' [disabled]="impresoraForm.invalid">Editar</button>
+          </ng-template>
         </div>
-      </form>
-  
+      </div>
     </div>
-  </div>
-  
+  </form>
+</div>
