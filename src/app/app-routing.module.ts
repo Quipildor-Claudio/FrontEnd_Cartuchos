@@ -23,9 +23,11 @@ import { PersonaComponent } from './pages/persona/persona.component';
 import { FormPersonaComponent } from './components/form-persona/form-persona.component';
 import { FormEstadoComponent } from './components/form-estado/form-estado.component';
 import { InformesComponent } from './pages/informes/informes.component';
+import { LoginComponent } from './auth/login/login.component';
 
 const routes: Routes = [
 
+  { path: 'login', component:LoginComponent},
 
   { path: 'home', component: HomeComponent },
 

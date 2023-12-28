@@ -4,6 +4,7 @@ import { API_URI } from 'config/config';
 import { Observable, map } from 'rxjs';
 import { Impresora } from '../models/impresora';
 import { User } from '../models/user';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,17 @@ export class UserService {
   private httpheaders = new HttpHeaders({ 'content-type': 'application/json' });
   
   
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient,
+              private router:Router) { }
+
+
+  private isNoAutorized(e):boolean{
+    if(e.status==401 || e.status==403){
+      this.router.navigate(['/login'])
+      return true;
+    }
+    return false;
+  }
 
   getAll(): Observable<any[]> {
     return this.http.get(`${API_URI}/user`).pipe(
