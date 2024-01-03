@@ -58,7 +58,6 @@ export class FormUsuarioComponent implements OnInit {
     }
     );
   }
-
   private _filter(value: string): Observable<Persona[]> {
     const filterValue = value.toLowerCase();
     return this.personaService.getListaDni(filterValue);
@@ -124,6 +123,7 @@ export class FormUsuarioComponent implements OnInit {
       if (result.isConfirmed) {
         this.route.navigate(['/impresoras']);
       }});}
-
-
+      
+    
+ 
 }

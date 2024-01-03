@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { TipoCartucho } from 'src/app/models/tipo-cartucho';
 import { TipoCartuchoService } from 'src/app/services/tipo-cartucho.service';
@@ -16,6 +16,13 @@ export class TipoCartuchoComponent implements OnInit {
   agregandoNuevoCartuchoTipo:boolean;
   editarIndex = -1;
   edicionEnProgreso = false;
+  @ViewChild('tipoCartuchoContainer') tipoCartuchoContainer: ElementRef;
+
+  ngAfterViewInit(): void {
+    if (this.agregandoNuevoCartuchoTipo) {
+      this.scrollToAddColor();
+    }
+  }
 
   constructor(private tipoCartuchoService:TipoCartuchoService, private route: Router) { }
 
@@ -53,6 +60,9 @@ export class TipoCartuchoComponent implements OnInit {
 agregar(): void {
   this.agregandoNuevoCartuchoTipo = true;
   this.tipo_cartucho = new TipoCartucho();
+  setTimeout(() => {
+    this.scrollToAddColor();
+  },15);
 }
 
 confirmarAgregar(): void {
@@ -115,6 +125,11 @@ update(item: TipoCartucho): void {
   })
 }
 });
+}
+scrollToAddColor(): void {
+  if (this.tipoCartuchoContainer && this.tipoCartuchoContainer.nativeElement) {
+    this.tipoCartuchoContainer.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+  }
 }
 }
 

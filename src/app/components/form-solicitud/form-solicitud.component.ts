@@ -68,7 +68,7 @@ export class FormSolicitudComponent implements OnInit{
     return o1 === null || o2 === null || o1 === undefined || o2 === undefined ? false : o1.id === o2.id;
   }
     
-  Final() {
+  PDF() {
     $("#duplicado").removeAttr('hidden');
     $("#estados").attr('hidden','hidden');
     $("#estados1").attr('hidden','hidden');
@@ -109,6 +109,9 @@ export class FormSolicitudComponent implements OnInit{
       if (result.isConfirmed) {
         this.route.navigate(['/home']);
       }});}
+
+
+    
 
   }
   

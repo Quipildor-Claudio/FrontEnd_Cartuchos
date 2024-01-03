@@ -32,13 +32,13 @@
                 <td>
                   <!--Botones Ocultos-->
                   <div class="btn-group">
-                    <button *ngIf="!edicionEnProgreso" type="button" class="btn btn-warning" data-bs-toggle="tooltip " data-bs-placement="top" title="Modificar" id="btn-modificar" (click)="habilitarModificacion(i)">
+                    <button *ngIf="!edicionEnProgreso" type="button" class="btn btn-warning" data-bs-toggle="tooltip " data-bs-placement="top" title="Modificar" id="btn-modificar" (click)="habilitarModificacion(i)" [disabled]="agregandoNuevoCartuchoTipo">
                       <i class="bi bi-pencil-square"></i>
                     </button>&nbsp;
-                    <button *ngIf="!edicionEnProgreso" type="button" class="btn btn-danger" data-bs-toggle="btn" data-bs-placement="top" title="Eliminar" (click)="delete(item)">
+                    <button *ngIf="!edicionEnProgreso" type="button" class="btn btn-danger" data-bs-toggle="btn" data-bs-placement="top" title="Eliminar" (click)="delete(item)" [disabled]="agregandoNuevoCartuchoTipo">
                       <i class="bi bi-trash3"></i>
                     </button>
-                    <button *ngIf="editarIndex === i && edicionEnProgreso" type="button" class="btn btn-success" (click)="update(item)">
+                    <button *ngIf="editarIndex === i && edicionEnProgreso" type="button" class="btn btn-success" (click)="update(item)" >
                       Modificar
                     </button>
                     <button *ngIf="editarIndex === i && edicionEnProgreso" type="button" class="btn btn-secondary" (click)="cancelarModificacion()">

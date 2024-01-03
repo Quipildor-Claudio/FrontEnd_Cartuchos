@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { TipoCarga } from 'src/app/models/tipo-carga';
 import { TipoCargaService } from 'src/app/services/tipo-carga.service';
@@ -12,10 +12,18 @@ import Swal from 'sweetalert2';
 export class TipoCargaComponent implements OnInit {
   title:string= "Gestion de Tipos de Cargas";
   tipo_cargas: any[];
+  @ViewChild('tipoCargaContainer') tipoCargaContainer: ElementRef;
   tipo_carga: TipoCarga= new TipoCarga();
   agregandoNuevaCarga:boolean;
   editarIndex = -1;
   edicionEnProgreso = false;
+
+    
+  ngAfterViewInit(): void {
+    if (this.agregandoNuevaCarga) {
+      this.scrollToAddColor();
+    }
+  }
 
   constructor(private tipoService: TipoCargaService, private route: Router) { }
 
@@ -52,6 +60,9 @@ export class TipoCargaComponent implements OnInit {
 agregarCarga(): void {
   this.agregandoNuevaCarga = true;
   this.tipo_carga = new TipoCarga();
+  setTimeout(() => {
+    this.scrollToAddColor();
+  },15);
 }
 
 confirmarAgregar(): void {
@@ -113,5 +124,10 @@ update(item: TipoCarga): void {
   })
 }
 });
+}
+scrollToAddColor(): void {
+  if (this.tipoCargaContainer && this.tipoCargaContainer.nativeElement) {
+    this.tipoCargaContainer.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+  }
 }
 }

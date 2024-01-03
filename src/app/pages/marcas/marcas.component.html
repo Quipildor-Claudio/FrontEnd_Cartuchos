@@ -3,7 +3,7 @@
     <h3 class="card-title">{{title}}</h3>
   </div>
   <div class="card-body">
-    <button type="button" class="btn btn-primary " id="btn-agregar" class="btn" data-bs-toggle="btn" data-bs-placement="top" title="Agregar Marca" (click)="agregar()"   >Agregar Marca</button>
+    <button type="button" class="btn btn-primary " id="btn-agregar" class="btn" data-bs-toggle="btn" data-bs-placement="top" title="Agregar Marca" (click)="agregar()"  [disabled]="edicionEnProgreso"  >Agregar Marca</button>
     <div id="" class=" dt-bootstrap4">
       <br/>
       <div class="row">
@@ -12,8 +12,7 @@
       </div>
       <div class="row">
         <div class="col-sm-12">
-          <table 
-          class="table table-striped table-bordered table-hover dtr-inline">
+          <table class="table table-striped table-bordered table-hover dtr-inline"  #marcasContainer id="marcasContainer" data-spy="scroll"  data-offset="0">
             <thead>
               <tr class="divisiones">
                 <th style="width: 10px">
@@ -32,10 +31,10 @@
                 <td>
                   <!--Botones Ocultos-->
                   <div class="btn-group">
-                    <button *ngIf="!edicionEnProgreso" type="button" class="btn btn-warning" data-bs-toggle="tooltip " data-bs-placement="top" title="Modificar" id="btn-modificar" (click)="habilitarModificacion(i)">
+                    <button *ngIf="!edicionEnProgreso" type="button" class="btn btn-warning" data-bs-toggle="tooltip " data-bs-placement="top" title="Modificar" id="btn-modificar" (click)="habilitarModificacion(i)" [disabled]="agregandoNuevaMarca">
                       <i class="bi bi-pencil-square"></i>
                     </button>&nbsp;
-                    <button *ngIf="!edicionEnProgreso" type="button" class="btn btn-danger" data-bs-toggle="btn" data-bs-placement="top" title="Eliminar" (click)="delete(item)">
+                    <button *ngIf="!edicionEnProgreso" type="button" class="btn btn-danger" data-bs-toggle="btn" data-bs-placement="top" title="Eliminar" (click)="delete(item)" [disabled]="agregandoNuevaMarca">
                       <i class="bi bi-trash3"></i>
                     </button>
                     <button *ngIf="editarIndex === i && edicionEnProgreso" type="button" class="btn btn-success" (click)="update(item)">

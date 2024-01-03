@@ -1,5 +1,10 @@
 <div class="card">
-  <div class="card-header">{{ title }}</div>
+  <div class="card-header row col-sm-12 ms-0 pe-1 ">
+    <h4 class="col-sm-6" >{{ title }}</h4>
+    <div class="col-sm-6">
+    <button class="btn btn-danger float-end " role="button" [routerLink]="['/solicitud-pdf',solicitud.id]"><i class="bi bi-file-earmark-pdf"></i></button>
+    </div>
+  </div>
   <div class="card-body ">
     <table id="tabla" class="col-sm-12 ">
       <tr>
@@ -35,12 +40,16 @@
             </table>
 
             <div class="form-group row" id="estados">
-              <label for="estado" class="col-form-label col-sm-2">Estado de Solicitud</label>
-              <div class="col-sm-6">
-                <select [compareWith]="comparar" class="form-control" [(ngModel)]="solicitud.estado" name="estado" id="estado" style="width:500px;">
+              <label for="estado" class="form-label col-sm-2 pe-0 h5" >Estado de Solicitud</label>
+              <div class="col-sm-5">
+                <select [compareWith]="comparar" class="form-control" [(ngModel)]="solicitud.estado" name="estado" id="estado">
                   <option [ngValue]="undefined">--- seleccionar un Estado---</option>
                   <option *ngFor="let estado of estados" [ngValue]="estado">{{estado.descripcion}}</option>
                 </select>
+              </div>
+              <div class="col-sm-5 ">
+                <button class="btn btn-primary s" role="button" (click)="create()">Modificar Estado</button>
+                <button class="btn btn-primary float-end s" role="button" (click)='Volver()' >Cancelar</button>
               </div>
             </div>
 
@@ -104,7 +113,7 @@
           <div class="row ">
                 <div class="col-sm-6 text-center  ">
 
-                  <img src="/assets/images/FirmaGarabito.png" id="logoFirma" class=" col-sm-10">   
+                  <img src="/assets/images/FirmaGarabito.jpeg" id="logoFirma" class=" col-sm-10">   
                 </div>
                 <div class="col-sm-6 ">
                   <img src="/assets/images/autorizacion.png" id="logoAuto" >
@@ -145,9 +154,7 @@
     <div class="form-group row">
       <div class="col-sm-6">
         <!-- Botones -->
-        <button class="btn btn-primary" role="button" (click)='Volver()' >Cancelar</button>
-        <button class="btn btn-primary" role="button" (click)="create()">Crear</button>
-        <button class="btn btn-primary" role="button" (click)="Final()">pdf</button>
+       
       </div>
     </div>
   </div>

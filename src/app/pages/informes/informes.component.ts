@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 import { Estado } from 'src/app/models/estado';
 import { Solicitud } from 'src/app/models/solicitud';
 import { EstadoService } from 'src/app/services/estado.service';
@@ -37,9 +39,9 @@ export class InformesComponent implements OnInit {
     });
   }
 
-  irALink(): void {
-    window.location.href = 'http://localhost:8080/solicitudes/export-pdf';
-  }
+  /*irALink(): void {
+    window.location.href = 'http://localhost:8086/solicitudes/export-pdf';
+  }*/
 
   buscar(): void {
      
@@ -80,6 +82,32 @@ export class InformesComponent implements OnInit {
       return true;
     }
     return o1 === null || o2 === null || o1 === undefined || o2 === undefined ? false : o1.id === o2.id;
+  }
+
+  PDF() {
+  
+    const DATA = document.getElementById('tabla');
+    const doc = new jsPDF('p', 'pt', 'a4');
+    const options = {
+      background: 'white',
+      scale: 3
+    };
+    
+    html2canvas(DATA, options).then((canvas) => {
+
+      const img = canvas.toDataURL('image/PNG');
+
+      const bufferX = 15;
+      const bufferY = 15;
+      const imgProps = (doc as any).getImageProperties(img);
+      const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+      doc.addImage(img, 'PNG', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'FAST');
+      return doc;
+    }).then((docResult) => {
+      docResult.save(`${new Date().toISOString()}informe.pdf`);
+     
+    });
   }
 
 }

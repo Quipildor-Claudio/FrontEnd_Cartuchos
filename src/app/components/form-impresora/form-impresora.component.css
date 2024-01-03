@@ -3,7 +3,19 @@
     border-color: rgb(0, 92, 93);
 }
 .form-select{
-    border:solid 2px; 
+    border:solid 1px; 
+    border-color: rgb(0, 92, 93); 
+    color:rgb(84, 102, 100);
+}
+#mat{
+    color:rgb(0, 92, 93);
+}
+#mat-form{
+    
+    color:rgb(0, 92, 93);
+}
+.form-control{
+    border:solid 1px; 
     border-color: rgb(0, 92, 93); 
     color:rgb(84, 102, 100);
 }
@@ -39,3 +51,6 @@
     margin-top: 15px;
     margin-bottom: 5px;
 }
+.is-invalid {
+    border-color: #dc3545; 
+  }

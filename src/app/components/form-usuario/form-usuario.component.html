@@ -8,11 +8,29 @@
             <div class="form-group row">
                 <div class="col-sm-5">
                     <label for="username" class="control-label h5">Username</label>
-                    <input type="text" class="form-control" [(ngModel)]="user.username" name="username" #modelo="ngModel" />
+                    <input type="text" class="form-control" [(ngModel)]="user.username" name="username" #username="ngModel" required minlength="3"
+                        [ngClass]="{'is-invalid': username.invalid && (username.dirty || username.touched)}" />
+                    <div *ngIf="username.invalid && (username.dirty || username.touched)" class="text-danger">
+                        <div *ngIf="username.errors['required']">
+                            El username es requerido.
+                        </div>
+                        <div *ngIf="username.errors['minlength']">
+                            El username debe tener al menos 3 caracteres.
+                        </div>
+                    </div>
                 </div>
                 <div class="col-sm-5">
                     <label for="password" class="control-label h5">Contraseña</label>
-                    <input type="text" class="form-control" [(ngModel)]="user.password" name="password" #modelo="ngModel" />
+                    <input type="text" class="form-control" [(ngModel)]="user.password" name="password" #password="ngModel" required minlength="3"
+                        [ngClass]="{'is-invalid': password.invalid && (password.dirty || password.touched)}" />
+                    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger">
+                        <div *ngIf="password.errors['required']">
+                            La contraseña es requerida.
+                        </div>
+                        <div *ngIf="password.errors['minlength']">
+                            La contraseña debe tener al menos 3 caracteres.
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -26,10 +44,10 @@
             <div class="form-group row">
                 <label for="rol" class="control-label h5">Seleccionar Roles</label>
                 <div class="col-sm-12">
-                    <div class="form-check pt-3 ">
+                    <div class="form-check pt-3">
                         <div *ngFor="let rol of roles" class="form-check form-check-inline">
-                            <input type="checkbox" [(ngModel)]="rol.checked" name="rol" class="form-check-input p-1 me-2 ms-2 "  />
-                            <label class="form-check-label h6">{{ rol.descripcion }}</label>
+                            <input type="checkbox" [(ngModel)]="rol.checked" name="rol" class="form-check-input p-1 me-2 ms-2 " id="rol" />
+                            <label class="form-check-label h6" for="roles">{{ rol.descripcion }}</label>
                         </div>
                     </div>
                 </div>
@@ -52,9 +70,9 @@
             <div class="form-group row">
                 <div class="col-sm-6">
                     <button class="btn btn-primary" role="button" (click)='Volver()' >Volver</button>
-                    <button class="btn btn-primary" role="button" (click)="create()" *ngIf="!user.id; else elseBlock">Crear</button>
+                    <button class="btn btn-primary" role="button" (click)="create()" *ngIf="!user.id; else elseBlock" [disabled]="impresoraForm.invalid || myPersonaControl.invalid">Crear</button>
                     <ng-template #elseBlock>
-                        <button class="btn btn-primary" role="button" (click)="update()">Editar</button>
+                        <button class="btn btn-primary" role="button" (click)="update()" [disabled]="impresoraForm.invalid">Editar</button>
                     </ng-template>
                 </div>
             </div>

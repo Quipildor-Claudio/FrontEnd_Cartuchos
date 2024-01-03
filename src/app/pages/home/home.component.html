@@ -112,6 +112,7 @@
                         <button type="button" class="btn btn-danger" (click)="delete(item)">
                             <i class="fa fa-times"></i>
                         </button>
+                        <button type="button" class="btn btn-danger" [routerLink]="['/solicitud-pdf',item.id]" *ngIf="item.estado.descripcion === 'APROBADA'">pdf</button>
 
                     </td>
 

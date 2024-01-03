@@ -6,26 +6,28 @@
       <div class="form-group row">
         <div class="col-sm-5">
           <label for="modelo" class="control-label h5">Modelo</label>
-          <input type="text" class="form-control" [(ngModel)]="impresora.modelo" name="modelo" #modelo="ngModel" required minlength="4">
+          <input type="text" class="form-control" [(ngModel)]="impresora.modelo" name="modelo" #modelo="ngModel" required minlength="3" placeholder="Ingrese el modelo..."
+            [ngClass]="{'is-invalid': modelo.invalid && (modelo.dirty || modelo.touched)}">
           <div *ngIf="modelo.invalid && (modelo.dirty || modelo.touched)" class="text-danger">
             <div *ngIf="modelo.errors['required']">
               El modelo es requerido.
             </div>
             <div *ngIf="modelo.errors['minlength']">
-              El modelo debe tener al menos 4 caracteres.
+              El modelo debe tener al menos 3 caracteres.
             </div>
           </div>
         </div>
 
         <div class="col-sm-5">
           <label for="descripcion" class="control-label h5">Descripción</label>
-          <input type="text" class="form-control" [(ngModel)]="impresora.descripcion" name="descripcion" #descripcion="ngModel" required minlength="4">
+          <input type="text" class="form-control" [(ngModel)]="impresora.descripcion" name="descripcion" #descripcion="ngModel" required minlength="3" placeholder="Ingrese la descripción..."
+            [ngClass]="{'is-invalid': descripcion.invalid && (descripcion.dirty || descripcion.touched)}">
           <div *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)" class="text-danger">
             <div *ngIf="descripcion.errors['required']">
               La descripción es requerida.
             </div>
             <div *ngIf="descripcion.errors['minlength']">
-              La descripción debe tener al menos 4 caracteres.
+              La descripción debe tener al menos 3 caracteres.
             </div>
           </div>
         </div>
@@ -34,23 +36,24 @@
       <div class="form-group row">
         <div class="col-sm-5">
           <label for="marca" class="control-label h5">Marcas</label>
-          <select [compareWith]="comparar" class="form-control" [(ngModel)]="impresora['marca']" name="marca" required>
+          <select [compareWith]="comparar" class="form-control" [(ngModel)]="impresora['marca']" name="marca" required
+            [ngClass]="{'is-invalid': impresoraForm?.controls['marca']?.invalid && (impresoraForm?.controls['marca']?.dirty || impresoraForm?.controls['marca']?.touched)}">
             <option [ngValue]="undefined">Seleccione marca de impresora...</option>
             <option *ngFor="let marca of marcas" [ngValue]="marca">{{marca.nombre}}</option>
           </select>
-          <div *ngIf="impresoraForm.controls['marca'].invalid && (impresoraForm.controls['marca'].dirty || impresoraForm.controls['marca'].touched)" class="text-danger">
+          <div *ngIf="impresoraForm?.controls['marca']?.invalid && (impresoraForm?.controls['marca']?.dirty || impresoraForm?.controls['marca']?.touched)" class="text-danger">
             Seleccione una marca de impresora.
           </div>
         </div>
       
         <div class="col-sm-5">
           <label for="tipoImpresora" class="control-label h5">Tipo Impresora</label>
-          <select [compareWith]="comparar" class="form-control" [(ngModel)]="impresora['tipoImpresora']" name="tipoImpresora" required>
+          <select [compareWith]="comparar" class="form-select" [(ngModel)]="impresora['tipoImpresora']" name="tipoImpresora" required
+            [ngClass]="{'is-invalid': impresoraForm?.controls['tipoImpresora']?.invalid && (impresoraForm?.controls['tipoImpresora']?.dirty || impresoraForm?.controls['tipoImpresora']?.touched)}">
             <option [ngValue]="undefined">Seleccione tipo de impresora</option>
             <option *ngFor="let tipoImpresora of tipoImpresoras" [ngValue]="tipoImpresora">{{tipoImpresora.descripcion}}</option>
-      
           </select>
-          <div *ngIf="impresoraForm.controls['tipoImpresora'].invalid && (impresoraForm.controls['tipoImpresora'].dirty || impresoraForm.controls['tipoImpresora'].touched)" class="text-danger">
+          <div *ngIf="impresoraForm?.controls['tipoImpresora']?.invalid && (impresoraForm?.controls['tipoImpresora']?.dirty || impresoraForm?.controls['tipoImpresora']?.touched)" class="text-danger">
             Seleccione un tipo de impresora.
           </div>
         </div>
@@ -60,9 +63,9 @@
         <div class="row">
           <label for="tipoImpresora" class="control-label h5 col-sm-2">Cartuchos</label>
         </div>
-        <mat-form-field class="col-sm-10">
-          <mat-label>Modelo de Cartucho</mat-label>
-          <input type="text" placeholder="Escribir Modelo del Cartucho" aria-label="impresoras" matInput [formControl]="myCartuchoControl" [matAutocomplete]="autoo" required>
+        <mat-form-field class="col-sm-10" >
+          <mat-label >Modelo de Cartucho</mat-label>
+          <input type="text" placeholder="Escribir Modelo del Cartucho" aria-label="impresoras" matInput [formControl]="myCartuchoControl" [matAutocomplete]="autoo" required id="mat">
           <div *ngIf="myCartuchoControl.invalid && (myCartuchoControl.dirty || myCartuchoControl.touched)" class="text-danger">
             <div *ngIf="myCartuchoControl.errors['required']">
               El modelo de cartucho es requerido.

@@ -36,3 +36,20 @@
 mat-form-field{
     width: 500px;
   }
+  .btn {
+    background: rgb(0, 92, 93);
+    color: white;
+    border: rgb(0, 92, 93);
+  }
+  
+  #btn-agregar {
+    font-size: 17px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+  }
+  
+  .btn:hover {
+    background: rgb(16, 40, 40);
+    color: white;
+    position: relative;
+    display: inline-block;
+  }

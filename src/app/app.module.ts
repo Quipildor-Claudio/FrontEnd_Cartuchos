@@ -29,6 +29,7 @@ import { ServicioComponent } from './pages/servicio/servicio.component';
 import { FormServicioComponent } from './components/form-servicio/form-servicio.component';
 import { FormPersonaComponent } from './components/form-persona/form-persona.component';
 import { FormEstadoComponent } from './components/form-estado/form-estado.component';
+import { SolicitudPdfComponent } from './components/solicitud-pdf/solicitud-pdf.component';
 
 
 import { InformesComponent } from './pages/informes/informes.component';
@@ -65,6 +66,7 @@ import { FilterPipe } from './pipes/filter.pipe';
     FormPersonaComponent,
     FormEstadoComponent,
     InformesComponent,
+    SolicitudPdfComponent
 
 
 

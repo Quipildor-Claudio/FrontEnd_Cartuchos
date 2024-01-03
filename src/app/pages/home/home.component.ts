@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { Solicitud } from 'src/app/models/solicitud';
 import { EstadoService } from 'src/app/services/estado.service';
 import { Estado } from 'src/app/models/estado';
+import { Router } from '@angular/router';
 
 
 
@@ -23,8 +24,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private solicitudService: SolicitudService,
-    private estadoService: EstadoService
-
+    private estadoService: EstadoService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -102,8 +103,9 @@ export class HomeComponent implements OnInit {
     return o1 === null || o2 === null || o1 === undefined || o2 === undefined ? false : o1.id === o2.id;
   }
 
-
-
-
-
+  openPDFInNewTab(solicitudId: number): void {
+    const url = this.router.createUrlTree(['/solicitud-pdf', solicitudId]).toString();
+    const newTab = window.open('', '_blank');
+    newTab.location.href = url;
+  }
 }

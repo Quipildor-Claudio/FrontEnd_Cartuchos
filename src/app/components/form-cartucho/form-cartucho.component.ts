@@ -40,6 +40,7 @@ export class FormCartuchoComponent implements OnInit {
     this.getMarcas();
     this.getColores();
     this.getTipos();
+    
   }
 
   cargar(): void {

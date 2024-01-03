@@ -23,6 +23,7 @@ import { PersonaComponent } from './pages/persona/persona.component';
 import { FormPersonaComponent } from './components/form-persona/form-persona.component';
 import { FormEstadoComponent } from './components/form-estado/form-estado.component';
 import { InformesComponent } from './pages/informes/informes.component';
+import { SolicitudPdfComponent } from './components/solicitud-pdf/solicitud-pdf.component';
 
 const routes: Routes = [
 
@@ -51,6 +52,10 @@ const routes: Routes = [
 
   { path: 'solicitudes', component: SolicitudComponent },
   { path: 'solicitudes/:id', component: SolicitudComponent },
+  
+  { path: 'solicitud-pdf', component: SolicitudPdfComponent },
+  { path: 'solicitud-pdf/:id', component: SolicitudPdfComponent },
+
 
   { path: 'form-solicitud', component: FormSolicitudComponent },
   { path: 'form-solicitud/:id', component: FormSolicitudComponent },

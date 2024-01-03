@@ -1,61 +1,75 @@
 <div class="row col-sm-10 offset-sm-1 p-4" id="formulario">
-    <div class="header"><h3>{{ titulo }}</h3></div>
-    <hr id="borde"/>
-    <div class="bodycol-md-12 offset-sm-1">
-      <form #personaForm="ngForm">
-        <div class="form-group row">
-          <div class="col-sm-5">
-            <label for="apellido" class="control-label h5">Apellido</label>
-            <input type="text" class="form-control" [(ngModel)]="persona.apellido" name="apellido"
-                   #apellido="ngModel" required minlength="4">
-            <div *ngIf="personaForm.dirty && apellido.touched" class="text-danger">
-              <div *ngIf="apellido.errors['required']">Apellido es requerido.</div>
-              <div *ngIf="apellido.errors['minlength']">Apellido debe tener al menos 4 caracteres.</div>
+  <div class="header"><h3>{{ titulo }}</h3></div>
+  <hr id="borde"/>
+  <div class="body col-md-12 offset-sm-1">
+    <form #personaForm="ngForm">
+      <div class="form-group row">
+        <div class="col-sm-5">
+          <label for="apellido" class="control-label h5">Apellido</label>
+          <input type="text" class="form-control" [(ngModel)]="persona.apellido" name="apellido"
+            #apellido="ngModel" required minlength="4" placeholder="Ingrese el apellido..."
+            [ngClass]="{'is-invalid': personaForm?.controls['apellido']?.invalid && (personaForm?.controls['apellido']?.dirty || personaForm?.controls['apellido']?.touched)}">
+          <div *ngIf="personaForm?.controls['apellido']?.invalid && (personaForm?.controls['apellido']?.dirty || personaForm?.controls['apellido']?.touched)" class="text-danger">
+            <div *ngIf="personaForm?.controls['apellido']?.errors['required']">
+              Apellido es requerido.
             </div>
-          </div>
-  
-          <div class="col-sm-5">
-            <label for="nombre" class="control-label h5">Nombre</label>
-            <input type="text" class="form-control" [(ngModel)]="persona.nombre" name="nombre"
-                   #nombre="ngModel" required minlength="4">
-            <div *ngIf="personaForm.dirty && nombre.touched" class="text-danger">
-              <div *ngIf="nombre.errors['required']">Nombre es requerido.</div>
-              <div *ngIf="nombre.errors['minlength']">Nombre debe tener al menos 4 caracteres.</div>
+            <div *ngIf="personaForm?.controls['apellido']?.errors['minlength']">
+              Apellido debe tener al menos 4 caracteres.
             </div>
           </div>
         </div>
-  
-        <div class="form-group row">
-          <div class="col-sm-5">
-            <label for="dni" class="control-label h5">DNI</label>
-            <input type="text" class="form-control" [(ngModel)]="persona.dni" name="dni" #dni="ngModel"
-                   required pattern="[0-9]{8}" maxlength="8">
-            <div *ngIf="personaForm.dirty && dni.touched" class="text-danger">
-              <div *ngIf="dni.errors['required']">DNI es requerido.</div>
-              <div *ngIf="dni.errors['pattern']">DNI debe contener solo números y tener 8 dígitos.</div>
+
+        <div class="col-sm-5">
+          <label for="nombre" class="control-label h5">Nombre</label>
+          <input type="text" class="form-control" [(ngModel)]="persona.nombre" name="nombre"
+            #nombre="ngModel" required minlength="4" placeholder="Ingrese el nombre..."
+            [ngClass]="{'is-invalid': personaForm?.controls['nombre']?.invalid && (personaForm?.controls['nombre']?.dirty || personaForm?.controls['nombre']?.touched)}">
+          <div *ngIf="personaForm?.controls['nombre']?.invalid && (personaForm?.controls['nombre']?.dirty || personaForm?.controls['nombre']?.touched)" class="text-danger">
+            <div *ngIf="personaForm?.controls['nombre']?.errors['required']">
+              Nombre es requerido.
             </div>
-          </div>
-  
-          <div class="col-sm-5">
-            <label class="control-label h5">Servicio</label>
-            <select [compareWith]="comparar" class="form-control" [(ngModel)]="persona.servicio" name="servicio" required>
-            <option [ngValue]="undefined">Seleccione un servicio...</option>
-              <option *ngFor="let servicio of servios" [ngValue]="servicio">{{servicio.nombre}}</option>
-            </select>
-            <div *ngIf="personaForm.controls['servicio'].invalid && (personaForm.controls['servicio'].dirty || personaForm.controls['servicio'].touched)" class="text-danger">
-              Servicio es requerido.
+            <div *ngIf="personaForm?.controls['nombre']?.errors['minlength']">
+              Nombre debe tener al menos 4 caracteres.
             </div>
           </div>
         </div>
-  
-        <div class="form-group row">
-          <div class="col-sm-12">
-            <button class="btn btn-primary" role="button" (click)='Volver()' >Volver</button>
-            <button type="submit" class="btn btn-primary" role="button"
-                    [disabled]="personaForm.invalid">{{ persona.id ? 'Editar' : 'Crear' }}</button>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-5">
+          <label for="dni" class="control-label h5">DNI</label>
+          <input type="text" class="form-control" [(ngModel)]="persona.dni" name="dni" #dni="ngModel"
+            required pattern="[0-9]{8}" maxlength="8" placeholder="Ingrese el DNI..."
+            [ngClass]="{'is-invalid': personaForm?.controls['dni']?.invalid && (personaForm?.controls['dni']?.dirty || personaForm?.controls['dni']?.touched)}">
+          <div *ngIf="personaForm?.controls['dni']?.invalid && (personaForm?.controls['dni']?.dirty || personaForm?.controls['dni']?.touched)" class="text-danger">
+            <div *ngIf="personaForm?.controls['dni']?.errors['required']">
+              DNI es requerido.
+            </div>
+            <div *ngIf="personaForm?.controls['dni']?.errors['pattern']">
+              DNI debe contener solo números y tener 8 dígitos.
+            </div>
           </div>
         </div>
-      </form>
-    </div>
+        <div class="col-sm-5">
+          <label for="servicio" class="control-label h5">Servicio</label>
+          <select [compareWith]="comparar" class="form-select" [(ngModel)]="persona.servicio" name="servicio" required
+            [ngClass]="{'is-invalid': personaForm?.controls['servicio']?.invalid && (personaForm?.controls['servicio']?.dirty || personaForm?.controls['servicio']?.touched)}">
+            <option [ngValue]="undefined">Seleccione un servicio</option>
+            <option *ngFor="let servicio of servios" [ngValue]="servicio">{{servicio.nombre}}</option>
+          </select>
+          <div *ngIf="personaForm?.controls['servicio']?.invalid && (personaForm?.controls['servicio']?.dirty || personaForm?.controls['servicio']?.touched)" class="text-danger">
+            Servicio es requerido.
+          </div>
+        </div>
   </div>
-  
+      <div class="form-group row">
+        <div class="col-sm-12">
+          <button class="btn btn-primary" role="button" (click)='Volver()' >Volver</button>
+          <button type="submit" class="btn btn-primary" role="button" [disabled]="personaForm.invalid">
+            {{ persona.id ? 'Editar' : 'Crear' }}
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

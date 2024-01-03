@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Servicio } from 'src/app/models/servicio';
 import { ServicioService } from 'src/app/services/servicio.service';
@@ -14,8 +14,18 @@ export class ServicioComponent implements OnInit {
   servicios:Servicio[]=[];
   agregandoNuevoServicio = false;
   editarIndex = -1;
+  scrolled = false;
   edicionEnProgreso = false;
   servicio: Servicio = new Servicio();
+  @ViewChild('serviciosContainer') serviciosContainer: ElementRef;
+  @ViewChild('serviciosCard') serviciosCard: ElementRef;
+
+
+  ngAfterViewInit(): void {
+    if (this.agregandoNuevoServicio) {
+      this.scrollToAddColor();
+    }
+  }
 
 
   constructor(private servicioService:ServicioService, private route: Router)  { 
@@ -24,6 +34,7 @@ export class ServicioComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData();
+    this.onWindowScroll(null);
   }
   getData(){
     this.servicioService.getAll().subscribe(res=>this.servicios=res);
@@ -54,6 +65,9 @@ export class ServicioComponent implements OnInit {
 agregar(): void {
   this.agregandoNuevoServicio = true;
   this.servicio = new Servicio();
+  setTimeout(() => {
+    this.scrollToAddColor();
+  },15);
 }
 
 confirmarAgregar(): void {
@@ -72,6 +86,7 @@ confirmarAgregar(): void {
     this.route.navigate(['/tipo_cargas']);
     this.agregandoNuevoServicio = false;
     this.getData();
+    
     })
     }
   })
@@ -117,5 +132,23 @@ getNextId(): number {
   }
 });
 }
+
+scrollToAddColor(): void {
+  if (this.serviciosContainer && this.serviciosContainer.nativeElement) {
+    this.serviciosContainer.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+  }
+}
+
+ @HostListener('window:scroll', ['$event'])
+ onWindowScroll(event: any): void {
+   this.scrolled = window.scrollY > 200;
+ }
+
+ scrollToTop(): void {
+   if (this.serviciosCard && this.serviciosCard.nativeElement) {
+     this.serviciosCard.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+   }
+ }
+
 }
  

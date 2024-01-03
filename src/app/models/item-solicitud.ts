@@ -3,7 +3,7 @@ import { TipoCarga } from "./tipo-carga";
 
 export class ItemSolicitud {
     id:number;
-    cantidad:number;
+    cantidad:number; 
     cartucho:Cartucho;
     tipoCarga:TipoCarga;
 }

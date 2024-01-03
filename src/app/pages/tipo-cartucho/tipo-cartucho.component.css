@@ -1,4 +1,6 @@
-
+.custom-nombre-column {
+    width: 500px; 
+  }
 .odd{
     border: 2px solid rgb(0, 92, 93);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -30,3 +32,30 @@ tr th{
 tfoot{
     border: 1px solid rgb(0, 92, 93);
 }
+
+input:focus {
+    outline: none;
+    box-shadow: none;
+  }
+  
+  input {
+    border: none;
+    background-color: transparent;
+    color: none;
+    margin:0px;
+  }
+  
+  input:focus {
+    color: none;
+  }
+  .custom-input {
+    border: none;
+    background-color: transparent;
+    color: none;
+  }
+  
+  .custom-input:focus {
+    outline: none;
+    color: none;
+  }
+  

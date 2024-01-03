@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Marca } from 'src/app/models/marca';
 import { MarcaService } from 'src/app/services/marca.service';
@@ -14,9 +14,17 @@ export class MarcasComponent implements OnInit {
   title:string="Gestion de Marcas";
   marca: Marca = new Marca();
   agregandoNuevaMarca = false;
+  @ViewChild('marcasContainer') marcasContainer: ElementRef;
   editarIndex = -1;
   edicionEnProgreso = false;
     
+  
+  ngAfterViewInit(): void {
+    if (this.agregandoNuevaMarca) {
+      this.scrollToAddColor();
+    }
+  }
+
   constructor(private marcaService:MarcaService , private route: Router) { }
 
   ngOnInit(): void {
@@ -48,10 +56,12 @@ export class MarcasComponent implements OnInit {
  })
 }
 
-/* Agregar*/ 
 agregar(): void {
   this.agregandoNuevaMarca = true;
   this.marca = new Marca();
+  setTimeout(() => {
+    this.scrollToAddColor();
+  },15);
 }
 
 confirmarAgregar(): void {
@@ -115,5 +125,9 @@ getNextId(): number {
   }
 });
 }
+scrollToAddColor(): void {
+  if (this.marcasContainer && this.marcasContainer.nativeElement) {
+    this.marcasContainer.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+  }
 }
- 
+}

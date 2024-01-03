@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ColorService } from 'src/app/services/color.service';
 import { Color } from 'src/app/models/color';
 import Swal from 'sweetalert2';
@@ -12,12 +12,20 @@ import { Router } from '@angular/router';
 export class ColoresComponent implements OnInit {
   title = "Gestion de Colores";
   colores: Color[];
+  @ViewChild('coloresContainer') coloresContainer: ElementRef;
   color: Color = new Color();
   editarIndex = -1;
   agregandoNuevoColor = false;
   edicionEnProgreso = false;
   mostrarAgregar:boolean=true;
   mostrarModificar:boolean=true;
+
+  ngAfterViewInit(): void {
+    if (this.agregandoNuevoColor) {
+      this.scrollToAddColor();
+    }
+  }
+
 
   constructor(private colorService: ColorService, private route: Router) {}
 
@@ -55,9 +63,11 @@ export class ColoresComponent implements OnInit {
     this.agregandoNuevoColor = true;
     this.color = new Color();
     this.mostrarModificar=false;
-  }
+    setTimeout(() => {
+    this.scrollToAddColor();
+  },15);}
 
-  confirmarAgregar(): void {
+  confirmarAgregar(): void {   
     Swal.fire({
       title: 'Estas Seguro?',
       text: `Agregar el color: ${this.color.nombre}}`,
@@ -94,6 +104,7 @@ export class ColoresComponent implements OnInit {
   cancelarModificacion(): void {
     this.editarIndex = -1;
     this.edicionEnProgreso = false;
+
   }
 
   update(item: Color): void {
@@ -115,6 +126,12 @@ export class ColoresComponent implements OnInit {
     })
   }
 });
+}
+
+scrollToAddColor(): void {
+  if (this.coloresContainer && this.coloresContainer.nativeElement) {
+    this.coloresContainer.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+  }
 }
 }
  

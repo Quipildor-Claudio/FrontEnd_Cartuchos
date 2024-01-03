@@ -12,3 +12,18 @@
     width: 300px;
     display:inline-block;
 }
+.form-control{
+    border:solid 1px; 
+    border-color: rgb(0, 92, 93); 
+    color:rgb(0,0,0);
+}
+.form-select{
+    border:solid 1px; 
+    border-color: rgb(0, 92, 93); 
+    color:rgb(0, 0, 0);
+}
+.s{
+    
+    border-color: rgb(0, 92, 93); 
+    background-color: rgb(0, 92, 93); ;
+}
