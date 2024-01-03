@@ -35,56 +35,57 @@
               </ul>
             </li>
 
-            <li class="nav-item dropdown">
-              <a class="nav-link text-light dropdown-toggle" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                Gestión de Cartuchos
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="cartuchos">Cartuchos</a></li>
-                <!--   <li><a class="dropdown-item" href="marcas">Marca de Cartucho</a></li> -->
-                <li><a class="dropdown-item" href="colores">Color de Cartucho</a></li>
-                <li><a class="dropdown-item" href="tipodecarga">Tipo de Carga</a></li>
-                <li><a class="dropdown-item" href="tipodecartucho">Tipo de Cartucho</a></li>
-              </ul>
-            </li>
-
-            <li class="nav-item dropdown">
-              <a class="nav-link text-light dropdown-toggle" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                Gestión de Impresoras
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item text-light" href="impresoras">Impresoras</a></li>
-                <li><a class="dropdown-item text-light" href="tipodeimpresoras">Tipo de Impresora</a></li>
-                <li><a class="dropdown-item text-light" href="marcas">Marcas</a></li>
-              </ul>
-            </li>
-
-            <li class="nav-item dropdown">
-              <a class="nav-link text-light dropdown-toggle" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                Gestión de Usuarios
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item text-light " href="usuarios">Usuarios</a></li>
-                <li><a class="dropdown-item text-light" href="personas">Personal</a></li>
-                <!--      <li><a class="dropdown-item text-light" href="roles">Rol</a></li> -->
-                <li><a class="dropdown-item text-light" href="servicios">Servicio</a></li>
-              </ul>
-            </li>
-
-
-              <li *ngIf="authService.isAuthenticated()"  class="nav-item dropdown">
+            <div  *ngIf="authService.getUserSession().role == 'COMPUTO' || authService.getUserSession().role == 'ADMINISTRADOR' ">
+              <li class="nav-item dropdown">
                 <a class="nav-link text-light dropdown-toggle" role="button" data-bs-toggle="dropdown"
                   aria-expanded="false">
-                  {{authService.getUserSession().username}}
+                  Gestión de Cartuchos
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a (click)="logout()" class="dropdown-item text-light" href="login">Salir</a></li>
-
+                  <li><a class="dropdown-item" href="cartuchos">Cartuchos</a></li>
+                  <!--   <li><a class="dropdown-item" href="marcas">Marca de Cartucho</a></li> -->
+                  <li><a class="dropdown-item" href="colores">Color de Cartucho</a></li>
+                  <li><a class="dropdown-item" href="tipodecarga">Tipo de Carga</a></li>
+                  <li><a class="dropdown-item" href="tipodecartucho">Tipo de Cartucho</a></li>
                 </ul>
               </li>
+
+              <li class="nav-item dropdown">
+                <a class="nav-link text-light dropdown-toggle" role="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  Gestión de Impresoras
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item text-light" href="impresoras">Impresoras</a></li>
+                  <li><a class="dropdown-item text-light" href="tipodeimpresoras">Tipo de Impresora</a></li>
+                  <li><a class="dropdown-item text-light" href="marcas">Marcas</a></li>
+                </ul>
+              </li>
+
+              <li class="nav-item dropdown">
+                <a class="nav-link text-light dropdown-toggle" role="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  Gestión de Usuarios
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item text-light " href="usuarios">Usuarios</a></li>
+                  <li><a class="dropdown-item text-light" href="personas">Personal</a></li>
+                  <!--      <li><a class="dropdown-item text-light" href="roles">Rol</a></li> -->
+                  <li><a class="dropdown-item text-light" href="servicios">Servicio</a></li>
+                </ul>
+              </li>
+            </div>
+
+            <li *ngIf="authService.isAuthenticated()" class="nav-item dropdown">
+              <a class="nav-link text-light dropdown-toggle" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                {{authService.getUserSession().username}}
+              </a>
+              <ul class="dropdown-menu">
+                <li><a (click)="logout()" class="dropdown-item text-light" href="login">Salir</a></li>
+
+              </ul>
+            </li>
           </ul>
         </div>
       </div>

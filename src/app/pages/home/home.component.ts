@@ -60,8 +60,6 @@ export class HomeComponent implements OnInit {
     this.estadoService.getAll().subscribe(res => this.estados = res);
   }
 
-
-
   delete(item): void {
     Swal.fire({
       title: 'Estas Seguro?',

@@ -8,12 +8,12 @@ import { AuthService } from 'src/app/auth/auth.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
-  constructor(public authService: AuthService, private router:Router) { }
+  constructor(public authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
+ 
   }
-  logout():void{
+  logout(): void {
     this.authService.logout();
     this.router.navigate(["/login"]);
     location.reload();
