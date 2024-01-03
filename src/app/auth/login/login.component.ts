@@ -9,34 +9,47 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent implements OnInit{
-  usuario:User=new User();
-
-  constructor(private authService:AuthService,
-              private router:Router){
+export class LoginComponent implements OnInit {
+  usuario: User = new User();
+  name: string = "";
+  constructor(private authService: AuthService,
+    private router: Router) {
 
   }
 
   ngOnInit(): void {
-      
+    if (this.authService.isAuthenticated()) {
+      this.name = this.authService.getUserSession().username;
+      Swal.fire(`Hola ${this.name} ya estas logueado !`);
+      this.router.navigate(['/home']);
+
+    }
   }
 
 
-  login():void{
-    console.log(this.usuario);
+  login(): void {
+   // console.log(this.usuario);
     if (this.usuario.username == null || this.usuario.password == null) {
       Swal.fire('Error Login', 'Username o password vacías!', 'error');
       return;
     }
 
-    this.authService.login(this.usuario).subscribe(r=>{
-      console.log(r);
+    this.authService.login(this.usuario).subscribe(u => {
+      this.authService.saveToken(u.token);
+      this.authService.saveUser(u.token);
       this.router.navigate(['/home']);
-      Swal.fire('Login', `Hola ${r.username}, has iniciado sesión con éxito!`, 'success');
+
+
+      Swal.fire('Login', `Hola ${u.username}, has iniciado sesión con éxito!`, 'success');
+    },err=>{
+      if(err.status==401){
+        Swal.fire('Error Login', 'Username o password Incorrectos', 'error');
+
+      }
     });
 
   }

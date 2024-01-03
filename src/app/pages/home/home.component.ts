@@ -4,7 +4,9 @@ import Swal from 'sweetalert2';
 import { Solicitud } from 'src/app/models/solicitud';
 import { EstadoService } from 'src/app/services/estado.service';
 import { Estado } from 'src/app/models/estado';
-import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
+import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/models/user';
 
 
 
@@ -14,19 +16,24 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  title:string="Solicitudes"
+  title: string = "Solicitudes"
   solicitudes: Solicitud[] = [];
   estados: Estado[] = [];
   estado: any;
   filteredSol: Solicitud[] = [];
   filterText: any;
   filterId: any;
+  user: User = new User();
 
   constructor(
     private solicitudService: SolicitudService,
     private estadoService: EstadoService,
-    private router: Router
-  ) { }
+    private authService: AuthService,
+    private userService: UserService
+
+
+  ) {
+  }
 
   ngOnInit(): void {
 
@@ -35,11 +42,19 @@ export class HomeComponent implements OnInit {
   }
 
   getData() {
-    this.solicitudService.getAll().subscribe(res => {
-      this.solicitudes = res
+    let name = this.authService.getUserSession().username;
+    this.userService.getUserbyName(name).subscribe(res => {
+      this.user = res;
+      console.log(this.user);
+      if (this.user.roles[0].descripcion == "ADMINISTRADOR" || this.user.roles[0].descripcion == "COMPUTO") {
+        this.solicitudService.getAll().subscribe(res => this.solicitudes = res);
+      } else {
+       this.solicitudes = this.user.solicitudes;
+      }
 
-      console.log(this.solicitudes);
     });
+
+
   }
   getEstados(): void {
     this.estadoService.getAll().subscribe(res => this.estados = res);
@@ -80,7 +95,7 @@ export class HomeComponent implements OnInit {
 
   }
 
-  
+
 
   searchId(id: any) {
     console.log(id);

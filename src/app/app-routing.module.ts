@@ -30,7 +30,7 @@ import { LoginComponent } from './auth/login/login.component';
 >>>>>>> e6adb4282e53ea8712ed509139f159e2a8f82d9d
 
 const routes: Routes = [
-
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component:LoginComponent},
 
   { path: 'home', component: HomeComponent },

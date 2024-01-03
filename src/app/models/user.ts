@@ -1,5 +1,6 @@
 import { Persona } from "./persona";
 import { Rol } from "./rol";
+import { Solicitud } from "./solicitud";
 
 export class User {
     id:number;
@@ -10,7 +11,7 @@ export class User {
     roles:Rol[]=[];
     enabled:boolean;
     create_at:string;
-
+    solicitudes:Solicitud[]=[];
     activo():string{
         return this.enabled?"Activo":"Descativado";
     }
