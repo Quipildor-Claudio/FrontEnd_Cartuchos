@@ -7,6 +7,7 @@ import { Estado } from 'src/app/models/estado';
 import { AuthService } from 'src/app/auth/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user';
+import { Router } from '@angular/router';
 
 
 
@@ -29,7 +30,8 @@ export class HomeComponent implements OnInit {
     private solicitudService: SolicitudService,
     private estadoService: EstadoService,
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private router:Router
 
 
   ) {
