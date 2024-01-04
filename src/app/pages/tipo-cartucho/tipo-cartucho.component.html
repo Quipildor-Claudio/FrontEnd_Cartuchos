@@ -3,7 +3,7 @@
     <h3 class="card-title">{{title}}</h3>
   </div>
   <div class="card-body">
-    <button type="button" class="btn btn-primary " [routerLink]="['/formmarca']"  id="btn-agregar" class="btn" data-bs-toggle="btn" data-bs-placement="top" (click)="agregar()" title="Agregar Tipo">Agregar Tipo de Cartucho</button>
+    <button type="button" class="btn btn-primary " [routerLink]="['/formmarca']"  id="btn-agregar" class="btn" data-bs-toggle="btn" data-bs-placement="top" (click)="agregar()"  [disabled]="edicionEnProgreso" title="Agregar Tipo">Agregar Tipo de Cartucho</button>
     <div id="" class=" dt-bootstrap4">
       <br/>
       <div class="row">

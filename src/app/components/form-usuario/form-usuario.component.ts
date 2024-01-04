@@ -121,7 +121,7 @@ export class FormUsuarioComponent implements OnInit {
       confirmButtonText: 'Yes!'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.route.navigate(['/impresoras']);
+        this.route.navigate(['/usuarios']);
       }});}
       
     

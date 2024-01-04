@@ -8,7 +8,7 @@
 
         <div class="col-sm-6">
           <label class="control-label h5">Impresora</label>
-          <select class="col-sm-6" [compareWith]="comparar" class="form-control" [(ngModel)]="impresora.marca" name="imarca " (change)="imarca()" required>
+          <select class="col-sm-6 form-control" [compareWith]="comparar" [(ngModel)]="impresora.marca" name="imarca " (change)="imarca()" required>
             <option [ngValue]="undefined">Selecionar una marca...</option>
             <option *ngFor="let imarca of marcas" [ngValue]="imarca">{{imarca.nombre}}</option>
           </select>

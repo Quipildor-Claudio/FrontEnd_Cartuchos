@@ -57,13 +57,13 @@ export class FormPersonaComponent implements OnInit {
     )
   }
 
-  update(): void {
+  update(): void { 
     console.log(this.persona);
     this.personaService.update(this.persona,this.persona.id).subscribe(
       res => {
         Swal.fire(
           'Exito',
-          `Categoria ${res.apellido}  Actulizada!`,
+          `Categoria ${res.apellido}  Actualizada!`,
           'success'
         )
         this.route.navigate(['/personas']);
@@ -71,7 +71,7 @@ export class FormPersonaComponent implements OnInit {
     )
 
   }
-
+ 
   comparar(o1: any, o2: any): boolean {
     if (o1 === undefined && o2 === undefined) {
       return true;
