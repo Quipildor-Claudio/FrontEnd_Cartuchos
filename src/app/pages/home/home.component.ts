@@ -45,9 +45,10 @@ export class HomeComponent implements OnInit {
 
   getData() {
     let name = this.authService.getUserSession().username;
+    console.log(name);
     this.userService.getUserbyName(name).subscribe(res => {
-      this.user = res;
-      console.log(this.user);
+      this.user = res ;
+      console.log("88888"+res);
       if (this.user.roles[0].descripcion == "ADMINISTRADOR" || this.user.roles[0].descripcion == "COMPUTO") {
         this.solicitudService.getAll().subscribe(res => this.solicitudes = res);
       } else {
