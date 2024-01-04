@@ -23,11 +23,8 @@ import { PersonaComponent } from './pages/persona/persona.component';
 import { FormPersonaComponent } from './components/form-persona/form-persona.component';
 import { FormEstadoComponent } from './components/form-estado/form-estado.component';
 import { InformesComponent } from './pages/informes/informes.component';
-<<<<<<< HEAD
 import { SolicitudPdfComponent } from './components/solicitud-pdf/solicitud-pdf.component';
-=======
 import { LoginComponent } from './auth/login/login.component';
->>>>>>> e6adb4282e53ea8712ed509139f159e2a8f82d9d
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
