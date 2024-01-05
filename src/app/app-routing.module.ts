@@ -26,9 +26,8 @@ import { InformesComponent } from './pages/informes/informes.component';
 import { SolicitudPdfComponent } from './components/solicitud-pdf/solicitud-pdf.component';
 import { LoginComponent } from './auth/login/login.component';
 
-
 const routes: Routes = [
-
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component:LoginComponent},
 
   { path: 'home', component: HomeComponent },

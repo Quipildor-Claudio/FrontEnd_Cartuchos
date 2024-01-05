@@ -4,37 +4,37 @@ import { API_URI } from 'config/config';
 import { Observable, map } from 'rxjs';
 import { Impresora } from '../models/impresora';
 import { Servicio } from '../models/servicio';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ServicioService {
 
-  private httpheaders = new HttpHeaders({ 'content-type': 'application/json' });
   
   
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient,private authService:AuthService) { }
 
   getAll(): Observable<any[]> {
-    return this.http.get(`${API_URI}/servicios`).pipe(
+    return this.http.get(`${API_URI}/servicios`,{headers:this.authService.addAuthorizationHeader()}).pipe(
       map(response=>response as any[])
     );
   }
 
   getOne(id):Observable<Impresora>{
-    return this.http.get(`${API_URI}/servicios/${id}`).pipe(
+    return this.http.get(`${API_URI}/servicios/${id}`,{headers:this.authService.addAuthorizationHeader()}).pipe(
       map(response=>response as Impresora)
     );
   }
 
   add(servicio:Servicio):Observable<any>{
-    return this.http.post<any>(`${API_URI}/servicios`,servicio,{headers:this.httpheaders});
+    return this.http.post<any>(`${API_URI}/servicios`,servicio,{headers:this.authService.addAuthorizationHeader()});
   }
   update(servicio:Servicio,id:number):Observable<any>{
-    return this.http.put<any>(`${API_URI}/servicios/${id}`,servicio,{headers:this.httpheaders});
+    return this.http.put<any>(`${API_URI}/servicios/${id}`,servicio,{headers:this.authService.addAuthorizationHeader()});
   }
 
   delete(id:number):Observable<any>{
-    return this.http.delete<any>(`${API_URI}/servicios/${id}`,{headers:this.httpheaders});
+    return this.http.delete<any>(`${API_URI}/servicios/${id}`,{headers:this.authService.addAuthorizationHeader()});
   }
 }
