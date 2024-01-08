@@ -10,10 +10,10 @@ import Swal from 'sweetalert2';
   styleUrls: ['./tipo-cartucho.component.css']
 })
 export class TipoCartuchoComponent implements OnInit {
-  title:string= "Gestion de Tipos de Cartuchos";
+  title: string = "Gestion de Tipos de Cartuchos";
   tipo_cartuchos: any[];
   tipo_cartucho: TipoCartucho = new TipoCartucho();
-  agregandoNuevoCartuchoTipo:boolean;
+  agregandoNuevoCartuchoTipo: boolean;
   editarIndex = -1;
   edicionEnProgreso = false;
   @ViewChild('tipoCartuchoContainer') tipoCartuchoContainer: ElementRef;
@@ -24,7 +24,9 @@ export class TipoCartuchoComponent implements OnInit {
     }
   }
 
-  constructor(private tipoCartuchoService:TipoCartuchoService, private route: Router) { }
+  constructor(
+    private tipoCartuchoService: TipoCartuchoService,
+    public route: Router) { }
 
   ngOnInit(): void {
     this.getData();
@@ -44,92 +46,92 @@ export class TipoCartuchoComponent implements OnInit {
       confirmButtonText: 'Yes, Eliminar!'
     }).then((result) => {
       if (result.isConfirmed) {
-    if (confirm(`Eliminar ${item.descripcion}`)) {
-      this.tipoCartuchoService.delete(item.id).subscribe(() => {
-        this.tipo_cartuchos = this.tipo_cartuchos.filter(cat => cat !== item);
-        Swal.fire('Eliminado!', 'Su archivo a sido eliminado', 'success');
-      });
-    }
-    this.route.navigate(['/tipo_cartuchos']);
-  } 
- })
-}
-
-/*Agregar*/ 
-
-agregar(): void {
-  this.agregandoNuevoCartuchoTipo = true;
-  this.tipo_cartucho = new TipoCartucho();
-  setTimeout(() => {
-    this.scrollToAddColor();
-  },15);
-}
-
-confirmarAgregar(): void {
-  Swal.fire({
-    title: 'Estas Seguro?',
-    text: `Agregar el tipo de cartucho: ${this.tipo_cartucho.descripcion}`,
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, Agregar!'
-  }).then((result) => {
-    if (result.isConfirmed) {
-  this.tipoCartuchoService.add(this.tipo_cartucho).subscribe(() => {
-    Swal.fire('Éxito', `Categoría ${this.tipo_cartucho.descripcion} Creada!`, 'success');
-    this.route.navigate(['/tipo_cartuchos']);
-    this.agregandoNuevoCartuchoTipo = false;
-    this.getData();
+        if (confirm(`Eliminar ${item.descripcion}`)) {
+          this.tipoCartuchoService.delete(item.id).subscribe(() => {
+            this.tipo_cartuchos = this.tipo_cartuchos.filter(cat => cat !== item);
+            Swal.fire('Eliminado!', 'Su archivo a sido eliminado', 'success');
+          });
+        }
+        this.route.navigate(['/tipo_cartuchos']);
+      }
     })
-    }
-  })
-}
+  }
 
-cancelarAgregar(): void {
-  this.agregandoNuevoCartuchoTipo = false;
-  this.tipo_cartucho= new TipoCartucho();
-}
-getNextId(): number {
-  return Math.max(...this.tipo_cartuchos.map(c => c.id), 0) + 1;
-}
+  /*Agregar*/
 
-/*Modificar*/
+  agregar(): void {
+    this.agregandoNuevoCartuchoTipo = true;
+    this.tipo_cartucho = new TipoCartucho();
+    setTimeout(() => {
+      this.scrollToAddColor();
+    }, 15);
+  }
 
-habilitarModificacion(index: number): void {
-  this.editarIndex = index;
-  this.edicionEnProgreso = true;
-}
+  confirmarAgregar(): void {
+    Swal.fire({
+      title: 'Estas Seguro?',
+      text: `Agregar el tipo de cartucho: ${this.tipo_cartucho.descripcion}`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Agregar!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.tipoCartuchoService.add(this.tipo_cartucho).subscribe(() => {
+          Swal.fire('Éxito', `Categoría ${this.tipo_cartucho.descripcion} Creada!`, 'success');
+          this.route.navigate(['/tipo_cartuchos']);
+          this.agregandoNuevoCartuchoTipo = false;
+          this.getData();
+        })
+      }
+    })
+  }
 
-cancelarModificacion(): void {
-  this.editarIndex = -1;
-  this.edicionEnProgreso = false;
-}
+  cancelarAgregar(): void {
+    this.agregandoNuevoCartuchoTipo = false;
+    this.tipo_cartucho = new TipoCartucho();
+  }
+  getNextId(): number {
+    return Math.max(...this.tipo_cartuchos.map(c => c.id), 0) + 1;
+  }
 
-update(item: TipoCartucho): void {
-  Swal.fire({
-    title: 'Estas Seguro?',
-    text: `Modificar el tipo de cartucho: ${this.tipo_cartucho.descripcion}}`,
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, Modificar!'
-  }).then((result) => {
-    if (result.isConfirmed) {
-  this.tipoCartuchoService.update(item, item.id).subscribe(() => {
-    Swal.fire('Exito', `${item.descripcion} Modificada!`, 'success');
-    this.route.navigate(['/tipo_cartuchos']);
+  /*Modificar*/
+
+  habilitarModificacion(index: number): void {
+    this.editarIndex = index;
+    this.edicionEnProgreso = true;
+  }
+
+  cancelarModificacion(): void {
     this.editarIndex = -1;
     this.edicionEnProgreso = false;
-  })
-}
-});
-}
-scrollToAddColor(): void {
-  if (this.tipoCartuchoContainer && this.tipoCartuchoContainer.nativeElement) {
-    this.tipoCartuchoContainer.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
   }
-}
+
+  update(item: TipoCartucho): void {
+    Swal.fire({
+      title: 'Estas Seguro?',
+      text: `Modificar el tipo de cartucho: ${this.tipo_cartucho.descripcion}}`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Modificar!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.tipoCartuchoService.update(item, item.id).subscribe(() => {
+          Swal.fire('Exito', `${item.descripcion} Modificada!`, 'success');
+          this.route.navigate(['/tipo_cartuchos']);
+          this.editarIndex = -1;
+          this.edicionEnProgreso = false;
+        })
+      }
+    });
+  }
+  scrollToAddColor(): void {
+    if (this.tipoCartuchoContainer && this.tipoCartuchoContainer.nativeElement) {
+      this.tipoCartuchoContainer.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+    }
+  }
 }
 

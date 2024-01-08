@@ -3,12 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Cartucho } from 'src/app/models/cartucho';
 import { Color } from 'src/app/models/color';
 import { Marca } from 'src/app/models/marca';
-import { TipoCarga } from 'src/app/models/tipo-carga';
 import { TipoCartucho } from 'src/app/models/tipo-cartucho';
 import { CartuchoService } from 'src/app/services/cartucho.service';
 import { ColorService } from 'src/app/services/color.service';
 import { MarcaService } from 'src/app/services/marca.service';
-import { TipoCargaService } from 'src/app/services/tipo-carga.service';
 import { TipoCartuchoService } from 'src/app/services/tipo-cartucho.service';
 import Swal from 'sweetalert2';
 
@@ -19,20 +17,20 @@ import Swal from 'sweetalert2';
 })
 
 export class FormCartuchoComponent implements OnInit {
-  titulo: string = "Formulario";
-  cartucho:Cartucho= new Cartucho();
-  colores:Color[]=[];
-  marcas:Marca[]=[];
-  tipoCartuchos:TipoCartucho[]=[];
+  titulo: string = "Formulario Cartuchos";
+  cartucho: Cartucho = new Cartucho();
+  colores: Color[] = [];
+  marcas: Marca[] = [];
+  tipoCartuchos: TipoCartucho[] = [];
 
 
   constructor(
-    private cartuchoService:CartuchoService,
-    private colorService:ColorService,
-    private marcaService:MarcaService,
-    private tipoService:TipoCartuchoService,
-    private route: Router,
-    public activateRoute:ActivatedRoute
+    private cartuchoService: CartuchoService,
+    private colorService: ColorService,
+    private marcaService: MarcaService,
+    private tipoService: TipoCartuchoService,
+    public route: Router,
+    public activateRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -40,14 +38,14 @@ export class FormCartuchoComponent implements OnInit {
     this.getMarcas();
     this.getColores();
     this.getTipos();
-    
+
   }
 
   cargar(): void {
     this.activateRoute.params.subscribe(params => {
       let id = params['id']
       if (id) {
-        this.cartuchoService.getOne(id).subscribe(res=> this.cartucho= res);
+        this.cartuchoService.getOne(id).subscribe(res => this.cartucho = res);
       }
     }
     );
@@ -66,8 +64,7 @@ export class FormCartuchoComponent implements OnInit {
 
 
 
-  create():void {
-    console.log(this.cartucho);
+  create(): void {
     this.cartuchoService.add(this.cartucho).subscribe(res => {
       Swal.fire(
         'Exito',
@@ -78,12 +75,13 @@ export class FormCartuchoComponent implements OnInit {
     });
 
   };
+
+
   update(): void {
-    console.log(this.cartucho);
-    this.cartuchoService.update(this.cartucho,this.cartucho.id).subscribe(() => {
+    this.cartuchoService.update(this.cartucho, this.cartucho.id).subscribe((res) => {
       Swal.fire(
         'Exito',
-        `${this.cartucho.modelo}  Actualizada!`,
+        `${res.modelo}  Actualizada!`,
         'success'
       )
 
@@ -103,7 +101,7 @@ export class FormCartuchoComponent implements OnInit {
     return o1 === null || o2 === null || o1 === undefined || o2 === undefined ? false : o1.id === o2.id;
   }
 
-  Volver (): void {
+  Volver(): void {
     Swal.fire({
       title: 'Estas seguro de salir del formulario ?',
       text: `Se perderan todos los datos del formulario`,
@@ -115,8 +113,10 @@ export class FormCartuchoComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.route.navigate(['/cartuchos']);
-      }});}
+      }
+    });
   }
+}
 
 
 
