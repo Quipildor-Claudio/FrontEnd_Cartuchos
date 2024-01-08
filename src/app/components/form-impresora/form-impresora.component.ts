@@ -31,9 +31,10 @@ export class FormImpresoraComponent implements OnInit {
   cartucho: Cartucho = new Cartucho();
   myCartuchoControl = new FormControl();
   cartuchosFiltrados: Observable<Cartucho[]>;
+ 
 
   constructor(private impresoraService: ImpresoraService,
-    private activatedRoute: ActivatedRoute,
+    public activatedRoute: ActivatedRoute,
     private marcaService: MarcaService,
     private tipoImpresoraService: TipoImpresoraService,
     private cartuchoService: CartuchoService,
@@ -51,7 +52,10 @@ export class FormImpresoraComponent implements OnInit {
 
     this.getMarcas();
     this.getTipos();
-
+    
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.mostrarTabla =true;
+    });
 
   }
   getData(): void {

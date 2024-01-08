@@ -2,11 +2,7 @@
     border:solid 1px; 
     border-color: rgb(0, 92, 93);
 }
-.form-select{
-    border:solid 2px; 
-    border-color: rgb(0, 92, 93); 
-    color:rgb(84, 102, 100);
-}
+
 #textarea{
     border:solid 2px;
     border-color: rgb(0, 92, 93); 
@@ -52,4 +48,7 @@ mat-form-field{
     color: white;
     position: relative;
     display: inline-block;
+  }
+  .is-invalid:invalid{
+    border-color: red;
   }

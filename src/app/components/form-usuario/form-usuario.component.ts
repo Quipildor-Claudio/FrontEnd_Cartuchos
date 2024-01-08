@@ -23,11 +23,12 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 export class FormUsuarioComponent implements OnInit {
   titulo: string = "Formulario";
-  user: User = new User();
   roles: Rol[] = [];
   persona: Persona = new Persona();
   myPersonaControl = new FormControl();
   personasFiltrados: Observable<Persona[]>;
+  user: User = new User();
+  selectedRoleId: number;
 
   constructor(
     public activatedRoute: ActivatedRoute,
@@ -88,22 +89,20 @@ export class FormUsuarioComponent implements OnInit {
   create() {
     var numeroAleatorio = Math.floor(Math.random() * 900) + 100;
 
-    this.user.roles = this.result(); // devuelve los roles seleccionados 
+    this.user.roles = [this.roles.find(rol => rol.id)];
+
     this.user.email = "admin" + numeroAleatorio + "@gmail.com";
     console.log(this.user);
 
-
-   this.userService.add(this.user).subscribe(res => {
-      Swal.fire(
-        'Exito',
-        `Categoria ${res.username}  Creada!`,
-        'success'
-      )
-      this.route.navigate(['/usuarios']);
-    });  
-
-
-  }
+    this.userService.add(this.user).subscribe(res => {
+        Swal.fire(
+            'Exito',
+            `Categoria ${res.username}  Creada!`,
+            'success'
+        )
+        this.route.navigate(['/usuarios']);
+    });
+}
   update(){}
 
   result(): Rol[] {

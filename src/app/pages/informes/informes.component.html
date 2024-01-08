@@ -1,65 +1,56 @@
 <div class="card">
     <div class="card-header">
-        Barra de Busqueda
+        <h5>Barra de Busqueda</h5>
     </div>
     <div class="card-body">
         <div class="container text-center">
-            <div class="row">
-                <div class="col">
-                    <div class="col">
-                        <select [compareWith]="comparar" class="form-control" [(ngModel)]="estado" name="estado"
-                            style="width:350px;" (ngModelChange)="onEstadoChange($event)">
+                <div class="col-sm-12 row mb-0">
+                    <div class="col-sm-4 ">
+                        <select [compareWith]="comparar" class="form-control buscar" [(ngModel)]="estado" name="estado"
+                             (ngModelChange)="onEstadoChange($event)">
                             <option [ngValue]="undefined">Busqueda por Estado de Solicitud</option>
                             <option *ngFor="let estado of estados" [ngValue]="estado.descripcion">{{estado.descripcion}}
                             </option>
                         </select>
                     </div>
-                </div>
-                <div class="col">
-                    <input type="search" class="form-control" name="filterSol" placeholder="Busqueda General..."
-                        style="width: 300px;" [(ngModel)]="filterText">
-                </div>
-                <div class="col">
-                    <input type="search" class="form-control" name="filterSol" placeholder="Busqueda por Id"
-                        style="width: 300px;" [(ngModel)]="filterId" (ngModelChange)="searchId($event)">
-                </div>
-            </div>
-            <div class="row" >
-                <br>
-            </div>
-            <div class="row">
-                <form class="row g3">
-                <div class="col-auto">
-                    <label for="fechaInicio">Fecha de inicio:</label>
-                    <input type="date" id="fechaInicio" name="fechaInicio" [(ngModel)]="rangoFechas.fechaInicio"
-                        required>
-                </div>
-                <div class="col-auto">
-                    <label for="fechaFinal">Fecha final:</label>
-                    <input type="date" id="fechaFinal" name="fechaFinal" [(ngModel)]="rangoFechas.fechaFinal" required>
-                </div>
-                <div class="col-auto">
-                    <button class="btn btn-primary" role="button" (click)='buscar()'>Buscar</button>
-                </div>
-
-            </form>
-            </div>
-
-            <div class="row">
-                <div class="col">
-                    Generar Pdf de Busqueda
-                </div>
-                <div class="col">
-                    <button type="button" class="btn  btn-danger"  style="width: 50px;" (click)="PDF()"> 
-                        <i class=" fas fa-light fa-file-pdf"></i></button>
-                </div>
-            </div>
-
-        </div>
+                    <div class="col-sm-4">
+                        <input type="search" class="form-control buscar" name="filterSol" placeholder="Busqueda General..."
+                             [(ngModel)]="filterText">
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="search" class="form-control buscar" name="filterSol" placeholder="Busqueda por Id"
+                             [(ngModel)]="filterId" (ngModelChange)="searchId($event)">
+                    </div>
+                </div>                       
+        </div>    
     </div>
+    <hr class="mb-0 mt-0 linea">
+            <div class="card-header">
+                <h5>Busqueda por fecha </h5>
+            </div>
+            
+        <div class="row card-body ">
+            <form class="row ">
+                <div class="col-auto">
+                    <label class="me-2 h6" for="fechaInicio">Desde:</label>
+                    <input type="date" id="fechaInicio" name="fechaInicio" [(ngModel)]="rangoFechas.fechaInicio"
+                           [min]="'2024-01-01'" [max]="rangoFechas.fechaFinal || ''" required>
+                  </div>
+                  <div class="col-auto">
+                    <label class="me-2 h6" for="fechaFinal">Hasta:</label>
+                    <input type="date" id="fechaFinal" name="fechaFinal" [(ngModel)]="rangoFechas.fechaFinal"
+                           [min]="rangoFechas.fechaInicio || '2024-01-01'" [max]="getCurrentDate() | date:'yyyy-MM-dd'" required>
+                  </div>
+                  <div class="col-auto">
+                    <button class="btn btn-primary" role="button" (click)="buscar()">Buscar</button>
+                  </div>
+                  
+
+        </form>
+        </div>
+      
 </div>
-
-
+<br>
 <div class="card">
     <div class="card-header">
         {{title}}

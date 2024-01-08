@@ -42,8 +42,8 @@
             <div class="form-group row" id="estados">
               <label for="estado" class="form-label col-sm-2 pe-0 h5" >Estado de Solicitud</label>
               <div class="col-sm-5">
-                <select [compareWith]="comparar" class="form-control" [(ngModel)]="solicitud.estado" name="estado" id="estado">
-                  <option [ngValue]="undefined">--- seleccionar un Estado---</option>
+                <select [compareWith]="comparar" class="form-select" [(ngModel)]="solicitud.estado" name="estado" id="estado">
+                  <option [ngValue]="undefined">Seleccione un estado...</option>
                   <option *ngFor="let estado of estados" [ngValue]="estado">{{estado.descripcion}}</option>
                 </select>
               </div>

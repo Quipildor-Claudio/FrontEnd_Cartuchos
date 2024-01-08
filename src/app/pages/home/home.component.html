@@ -1,36 +1,40 @@
 <div class="card">
+    
     <div class="card-header">
-        Barra de Busqueda
-    </div>
+<h5>Barra de Busqueda</h5>    
+</div>
+    
     <div class="card-body">
         <div class="container text-center">
             <div class="row">
 
-                <div class="col">
-                    <div class="col">
-                        <select [compareWith]="comparar" class="form-control" [(ngModel)]="estado" name="estado"
-                            style="width:350px;" (ngModelChange)="onEstadoChange($event)">
-                            <option [ngValue]="undefined">Busqueda por Estado de Solicitud</option>
+                <div class="col-sm-4  ">
+                    <div class="col-sm-12">
+                        <select [compareWith]="comparar" class="form-control buscar" [(ngModel)]="estado" name="estado"
+                             (ngModelChange)="onEstadoChange($event)">
+                            <option selected [ngValue]="undefined">Busqueda por Estado de Solicitud</option>
                             <option *ngFor="let estado of estados" [ngValue]="estado.descripcion">{{estado.descripcion}}
                             </option>
                         </select>
+
                     </div>
                 </div>
-                <div class="col">
-                    <input type="search" class="form-control" name="filterSol" placeholder="Busqueda General..."
-                        style="width: 300px;" [(ngModel)]="filterText">
+                <div class="col-sm-4">
+                    <input type="search" class="form-control buscar" name="filterSol" placeholder="Busqueda General"
+                         [(ngModel)]="filterText">
                 </div>
-                <div class="col">
-                    <input type="search" class="form-control" name="filterSol" placeholder="Busqueda por Id"
-                        style="width: 300px;" [(ngModel)]="filterId" (ngModelChange)="searchId($event)">
+                <div class="col-sm-4">
+                    <input type="search" class="form-control buscar" name="filterSol" placeholder="Busqueda por Id"
+                         [(ngModel)]="filterId" (ngModelChange)="searchId($event)">
                 </div>
             </div>
         </div>
     </div>
 </div>
+<br>
 <div class="card">
     <div class="card-header">
-        {{title}}
+        <h5>        {{title}}        </h5>
     </div>
     <div class="card-body">
         <table class="table table-striped table-bordered table-hover dtr-inline">
@@ -42,12 +46,11 @@
                     <th scope="col">Cartucho</th>
                     <th scope="col">Impresora</th>
              
-                    <th scope="col">Justificacion</th>
-                    <th scope="col">Observacion</th>
+                    <th scope="col">Justificación</th>
+                    <th scope="col">Observación</th>
                     <th scope="col">Estado</th>
                     <th scope="col">Fecha</th>
-                    <th></th>
-
+                    <th scope="col">Opciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -98,23 +101,29 @@
                     <td>
                         {{item.fechaCreacion}}
                     </td>
-                    <td>
-                        <button type="button" class="btn btn-primary" [routerLink]="['/form-solicitud',item.id]">
-                            check
-                        </button>
-
-                        &nbsp;
-
-                        <button type="button" class="btn  btn-warning" [routerLink]="['/solicitudes',item.id]">
-                            <i class="fa fa-pen"></i>
-                        </button>
-                        &nbsp;
-                        <button type="button" class="btn btn-danger" (click)="delete(item)">
-                            <i class="fa fa-times"></i>
-                        </button>
-                        <button type="button" class="btn btn-danger" [routerLink]="['/solicitud-pdf',item.id]" *ngIf="item.estado.descripcion === 'APROBADA'">pdf</button>
-
+                    <td class="align-items-center ">
+                        <div class="d-flex flex-column align-items-center">
+                            <div class="btn-group">
+                                <button type="button" class="btn" [routerLink]="['/solicitudes',item.id]">
+                                    <i class="fa fa-pen"></i>
+                                </button>
+                                &nbsp;
+                                <button type="button" class="btn" (click)="delete(item)">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="btn-group mt-2">
+                                <button type="button" class="btn" [routerLink]="['/form-solicitud',item.id]">
+                                    check
+                                </button>
+                    
+                                &nbsp;
+                                <button type="button" class="btn" [routerLink]="['/solicitud-pdf',item.id]" *ngIf="item.estado.descripcion === 'APROBADA'">pdf</button>
+                            </div>
+                        </div>
                     </td>
+                    
 
                 </tr>
 

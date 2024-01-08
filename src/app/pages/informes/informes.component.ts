@@ -5,6 +5,7 @@ import { Estado } from 'src/app/models/estado';
 import { Solicitud } from 'src/app/models/solicitud';
 import { EstadoService } from 'src/app/services/estado.service';
 import { SolicitudService } from 'src/app/services/solicitud.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-informes',
@@ -44,12 +45,24 @@ export class InformesComponent implements OnInit {
   }*/
 
   buscar(): void {
-     
+    if (this.validarFechas()) {
     if(this.rangoFechas.fechaFinal&&this.rangoFechas.fechaFinal){
       this.solicitudService.getBuscarFecha(this.rangoFechas.fechaInicio, this.rangoFechas.fechaFinal).subscribe(res => this.solicitudes = res);
+    }}
+    else{
+      Swal.fire({
+        title: 'Fechas Invalidas',
+        text: `Error al ingresar las fechas de busqueda`,
+        icon: 'error',
+      })
+      
     }
-
   }
+
+  getCurrentDate(): Date {
+    return new Date();
+  }
+
   getEstados(): void {
     this.estadoService.getAll().subscribe(res => this.estados = res);
   }
@@ -108,6 +121,25 @@ export class InformesComponent implements OnInit {
       docResult.save(`${new Date().toISOString()}informe.pdf`);
      
     });
+  }
+  validarFechas() {
+    if (new Date(this.rangoFechas.fechaInicio) >= new Date(this.rangoFechas.fechaFinal)) {
+      return false;
+    }
+
+    const fechaActual = new Date();
+    if (new Date(this.rangoFechas.fechaFinal) > fechaActual) {
+      return false;
+    }
+
+    const fechaMinima = new Date('2024-01-01');
+    if (new Date(this.rangoFechas.fechaInicio) < fechaMinima) {
+      console.log('La fecha de inicio debe ser mayor o igual a 01/01/2024');
+      return false;
+    }
+
+    
+    return true;
   }
 
 }
