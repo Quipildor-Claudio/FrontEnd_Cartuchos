@@ -13,7 +13,7 @@ export class TipoImpresoraService {
   constructor(private http:HttpClient, private authService:AuthService) { }
 
   getAll(): Observable<any[]> {
-    return this.http.get(`${API_URI}/tipoImpresoras`).pipe(
+    return this.http.get(`${API_URI}/tipoImpresora`,{headers:this.authService.addAuthorizationHeader()}).pipe(
       map(response=>response as any[])
     );
   }

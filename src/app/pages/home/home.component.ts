@@ -31,34 +31,27 @@ export class HomeComponent implements OnInit {
     private estadoService: EstadoService,
     private authService: AuthService,
     private userService: UserService,
-    private router:Router
-
-
+    private router: Router
   ) {
   }
 
   ngOnInit(): void {
-
     this.getData();
     this.getEstados();
   }
 
   getData() {
-    let name = this.authService.getUserSession().username;
-    console.log(name);
-    this.userService.getUserbyName(name).subscribe(res => {
-      this.user = res ;
-      console.log("88888"+res);
+    let name = this.authService.getUserSession();
+    this.userService.getUserbyName(name.username).subscribe(res => {
+      this.user = res;
       if (this.user.roles[0].descripcion == "ADMINISTRADOR" || this.user.roles[0].descripcion == "COMPUTO") {
         this.solicitudService.getAll().subscribe(res => this.solicitudes = res);
       } else {
-       this.solicitudes = this.user.solicitudes;
+        this.solicitudes = this.user.solicitudes;
       }
-
     });
-
-
   }
+
   getEstados(): void {
     this.estadoService.getAll().subscribe(res => this.estados = res);
   }
@@ -93,7 +86,6 @@ export class HomeComponent implements OnInit {
         this.solicitudes = res
       });
     }
-
   }
 
 
@@ -109,7 +101,6 @@ export class HomeComponent implements OnInit {
     } else {
       this.getData();
     }
-
   }
 
   comparar(o1: any, o2: any): boolean {
