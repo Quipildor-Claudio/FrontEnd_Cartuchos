@@ -109,7 +109,7 @@ cancelarModificacion(): void {
 update(item: TipoCartucho): void {
   Swal.fire({
     title: 'Estas Seguro?',
-    text: `Modificar el tipo de cartucho: ${this.tipo_cartucho.descripcion}}`,
+    text: `Modificar el tipo de cartucho: ${item.descripcion}`,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',

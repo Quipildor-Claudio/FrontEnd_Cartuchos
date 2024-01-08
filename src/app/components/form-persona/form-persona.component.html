@@ -65,9 +65,10 @@
       <div class="form-group row">
         <div class="col-sm-12">
           <button class="btn btn-primary" role="button" (click)='Volver()' >Volver</button>
-          <button type="submit" class="btn btn-primary" role="button" [disabled]="personaForm.invalid" (click)='update()' >
-            {{ persona.id ? 'Editar' : 'Crear' }}
-          </button>
+          <button class="btn btn-primary" role="button" (click)='create()' *ngIf="!persona.id; else elseBlock"  [disabled]="personaForm.invalid">Crear</button>
+          <ng-template #elseBlock>
+            <button class="btn btn-primary" role="button" (click)='update()' [disabled]="personaForm.invalid">Editar</button>
+          </ng-template>
         </div>
       </div>
     </form>

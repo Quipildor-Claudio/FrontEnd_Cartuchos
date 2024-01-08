@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./usuario.component.css']
 })
 export class UsuarioComponent implements OnInit {
-  title:string="usuarios"
+  title:string="Gestión de Usuarios"
   usuarios:User[]=[];
   constructor(private userService:UserService) { }
 

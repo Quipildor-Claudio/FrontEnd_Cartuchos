@@ -55,9 +55,14 @@ export class FormUsuarioComponent implements OnInit {
       let id = params['id']
       if (id) {
         this.userService.getOne(id).subscribe(res => this.user = res);
+          if (this.user.persona) {
+            this.myPersonaControl.patchValue(this.viewPersona(this.user.persona));
+            
+          }
       }
     }
     );
+    console.log(this.user)
   }
   private _filter(value: string): Observable<Persona[]> {
     const filterValue = value.toLowerCase();
