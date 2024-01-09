@@ -45,9 +45,9 @@ export class HomeComponent implements OnInit {
     this.userService.getUserbyName(name.username).subscribe(res => {
       this.user = res;
       if (this.user.roles[0].descripcion == "ADMINISTRADOR" || this.user.roles[0].descripcion == "COMPUTO") {
-        this.solicitudService.getAll().subscribe(res => this.solicitudes = res);
+        this.solicitudService.getAll().subscribe(res => this.solicitudes = res.reverse());
       } else {
-        this.solicitudes = this.user.solicitudes;
+        this.solicitudes = this.user.solicitudes.reverse();
       }
     });
   }
