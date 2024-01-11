@@ -29,7 +29,7 @@ export class TipoImpresoraComponent implements OnInit {
   delete(item: TipoImpresora): void {
     Swal.fire({
       title: 'Estas Seguro?',
-      text: `Eliminar el tipo de impresora: ${this.tipo_impresora.descripcion}`,
+      text: `Eliminar el tipo de impresora: ${item.descripcion}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -43,7 +43,6 @@ export class TipoImpresoraComponent implements OnInit {
         Swal.fire('Eliminado!', 'Su archivo a sido eliminado', 'success');
       });
     }
-    this.route.navigate(['/tipo_impreosoras']);
   } 
  })
 }
@@ -58,7 +57,7 @@ agregar(): void {
 confirmarAgregar(): void {
   Swal.fire({
     title: 'Estas Seguro?',
-    text: `Agregar el tipo de cartucho: ${this.tipo_impresora.descripcion}`,
+    text: `Agregar Tipo de Impresora: ${this.tipo_impresora.descripcion}`,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
@@ -67,8 +66,7 @@ confirmarAgregar(): void {
   }).then((result) => {
     if (result.isConfirmed) {
   this.tipoImpresoraService.add(this.tipo_impresora).subscribe(() => {
-    Swal.fire('Éxito', `Categoría ${this.tipo_impresora.descripcion} Creada!`, 'success');
-    this.route.navigate(['/tipo_cartuchos']);
+    Swal.fire('Éxito', `Tipo de Impresora ${this.tipo_impresora.descripcion} Creada!`, 'success');
     this.agregandoNuevaImpresoraTipo = false;
     this.getData();
     })
@@ -99,7 +97,7 @@ cancelarModificacion(): void {
 update(item: TipoImpresora): void {
   Swal.fire({
     title: 'Estas Seguro?',
-    text: `Modificar el tipo de cartucho: ${this.tipo_impresora.descripcion}}`,
+    text: `Modificar el Tipo de Impresora: ${item.descripcion}`,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
@@ -109,7 +107,6 @@ update(item: TipoImpresora): void {
     if (result.isConfirmed) {
   this.tipoImpresoraService.update(item, item.id).subscribe(() => {
     Swal.fire('Exito', `${item.descripcion} Modificada!`, 'success');
-    this.route.navigate(['/tipo_impresoras']);
     this.editarIndex = -1;
     this.edicionEnProgreso = false;
   })

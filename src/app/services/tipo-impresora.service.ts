@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { API_URI } from 'config/config';
 import { Observable, map } from 'rxjs';
@@ -19,13 +19,13 @@ export class TipoImpresoraService {
   }
   
   add(tipoImpresora:TipoImpresora):Observable<any>{
-    return this.http.post<any>(`${API_URI}/tipoImpresoras`,tipoImpresora,{headers:this.authService.addAuthorizationHeader()});
+    return this.http.post<any>(`${API_URI}/tipoImpresora`,tipoImpresora,{headers:this.authService.addAuthorizationHeader()});
   }
   update(tipoImpresora:TipoImpresora,id:number):Observable<any>{
-    return this.http.put<any>(`${API_URI}/tipoImpresoras/${id}`,tipoImpresora,{headers:this.authService.addAuthorizationHeader()});
+    return this.http.put<any>(`${API_URI}/tipoImpresora/${id}`,tipoImpresora,{headers:this.authService.addAuthorizationHeader()});
   }
 
   delete(id:number):Observable<any>{
-    return this.http.delete<any>(`${API_URI}/tipoImpresoras/${id}`,{headers:this.authService.addAuthorizationHeader()});
+    return this.http.delete<any>(`${API_URI}/tipoImpresora/${id}`,{headers:this.authService.addAuthorizationHeader()});
   }
 }

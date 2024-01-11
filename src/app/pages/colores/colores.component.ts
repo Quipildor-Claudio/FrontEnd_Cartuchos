@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class ColoresComponent implements OnInit {
   title = "Gestion de Colores";
   colores: Color[];
+
   @ViewChild('coloresContainer') coloresContainer: ElementRef;
   color: Color = new Color();
   editarIndex = -1;
@@ -40,7 +41,7 @@ export class ColoresComponent implements OnInit {
   delete(item: Color): void {
     Swal.fire({
       title: 'Estas Seguro?',
-      text: `Eliminar el color: ${this.color.nombre}}`,
+      text: `Eliminar el color: ${item.nombre}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -54,7 +55,6 @@ export class ColoresComponent implements OnInit {
         Swal.fire('Eliminado!', 'Su archivo a sido eliminado', 'success');
       });
     }
-    this.route.navigate(['/colores']);
   } 
  })
 }
@@ -70,7 +70,7 @@ export class ColoresComponent implements OnInit {
   confirmarAgregar(): void {   
     Swal.fire({
       title: 'Estas Seguro?',
-      text: `Agregar el color: ${this.color.nombre}}`,
+      text: `Agregar el color: ${this.color.nombre}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -110,7 +110,7 @@ export class ColoresComponent implements OnInit {
   update(item: Color): void {
     Swal.fire({
       title: 'Estas Seguro?',
-      text: `Modificar el color: ${this.color.nombre}}`,
+      text: `Modificar el color: ${item.nombre}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',

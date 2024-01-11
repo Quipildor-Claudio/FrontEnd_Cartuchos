@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-usuario',
@@ -9,7 +8,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./usuario.component.css']
 })
 export class UsuarioComponent implements OnInit {
-  title:string="usuarios"
+  title:string="Gestion de Usuarios"
   usuarios:User[]=[];
   constructor(private userService:UserService) { }
 
@@ -20,7 +19,6 @@ export class UsuarioComponent implements OnInit {
   getData(){
     this.userService.getAll().subscribe(res=>{
       this.usuarios=res
-      console.log(this.usuarios);
     });
   }
   delete(item:any):void{
