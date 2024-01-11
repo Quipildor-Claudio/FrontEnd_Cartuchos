@@ -80,7 +80,6 @@ export class TipoCartuchoComponent implements OnInit {
       if (result.isConfirmed) {
         this.tipoCartuchoService.add(this.tipo_cartucho).subscribe(() => {
           Swal.fire('Éxito', `Categoría ${this.tipo_cartucho.descripcion} Creada!`, 'success');
-          this.route.navigate(['/tipo_cartuchos']);
           this.agregandoNuevoCartuchoTipo = false;
           this.getData();
         })

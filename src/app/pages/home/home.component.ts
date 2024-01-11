@@ -44,10 +44,15 @@ export class HomeComponent implements OnInit {
     let name = this.authService.getUserSession();
     this.userService.getUserbyName(name.username).subscribe(res => {
       this.user = res;
+      console.log(res);
       if (this.user.roles[0].descripcion == "ADMINISTRADOR" || this.user.roles[0].descripcion == "COMPUTO") {
         this.solicitudService.getAll().subscribe(res => this.solicitudes = res.reverse());
       } else {
-        this.solicitudes = this.user.solicitudes.reverse();
+        if (this.user.roles[0].descripcion == "JEFE DE SERVICIO") {
+          this.solicitudService.getBusquedaServico(this.user.persona.servicio.nombre).subscribe(res => this.solicitudes = res.reverse());
+        }else{
+          this.solicitudes = this.user.solicitudes.reverse();
+        }
       }
     });
   }

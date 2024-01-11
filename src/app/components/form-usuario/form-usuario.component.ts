@@ -54,7 +54,10 @@ export class FormUsuarioComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       let id = params['id']
       if (id) {
-        this.userService.getOne(id).subscribe(res => this.user = res);
+        this.userService.getOne(id).subscribe(res => {
+        
+          this.user = res
+        });
       }
     }
     );

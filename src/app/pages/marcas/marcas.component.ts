@@ -67,7 +67,7 @@ agregar(): void {
 confirmarAgregar(): void {
   Swal.fire({
     title: 'Estas Seguro?',
-    text: `Agregar la marca: ${this.marca.nombre}}`,
+    text: `Agregar la marca: ${this.marca.nombre}`,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
@@ -77,7 +77,6 @@ confirmarAgregar(): void {
     if (result.isConfirmed) {
     this.marcaService.add(this.marca).subscribe(() => {
     Swal.fire('Éxito', `Categoría ${this.marca.nombre} Creada!`, 'success');
-    this.route.navigate(['/tipo_cargas']);
     this.agregandoNuevaMarca = false;
     this.getData();
     })

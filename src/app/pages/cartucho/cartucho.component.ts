@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./cartucho.component.css']
 })
 export class CartuchoComponent implements OnInit {
-  title:string= "Gestion de Cartuchos";
+  title:string= "Gestion de Cartuchos ";
   cartuchos: any[];
   constructor(private cartuchoService:CartuchoService) { }
 
