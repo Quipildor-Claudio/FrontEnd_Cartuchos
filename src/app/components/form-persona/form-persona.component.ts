@@ -49,7 +49,7 @@ export class FormPersonaComponent implements OnInit {
       res => {
         Swal.fire(
           'Exito',
-          `${res.nombre}  ${res.apellido}  agregado!`,
+          `Categoria ${res.apellido +" "+ res.nombre}  Creada!`,
           'success'
         )
         this.route.navigate(['/personas']);

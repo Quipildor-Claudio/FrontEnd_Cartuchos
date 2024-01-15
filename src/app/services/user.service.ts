@@ -38,7 +38,7 @@ export class UserService {
     );
   }
 
-  getUserbyName(name:string):Observable<User>{
+  getUserbyName(name):Observable<User>{
     return this.http.get(`${API_URI}/user/userbyname/${name}`,{headers:this.authService.addAuthorizationHeader()}).pipe(
       map(response=>response as User)
     );

@@ -25,6 +25,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import { ItemSolicitud } from 'src/app/models/item-solicitud';
+import { AuthService } from 'src/app/auth/auth.service';
 
 
 @Component({
@@ -46,8 +47,8 @@ export class SolicitudComponent implements OnInit {
   cartuchos: Cartucho[] = [];
   impresoras: Impresora[] = [];
   tipoCarga: TipoCarga = new TipoCarga();
-  user: User = new User();
-
+  // user: User = new User();
+  user: any;
 
   myCartuchoControl = new FormControl();
   myImpresoraControl = new FormControl();
@@ -74,6 +75,7 @@ export class SolicitudComponent implements OnInit {
     private estadoService: EstadoService,
     private cartuchoService: CartuchoService,
     private userService: UserService,
+    private authService: AuthService,
     private route: Router,
     public activateRoute: ActivatedRoute
   ) { }
@@ -170,13 +172,16 @@ export class SolicitudComponent implements OnInit {
   }
 
   getUsuario(): void {
-    this.userService.getOne(4).subscribe(res => this.user = res);
+    let name = this.authService.getUserSession();
+    this.userService.getUserbyName(name.username).subscribe(res => {
+      this.user = res;
+    });
   }
-  
+
   imarca() {
     this.mostrarAutocompletado = this.impresora.marca != null;
   }
-  
+
   enviaSolicitud() {
     const marcaControl = this.Form?.controls['imarca'];
 
@@ -200,11 +205,11 @@ export class SolicitudComponent implements OnInit {
       item.tipoCarga = null;
       this.solicitud.itemSolicituds.push(item);
 
-      this.mostrarTabla=false;
-      this.mostrarAutocompletado=false;
-      this.mostrarDatos=true;
+      this.mostrarTabla = false;
+      this.mostrarAutocompletado = false;
+      this.mostrarDatos = true;
 
-      this.impresora = new Impresora(); 
+      this.impresora = new Impresora();
       this.myImpresoraControl.setValue('');
      this.cartuchoAgregado = true;
      this.disableImpresoraSelect = true;
@@ -219,8 +224,8 @@ export class SolicitudComponent implements OnInit {
 
       this.solicitud.itemSolicituds = this.solicitud.itemSolicituds.map((aux: ItemSolicitud) => {
         if (item.cartucho.id === aux.cartucho.id) {
-          aux.cantidad -=1;
-          
+          aux.cantidad -= 1;
+
         }
         return aux;
       });
@@ -248,14 +253,14 @@ export class SolicitudComponent implements OnInit {
 
     console.log(this.solicitud);
 
-   this.solicitudService.add(this.solicitud).subscribe(res => {
-        Swal.fire(
-          'Exito',
-          `Categoria ${res.id}  Creada!`,
-          'success'
-        )
-        this.route.navigate(['/home']);
-      });     
+    this.solicitudService.add(this.solicitud).subscribe(res => {
+      Swal.fire(
+        'Exito',
+        `Categoria ${res.id}  Creada!`,
+        'success'
+      )
+      this.route.navigate(['/home']);
+    });
 
   }
 
@@ -283,7 +288,7 @@ export class SolicitudComponent implements OnInit {
     });
   }
 
-  Volver (): void {
+  Volver(): void {
     Swal.fire({
       title: 'Estas seguro de salir del formulario ?',
       text: `Se perderan todos los datos del formulario`,
@@ -295,7 +300,9 @@ export class SolicitudComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.route.navigate(['/home']);
-      }});}
+      }
+    });
+  }
 
   comparar(o1: any, o2: any): boolean {
     if (o1 === undefined && o2 === undefined) {
