@@ -1,6 +1,15 @@
 <div class="card">
-    <div class="card-header">
-        <h5>Barra de Busqueda</h5>
+    <div class="card-header row ">
+        <h5 class="col-sm-8 ">Barra de Busqueda</h5>
+        <div class="col-sm-4">
+
+            <button class="float-end btn ms-2 " (click)="resetearAll()">
+                <i class="bi bi-arrow-counterclockwise"></i>
+            </button>
+
+        <button class="btn col-sm-6 btn-danger float-end " role="button" (click)="PDF()">Generar PDF</button>
+        
+        </div>
     </div>
     <div class="card-body">
         <div class="container text-center">
@@ -113,7 +122,7 @@
                         {{item.observacion !== null?item.observacion:"---"}}
                     </td>
                     <td>
-                        <span class="text-bg-warning">{{item.estado.descripcion}}</span>
+                        <span  [ngClass]="{'aprobada': item.estado.descripcion === 'APROBADA', 'solicitada': item.estado.descripcion === 'SOLICITADA','cancelada': item.estado.descripcion === 'CANCELADA', 'observada': item.estado.descripcion === 'OBSERVADA'}">{{item.estado.descripcion}}</span>
                     </td>
                     <td>
                         {{item.fechaCreacion}}

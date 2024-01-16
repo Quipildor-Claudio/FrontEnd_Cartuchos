@@ -40,6 +40,8 @@ export class HomeComponent implements OnInit {
     this.getEstados();
   }
 
+
+
   getData() {
     let name = this.authService.getUserSession();
     this.userService.getUserbyName(name.username).subscribe(res => {
@@ -87,16 +89,29 @@ export class HomeComponent implements OnInit {
   }
   onEstadoChange(event: any) {
     if (event) {
+      this.filterId='';
+      this.filterText='';
       this.solicitudService.getBusquedaEstado(event).subscribe(res => {
         this.solicitudes = res
       });
     }
   }
 
-
+  resetearBusqueda(){
+    this.filterId='';
+    this.getEstados();
+  }
+  resetearAll(){
+    this.filterId='';
+    this.getEstados();
+    this.filterText = '';
+  }
 
   searchId(id: any) {
     console.log(id);
+    this.filterText = '';
+    this.getEstados();
+
     if (id !== '') {
       this.solicitudService.getOne(id).subscribe(res => {
         this.solicitudes = [];

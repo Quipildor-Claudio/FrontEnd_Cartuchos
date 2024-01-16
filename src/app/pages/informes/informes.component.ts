@@ -69,15 +69,28 @@ export class InformesComponent implements OnInit {
 
   onEstadoChange(event: any) {
     if (event) {
+      this.filterId='';
+      this.filterText='';
       this.solicitudService.getBusquedaEstado(event).subscribe(res => {
         this.solicitudes = res
       });
     }
+  }
 
+  resetearBusqueda(){
+    this.filterId='';
+    this.getEstados();
+  }
+  resetearAll(){
+    this.filterId='';
+    this.getEstados();
+    this.filterText = '';
   }
 
   searchId(id: any) {
     console.log(id);
+    this.filterText = '';
+    this.getEstados();
     if (id !== '') {
       this.solicitudService.getOne(id).subscribe(res => {
         this.solicitudes = [];
@@ -122,6 +135,7 @@ export class InformesComponent implements OnInit {
      
     });
   }
+
   validarFechas() {
     if (new Date(this.rangoFechas.fechaInicio) >= new Date(this.rangoFechas.fechaFinal)) {
       return false;
@@ -136,9 +150,7 @@ export class InformesComponent implements OnInit {
     if (new Date(this.rangoFechas.fechaInicio) < fechaMinima) {
       console.log('La fecha de inicio debe ser mayor o igual a 01/01/2024');
       return false;
-    }
-
-    
+    }   
     return true;
   }
 

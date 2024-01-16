@@ -104,6 +104,7 @@ export class SolicitudComponent implements OnInit {
     let nombre = this.cartucho.marca.nombre;
     return this.cartuchoService.getCartuchoMarcaAndModelo(nombre, filterValue);
   }
+
   viewCartucho(cartucho?: Cartucho): string | undefined {
     return cartucho ? cartucho.modelo + " " + cartucho.color.nombre + " " + cartucho.tipoCartucho.descripcion : undefined;
   }
@@ -124,10 +125,17 @@ export class SolicitudComponent implements OnInit {
 
   selectedImpresora(event: MatAutocompleteSelectedEvent): void {
     this.impresora = event.option.value as Impresora;
-    this.solicitud.impresoras.push(this.impresora);
+  
+    const existeImpresora = this.solicitud.impresoras.some(
+      (imp) => imp.id === this.impresora.id
+    );
+    if (!existeImpresora) {
+      this.solicitud.impresoras.push(this.impresora);
+    }
     this.mostrarTabla = true;
     this.disableImpresoraSelect = false;
   }
+  
 
   cargar(): void {
     this.activateRoute.params.subscribe(params => {
@@ -152,7 +160,6 @@ export class SolicitudComponent implements OnInit {
     }
     );
   }
-
 
   getMarcas(): void {
     this.marcaService.getAll().subscribe(res => this.marcas = res);
@@ -193,17 +200,23 @@ export class SolicitudComponent implements OnInit {
     marcaControl?.setErrors({ 'invalidImpresora': true });
   }
   }
+
   addCartuchos(car: Cartucho): void {
+     const maxCantidad = 2;
+  if (this.existItem(car.id)) {
+    const cartuchoExistente = this.solicitud.itemSolicituds.find(c => c.cartucho.id === car.id);
 
-    if (this.existItem(car.id)) {
-      this.incrementLot(car.id)
-
+    if (cartuchoExistente && cartuchoExistente.cantidad < maxCantidad) {
+      this.incrementLot(car.id);
     } else {
+    }
+  }else {
       let item = new ItemSolicitud();
       item.cartucho = car;
       item.cantidad = 1;
       item.tipoCarga = null;
       this.solicitud.itemSolicituds.push(item);
+    }
 
       this.mostrarTabla = false;
       this.mostrarAutocompletado = false;
@@ -213,7 +226,7 @@ export class SolicitudComponent implements OnInit {
       this.myImpresoraControl.setValue('');
      this.cartuchoAgregado = true;
      this.disableImpresoraSelect = true;
-    }
+    
   }
 
   // elimina cartucho de la tabla de pedidos
@@ -230,27 +243,18 @@ export class SolicitudComponent implements OnInit {
         return aux;
       });
     }
-
-
-
-
   }
   // elimina impresora de la tabla de pedidos
   iDelete(iSol: Impresora): void {
-
     this.solicitud.impresoras = this.solicitud.impresoras.filter(res => res != iSol);
   }
 
   enviarSolicitud(): void {
-
     this.solicitud.usuario = this.user;
 
     // obtiene el objeto de stado solicitado del array 
     const est = this.estados.filter((res) => res.descripcion == "SOLICITADA");
     this.solicitud.estado = est[0];
-
-
-
     console.log(this.solicitud);
 
     this.solicitudService.add(this.solicitud).subscribe(res => {

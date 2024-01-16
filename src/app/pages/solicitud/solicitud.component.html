@@ -121,11 +121,11 @@
           <thead></thead>
           <tbody>
             <tr *ngFor="let cSol of solicitud.itemSolicituds">
-              <td>{{cSol.cartucho.id}}</td>
+              <td>{{cSol.cantidad}}</td>
               <td>{{cSol.cartucho.modelo}}</td>
+              <td>{{cSol.cartucho.color.nombre}}</td>
               <td>{{cSol.cartucho.marca.nombre}}</td>
               <td>{{cSol.cartucho.tipoCartucho.descripcion}}</td>
-              <td>{{cSol.cantidad}}</td>
               <td>
                 <div class="was-validated">
                   <select [compareWith]="comparar" class="form-select is-invalid " [(ngModel)]="cSol.tipoCarga" name="tipoCarga" style="width:150px;"

@@ -24,3 +24,16 @@ table {
   position: relative;
   display: inline-block;
 }
+span.solicitada {
+  background-color: yellow; 
+}
+
+span.aprobada {
+  background-color: lightgreen; 
+}
+span.cancelada{
+background-color: red;
+}
+span.observada{
+  background-color: orange;
+}

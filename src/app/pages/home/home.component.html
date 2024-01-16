@@ -1,8 +1,15 @@
 <div class="card">
     
-    <div class="card-header">
-<h5>Barra de Busqueda</h5>    
-</div>
+    <div class="card-header row">
+        <div class="col-sm-6">
+            <h5>Barra de Busqueda</h5>    
+        </div>
+        <div class="col-sm-6 ">
+            <button class="float-end btn" (click)="resetearAll()">
+                <i class="bi bi-arrow-counterclockwise"></i>
+            </button>
+        </div>
+    </div>
     
     <div class="card-body">
         <div class="container text-center">
@@ -21,7 +28,7 @@
                 </div>
                 <div class="col-sm-4">
                     <input type="search" class="form-control buscar" name="filterSol" placeholder="Busqueda General"
-                         [(ngModel)]="filterText">
+                         [(ngModel)]="filterText" (ngModelChange)="resetearBusqueda()">
                 </div>
                 <div class="col-sm-4">
                     <input type="search" class="form-control buscar" name="filterSol" placeholder="Busqueda por Id"
@@ -56,7 +63,7 @@
             <tbody>
 
 
-                <tr class="odd" *ngFor="let item of solicitudes | filter:filterText ">
+                <tr class="odd" *ngFor="let item of solicitudes | filter:filterText">
                     <td>
                         {{item.id}}
                     </td>
@@ -95,8 +102,8 @@
                     <td>
                         {{item.observacion !== null?item.observacion:"---"}}
                     </td>
-                    <td>
-                        <span class="text-bg-warning">{{item.estado.descripcion}}</span>
+                    <td >
+                        <span [ngClass]="{'aprobada': item.estado.descripcion === 'APROBADA', 'solicitada': item.estado.descripcion === 'SOLICITADA','cancelada': item.estado.descripcion === 'CANCELADA', 'observada': item.estado.descripcion === 'OBSERVADA'}">{{item.estado.descripcion}}</span>
                     </td>
                     <td>
                         {{item.fechaCreacion}}
@@ -104,7 +111,7 @@
                     <td class="align-items-center ">
                         <div class="d-flex flex-column align-items-center">
                             <div class="btn-group">
-                                <button type="button" class="btn" [routerLink]="['/solicitudes',item.id]">
+                                <button type="button" class="btn" [routerLink]="['/solicitudes',item.id]" *ngIf="item.estado.descripcion === 'SOLICITADA' || item.estado.descripcion === 'CANCELADA' ||item.estado.descripcion === 'OBSERVADA'">
                                     <i class="fa fa-pen"></i>
                                 </button>
                                 &nbsp;

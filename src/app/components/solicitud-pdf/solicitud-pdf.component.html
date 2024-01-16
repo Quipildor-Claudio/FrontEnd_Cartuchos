@@ -37,7 +37,7 @@
                   <tr *ngFor="let so of solicitud.itemSolicituds">
                     <td >1</td>
                     <td>{{so.cantidad}}</td>
-                    <td>{{so.cartucho.modelo}}, {{so.cartucho.marca.nombre}}, {{so.cartucho.color.nombre}}, {{so.cartucho.tipoCartucho.descripcion}}</td>
+                    <td>{{so.cartucho.modelo}}, {{so.cartucho.marca.nombre}}, {{so.cartucho.color.nombre}}, {{so.cartucho.tipoCartucho.descripcion}},  {{so.tipoCarga.descripcion}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -91,7 +91,7 @@
                 <tr *ngFor="let so of solicitud.itemSolicituds">
                   <td >1</td>
                   <td>{{so.cantidad}}</td>
-                  <td>{{so.cartucho.modelo}}, {{so.cartucho.marca.nombre}}, {{so.cartucho.color.nombre}}, {{so.cartucho.tipoCartucho.descripcion}}, {{so.tipoCarga.id}}</td>
+                  <td>{{so.cartucho.modelo}}, {{so.cartucho.marca.nombre}}, {{so.cartucho.color.nombre}}, {{so.cartucho.tipoCartucho.descripcion}}, {{so.tipoCarga.descripcion}}</td>
                 </tr>
               </tbody>
             </table>
