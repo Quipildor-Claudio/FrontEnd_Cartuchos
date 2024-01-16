@@ -22,7 +22,7 @@ Cartucho
   styleUrls: ['./form-impresora.component.css']
 })
 export class FormImpresoraComponent implements OnInit {
-  titulo: string = "Formulario";
+  titulo: string = "Formulario de Impresoras";
   mostrarTabla: boolean = false;
 
   impresora: Impresora = new Impresora();

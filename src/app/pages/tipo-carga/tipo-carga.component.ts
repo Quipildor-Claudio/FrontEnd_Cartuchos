@@ -37,7 +37,7 @@ export class TipoCargaComponent implements OnInit {
   delete(item: TipoCarga): void {
     Swal.fire({
       title: 'Estas Seguro?',
-      text: `Eliminar la marca: ${this.tipo_carga.descripcion}`,
+      text: `Eliminar el Tipo de Carga: ${item.descripcion}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -68,7 +68,7 @@ agregarCarga(): void {
 confirmarAgregar(): void {
   Swal.fire({
     title: 'Estas Seguro?',
-    text: `Agregar el tipo de carga: ${this.tipo_carga.descripcion}`,
+    text: `Agregar el Tipo de Carga: ${this.tipo_carga.descripcion}`,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
@@ -77,8 +77,7 @@ confirmarAgregar(): void {
   }).then((result) => {
     if (result.isConfirmed) {
   this.tipoService.add(this.tipo_carga).subscribe(() => {
-    Swal.fire('Éxito', `Categoría ${this.tipo_carga.descripcion} Creada!`, 'success');
-    this.route.navigate(['/colores']);
+    Swal.fire('Éxito', `Tipo de Carga  ${this.tipo_carga.descripcion} Creada!`, 'success');
     this.agregandoNuevaCarga = false;
     this.getData();
     })
@@ -108,7 +107,7 @@ cancelarModificacion(): void {
 update(item: TipoCarga): void {
   Swal.fire({
     title: 'Estas Seguro?',
-    text: `Modificar el tipo de carga: ${this.tipo_carga.descripcion}}`,
+    text: `Modificar el Tipo de Carga: ${item.descripcion}`,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
@@ -116,9 +115,8 @@ update(item: TipoCarga): void {
     confirmButtonText: 'Yes, Modificar!'
   }).then((result) => {
     if (result.isConfirmed) {
-  this.tipoService.update(item, item.id).subscribe(() => {
+  this.tipoService.update(item, item.id).subscribe((res) => {
     Swal.fire('Exito', `${item.descripcion} Modificada!`, 'success');
-    this.route.navigate(['/colores']);
     this.editarIndex = -1;
     this.edicionEnProgreso = false;
   })

@@ -19,9 +19,9 @@ export class FormPersonaComponent implements OnInit {
   
   constructor(
     private activatedRoute: ActivatedRoute,
-    private route: Router,
     private personaService:PersonaService,
-    private servicioService:ServicioService
+    private servicioService:ServicioService,
+    public route: Router
     ) { }
 
   ngOnInit(): void {

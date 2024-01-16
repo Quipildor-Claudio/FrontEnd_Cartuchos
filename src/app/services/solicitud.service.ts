@@ -40,7 +40,11 @@ export class SolicitudService {
       map(response=>response as any[])
     );
   }
-
+  getBusquedaServico(data:string): Observable<any[]> {
+    return this.http.get(`${API_URI}/solicitudes/buscarPorServicio/${data}`,{headers:this.authService.addAuthorizationHeader()}).pipe(
+      map(response=>response as any[])
+    );
+  }
 
   add(solicitud:Solicitud):Observable<any>{
     return this.http.post<any>(`${API_URI}/solicitudes`,solicitud,{headers:this.authService.addAuthorizationHeader()});
