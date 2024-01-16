@@ -32,6 +32,9 @@ export class InformesComponent implements OnInit {
   ngOnInit(): void {
     this.getEstados();
   }
+  getDataReset(){
+    this.solicitudes = [];
+  }
 
   getData() {
     this.solicitudService.getAll().subscribe(res => {
@@ -69,6 +72,7 @@ export class InformesComponent implements OnInit {
 
   onEstadoChange(event: any) {
     if (event) {
+      this.resetearfechas();      
       this.filterId='';
       this.filterText='';
       this.solicitudService.getBusquedaEstado(event).subscribe(res => {
@@ -80,15 +84,20 @@ export class InformesComponent implements OnInit {
   resetearBusqueda(){
     this.filterId='';
     this.getEstados();
+    this.resetearfechas();
   }
+
   resetearAll(){
     this.filterId='';
     this.getEstados();
     this.filterText = '';
+    this.resetearfechas();
+    this.getDataReset();
   }
 
   searchId(id: any) {
     console.log(id);
+    this.resetearfechas();
     this.filterText = '';
     this.getEstados();
     if (id !== '') {
@@ -137,7 +146,7 @@ export class InformesComponent implements OnInit {
   }
 
   validarFechas() {
-    if (new Date(this.rangoFechas.fechaInicio) >= new Date(this.rangoFechas.fechaFinal)) {
+    if (new Date(this.rangoFechas.fechaInicio) > new Date(this.rangoFechas.fechaFinal)) {
       return false;
     }
 
@@ -152,6 +161,11 @@ export class InformesComponent implements OnInit {
       return false;
     }   
     return true;
+  }
+
+  resetearfechas(){
+    this.rangoFechas.fechaFinal=new Date();
+    this.rangoFechas.fechaInicio=new Date();
   }
 
 }

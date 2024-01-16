@@ -3,11 +3,11 @@
         <h5 class="col-sm-8 ">Barra de Busqueda</h5>
         <div class="col-sm-4">
 
-            <button class="float-end btn ms-2 " (click)="resetearAll()">
+            <button class="float-end btn ms-2 " (click)="resetearAll()" >
                 <i class="bi bi-arrow-counterclockwise"></i>
             </button>
 
-        <button class="btn col-sm-6 btn-danger float-end " role="button" (click)="PDF()">Generar PDF</button>
+        <button class="btn col-sm-6 btn-danger float-end " role="button" [disabled]="solicitudes.length<=0" (click)="PDF()">Generar PDF</button>
         
         </div>
     </div>
@@ -15,7 +15,7 @@
         <div class="container text-center">
                 <div class="col-sm-12 row mb-0">
                     <div class="col-sm-4 ">
-                        <select [compareWith]="comparar" class="form-control buscar" [(ngModel)]="estado" name="estado"
+                        <select [compareWith]="comparar" class="form-select buscar" [(ngModel)]="estado" name="estado"
                              (ngModelChange)="onEstadoChange($event)">
                             <option [ngValue]="undefined">Busqueda por Estado de Solicitud</option>
                             <option *ngFor="let estado of estados" [ngValue]="estado.descripcion">{{estado.descripcion}}
@@ -24,7 +24,7 @@
                     </div>
                     <div class="col-sm-4">
                         <input type="search" class="form-control buscar" name="filterSol" placeholder="Busqueda General..."
-                             [(ngModel)]="filterText">
+                             [(ngModel)]="filterText" (ngModelChange)="resetearBusqueda()">
                     </div>
                     <div class="col-sm-4">
                         <input type="search" class="form-control buscar" name="filterSol" placeholder="Busqueda por Id"
@@ -43,7 +43,7 @@
                 <div class="col-auto">
                     <label class="me-2 h6" for="fechaInicio">Desde:</label>
                     <input type="date" id="fechaInicio" name="fechaInicio" [(ngModel)]="rangoFechas.fechaInicio"
-                           [min]="'2024-01-01'" [max]="rangoFechas.fechaFinal || ''" required>
+                    [min]="'2024-01-01'" [max]="rangoFechas.fechaFinal || ''|| getCurrentDate() | date:'yyyy-MM-dd'"required>
                   </div>
                   <div class="col-auto">
                     <label class="me-2 h6" for="fechaFinal">Hasta:</label>
@@ -64,8 +64,8 @@
     <div class="card-header">
         {{title}}
     </div>
-    <div class="card-body">
-        <table class="table table-striped table-bordered table-hover dtr-inline" id="tabla">
+    <div class="card-body" id="tabla">
+        <table class="table table-striped table-bordered table-hover dtr-inline col-sm-12 " >
             <thead>
                 <tr>
                     <th>ID</th>

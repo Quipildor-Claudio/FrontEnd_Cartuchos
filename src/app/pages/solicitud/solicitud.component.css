@@ -52,3 +52,13 @@ mat-form-field{
   .is-invalid:invalid{
     border-color: red;
   }
+  .form-control{
+    border:solid 1px; 
+    border-color: rgb(0, 92, 93); 
+    color:rgb(84, 102, 100);
+}
+.form-select{
+    border:solid 1px; 
+    border-color: rgb(0, 92, 93); 
+    color:rgb(84, 102, 100);
+}

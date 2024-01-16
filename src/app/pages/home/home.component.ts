@@ -105,6 +105,7 @@ export class HomeComponent implements OnInit {
     this.filterId='';
     this.getEstados();
     this.filterText = '';
+    this.getData();
   }
 
   searchId(id: any) {
