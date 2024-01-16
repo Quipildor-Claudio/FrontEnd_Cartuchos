@@ -3,6 +3,8 @@ import { Observable } from 'rxjs';
 import { User } from '../models/user';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { API_URI } from 'config/config';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +19,7 @@ export class AuthService {
   private httpheaders = new HttpHeaders({ 'content-type': 'application/json' });
 
   constructor(private http: HttpClient,
+              public router:Router
   ) { }
 
  
@@ -94,5 +97,23 @@ export class AuthService {
     }
     return null;
 
+  }
+
+  public isNoAutorizado(e): boolean {
+    if (e.status == 401) {
+
+      if (this.isAuthenticated()) {
+        this.logout();
+      }
+      this.router.navigate(['/login']);
+      return true;
+    }
+
+    if (e.status == 403) {
+      Swal.fire('Acceso denegado', `Hola ${this._user.username} no tienes acceso a este recurso!`, 'warning');
+      this.router.navigate(['/home']);
+      return true;
+    }
+    return false;
   }
 }
