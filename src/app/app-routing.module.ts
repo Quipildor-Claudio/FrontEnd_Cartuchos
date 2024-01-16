@@ -25,61 +25,62 @@ import { FormEstadoComponent } from './components/form-estado/form-estado.compon
 import { InformesComponent } from './pages/informes/informes.component';
 import { SolicitudPdfComponent } from './components/solicitud-pdf/solicitud-pdf.component';
 import { LoginComponent } from './auth/login/login.component';
+import { authGuard } from './auth/guards/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component:LoginComponent},
 
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: HomeComponent ,canActivate:[authGuard]},
 
-  { path: 'cartuchos', component: CartuchoComponent },
-  { path: 'form-cartucho', component: FormCartuchoComponent },
-  { path: 'form-cartucho/:id', component: FormCartuchoComponent },
+  { path: 'cartuchos', component: CartuchoComponent,canActivate:[authGuard] },
+  { path: 'form-cartucho', component: FormCartuchoComponent ,canActivate:[authGuard]},
+  { path: 'form-cartucho/:id', component: FormCartuchoComponent,canActivate:[authGuard] },
 
-  { path: 'impresoras', component: ImpresoraComponent },
-  { path: 'form-impresora', component: FormImpresoraComponent },
-  { path: 'form-impresora/:id', component: FormImpresoraComponent },
+  { path: 'impresoras', component: ImpresoraComponent ,canActivate:[authGuard]},
+  { path: 'form-impresora', component: FormImpresoraComponent ,canActivate:[authGuard]},
+  { path: 'form-impresora/:id', component: FormImpresoraComponent ,canActivate:[authGuard]},
 
-  { path: 'roles', component: RolComponent },
-  { path: 'form-rol', component: FormRolComponent },
-  { path: 'form-rol/:id', component: FormRolComponent },
+  { path: 'roles', component: RolComponent ,canActivate:[authGuard]},
+  { path: 'form-rol', component: FormRolComponent ,canActivate:[authGuard]},
+  { path: 'form-rol/:id', component: FormRolComponent ,canActivate:[authGuard]},
 
-  { path: 'usuarios', component: UsuarioComponent },
-  { path: 'form-usuario', component: FormUsuarioComponent },
-  { path: 'form-usuario/:id', component: FormUsuarioComponent },
+  { path: 'usuarios', component: UsuarioComponent ,canActivate:[authGuard]},
+  { path: 'form-usuario', component: FormUsuarioComponent,canActivate:[authGuard] },
+  { path: 'form-usuario/:id', component: FormUsuarioComponent ,canActivate:[authGuard]},
 
-  { path: 'personas', component: PersonaComponent },
-  { path: 'form-persona', component: FormPersonaComponent },
-  { path: 'form-persona/:id', component: FormPersonaComponent },
+  { path: 'personas', component: PersonaComponent ,canActivate:[authGuard]},
+  { path: 'form-persona', component: FormPersonaComponent ,canActivate:[authGuard]},
+  { path: 'form-persona/:id', component: FormPersonaComponent ,canActivate:[authGuard]},
 
-  { path: 'solicitudes', component: SolicitudComponent },
-  { path: 'solicitudes/:id', component: SolicitudComponent },
+  { path: 'solicitudes', component: SolicitudComponent,canActivate:[authGuard] },
+  { path: 'solicitudes/:id', component: SolicitudComponent ,canActivate:[authGuard]},
   
-  { path: 'solicitud-pdf', component: SolicitudPdfComponent },
-  { path: 'solicitud-pdf/:id', component: SolicitudPdfComponent },
+  { path: 'solicitud-pdf', component: SolicitudPdfComponent ,canActivate:[authGuard]},
+  { path: 'solicitud-pdf/:id', component: SolicitudPdfComponent ,canActivate:[authGuard]},
 
 
-  { path: 'form-solicitud', component: FormSolicitudComponent },
-  { path: 'form-solicitud/:id', component: FormSolicitudComponent },
+  { path: 'form-solicitud', component: FormSolicitudComponent ,canActivate:[authGuard]},
+  { path: 'form-solicitud/:id', component: FormSolicitudComponent ,canActivate:[authGuard]},
 
-  { path: 'servicios', component: ServicioComponent },
-  { path: 'form-servicio', component: FormServicioComponent },
-  { path: 'form-servicio/:id', component: FormServicioComponent },
-
-
-  { path: 'tipodeimpresoras', component: TipoImpresoraComponent },
-  { path: 'marcas', component: MarcasComponent },
-  { path: 'colores', component: ColoresComponent },
-  { path: 'tipodecarga', component: TipoCargaComponent },
-  { path: 'tipodecartucho', component: TipoCartuchoComponent },
-
-  { path: 'estados', component: EstadoComponent },
-
-  { path: 'form-estado', component: FormEstadoComponent },
-  { path: 'form-estado/:id', component: FormEstadoComponent },
+  { path: 'servicios', component: ServicioComponent ,canActivate:[authGuard]},
+  { path: 'form-servicio', component: FormServicioComponent ,canActivate:[authGuard]},
+  { path: 'form-servicio/:id', component: FormServicioComponent ,canActivate:[authGuard]},
 
 
-  { path: 'informes', component: InformesComponent },
+  { path: 'tipodeimpresoras', component: TipoImpresoraComponent ,canActivate:[authGuard]},
+  { path: 'marcas', component: MarcasComponent ,canActivate:[authGuard]},
+  { path: 'colores', component: ColoresComponent ,canActivate:[authGuard]},
+  { path: 'tipodecarga', component: TipoCargaComponent ,canActivate:[authGuard]},
+  { path: 'tipodecartucho', component: TipoCartuchoComponent ,canActivate:[authGuard]},
+
+  { path: 'estados', component: EstadoComponent ,canActivate:[authGuard]},
+
+  { path: 'form-estado', component: FormEstadoComponent ,canActivate:[authGuard]},
+  { path: 'form-estado/:id', component: FormEstadoComponent ,canActivate:[authGuard]},
+
+
+  { path: 'informes', component: InformesComponent ,canActivate:[authGuard]},
 
 
 

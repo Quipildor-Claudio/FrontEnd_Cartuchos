@@ -12,8 +12,13 @@ export class User {
     enabled:boolean;
     create_at:string;
     solicitudes:Solicitud[]=[];
+    
     activo():string{
-        return this.enabled?"Activo":"Descativado";
+        if(this.enabled){
+            return "Activo"
+        }else{
+            return "Descativado";
+        }
     }
 }
 
