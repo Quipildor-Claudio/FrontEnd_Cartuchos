@@ -15,22 +15,20 @@ import Swal from 'sweetalert2';
   templateUrl: './form-cartucho.component.html',
   styleUrls: ['./form-cartucho.component.css']
 })
-
 export class FormCartuchoComponent implements OnInit {
-  titulo: string = "Formulario Cartuchos";
+  titulo: string = "Formulario de Cartuchos";
   cartucho: Cartucho = new Cartucho();
   colores: Color[] = [];
   marcas: Marca[] = [];
   tipoCartuchos: TipoCartucho[] = [];
-
 
   constructor(
     private cartuchoService: CartuchoService,
     private colorService: ColorService,
     private marcaService: MarcaService,
     private tipoService: TipoCartuchoService,
-    public route: Router,
-    public activateRoute: ActivatedRoute
+    private route: Router,
+    private activateRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -38,60 +36,28 @@ export class FormCartuchoComponent implements OnInit {
     this.getMarcas();
     this.getColores();
     this.getTipos();
-
   }
 
   cargar(): void {
     this.activateRoute.params.subscribe(params => {
-      let id = params['id']
+      const id = params['id'];
       if (id) {
         this.cartuchoService.getOne(id).subscribe(res => this.cartucho = res);
       }
-    }
-    );
+    });
   }
 
   getMarcas(): void {
     this.marcaService.getAll().subscribe(res => this.marcas = res);
   }
+
   getColores(): void {
     this.colorService.getAll().subscribe(res => this.colores = res);
   }
+
   getTipos(): void {
     this.tipoService.getAll().subscribe(res => this.tipoCartuchos = res);
   }
-
-
-
-
-  create(): void {
-    this.cartuchoService.add(this.cartucho).subscribe(res => {
-      Swal.fire(
-        'Exito',
-        `Categoria ${res.modelo}  Creada!`,
-        'success'
-      )
-      this.route.navigate(['/cartuchos']);
-    });
-
-  };
-
-
-  update(): void {
-    this.cartuchoService.update(this.cartucho, this.cartucho.id).subscribe((res) => {
-      Swal.fire(
-        'Exito',
-        `${res.modelo}  Actualizada!`,
-        'success'
-      )
-
-      this.route.navigate(['/cartuchos']);
-    }
-    );
-  };
-
-
-
 
   comparar(o1: any, o2: any): boolean {
     if (o1 === undefined && o2 === undefined) {
@@ -101,15 +67,59 @@ export class FormCartuchoComponent implements OnInit {
     return o1 === null || o2 === null || o1 === undefined || o2 === undefined ? false : o1.id === o2.id;
   }
 
-  Volver(): void {
+  create(): void {
     Swal.fire({
-      title: 'Estas seguro de salir del formulario ?',
-      text: `Se perderan todos los datos del formulario`,
+      title: '¿Estás seguro?',
+      text:'Se agregará un nuevo cartucho.',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes!'
+      confirmButtonText: 'Sí'
+    }).then((result) => {
+      if (result.isConfirmed) {
+    this.cartuchoService.add(this.cartucho).subscribe(res => {
+      Swal.fire(
+        'Éxito',
+        `Cartucho: ${res.modelo}, creada!`,
+        'success'
+      );
+      this.route.navigate(['/cartuchos']);
+    });
+  }});
+  }
+
+  update(): void {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Se modificarán todos los datos del cartucho',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí'
+    }).then((result) => {
+      if (result.isConfirmed) {
+    this.cartuchoService.update(this.cartucho, this.cartucho.id).subscribe(res => {
+      Swal.fire(
+        'Éxito',
+        `Cartucho: ${res.modelo}, actualizada!`,
+        'success'
+      );
+      this.route.navigate(['/cartuchos']);
+    });
+  }});
+  }
+
+  Volver(): void {
+    Swal.fire({
+      title: '¿Estás seguro de salir del formulario?',
+      text: 'Se perderán todos los datos del formulario',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí'
     }).then((result) => {
       if (result.isConfirmed) {
         this.route.navigate(['/cartuchos']);
@@ -117,6 +127,3 @@ export class FormCartuchoComponent implements OnInit {
     });
   }
 }
-
-
-

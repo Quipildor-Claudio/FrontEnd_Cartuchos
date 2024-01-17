@@ -106,12 +106,12 @@
       
       <!-- Botones -->
       <div class="form-group row">
-        <div class="col-sm-6">
-          <button class="btn btn-primary" role="button" (click)='Volver()' >Volver</button>
-          <button class="btn btn-primary" role="button" (click)='create()' *ngIf="!impresora.id else elseBlock" [disabled]="impresoraForm.invalid || myCartuchoControl.invalid">Crear</button>
+        <div class="col-sm-12">
+          <button class="btn float-end " role="button" (click)='create()' *ngIf="!impresora.id else elseBlock" [disabled]="impresoraForm.invalid || myCartuchoControl.invalid">Crear</button>
           <ng-template #elseBlock>
-            <button class="btn btn-primary" role="button" (click)='update()' [disabled]="impresoraForm.invalid">Editar</button>
+            <button class="btn float-end " role="button" (click)='update()' [disabled]="impresoraForm.invalid">Actualizar</button>
           </ng-template>
+          <button class="btn float-end " role="button" (click)='Volver()' >Volver</button>
         </div>
       </div>
     </div>

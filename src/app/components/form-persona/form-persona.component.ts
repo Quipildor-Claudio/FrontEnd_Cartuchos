@@ -45,31 +45,50 @@ export class FormPersonaComponent implements OnInit {
 
   create(): void {
     console.log(this.persona);
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text:'Se agregará un nuevo persona.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí'
+    }).then((result) => {
+      if (result.isConfirmed) {
     this.personaService.add(this.persona).subscribe(
       res => {
         Swal.fire(
-          'Exito',
-          `Categoria ${res.apellido +" "+ res.nombre}  Creada!`,
+          'Éxito',
+          `Persona: ${res.apellido +" "+ res.nombre}, creada!`,
           'success'
         )
         this.route.navigate(['/personas']);
-      }
-    )
+      });
+    }});
   }
 
   update(): void { 
     console.log(this.persona);
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Se modificarán todos los datos de la persona.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí'
+    }).then((result) => {
+      if (result.isConfirmed) {
     this.personaService.update(this.persona,this.persona.id).subscribe(
       res => {
         Swal.fire(
-          'Exito',
-          ` ${res.nombre}  ${res.apellido}  actualizado!`,
+          'Éxito',
+          `Persona: ${res.nombre}  ${res.apellido}, actualizada!`,
           'success'
         )
         this.route.navigate(['/personas']);
-      }
-    )
-
+      });
+    }});
   }
  
   comparar(o1: any, o2: any): boolean {
@@ -81,13 +100,13 @@ export class FormPersonaComponent implements OnInit {
 
   Volver (): void {
     Swal.fire({
-      title: 'Estas seguro de salir del formulario ?',
-      text: `Se perderan todos los datos del formulario`,
+      title: '¿Estás seguro de salir del formulario?',
+      text: `Se perderán todos los datos del formulario.`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes!'
+      confirmButtonText: 'Si'
     }).then((result) => {
       if (result.isConfirmed) {
         this.route.navigate(['/personas']);

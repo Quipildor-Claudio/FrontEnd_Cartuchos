@@ -20,8 +20,7 @@ export class InformesComponent implements OnInit {
   filteredSol: Solicitud[] = [];
   filterText: any;
   filterId: any;
-
-
+  
   rangoFechas = {
     fechaInicio: null,
     fechaFinal: null,

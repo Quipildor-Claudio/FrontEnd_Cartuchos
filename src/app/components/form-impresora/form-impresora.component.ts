@@ -22,16 +22,14 @@ Cartucho
   styleUrls: ['./form-impresora.component.css']
 })
 export class FormImpresoraComponent implements OnInit {
-  titulo: string = "Formulario de Impresoras";
+  titulo: string = "Formulario de Impresora";
   mostrarTabla: boolean = false;
-
   impresora: Impresora = new Impresora();
   marcas: Marca[] = [];
   tipoImpresoras: TipoImpresora[] = [];
   cartucho: Cartucho = new Cartucho();
   myCartuchoControl = new FormControl();
   cartuchosFiltrados: Observable<Cartucho[]>;
- 
 
   constructor(private impresoraService: ImpresoraService,
     public activatedRoute: ActivatedRoute,
@@ -44,15 +42,12 @@ export class FormImpresoraComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData();
-
     this.cartuchosFiltrados = this.myCartuchoControl.valueChanges.pipe(
       map(value => typeof value === 'string' ? value : value.modelo),
       flatMap(value => value ? this._filter(value) : [])
     );
-
     this.getMarcas();
     this.getTipos();
-    
     this.activatedRoute.queryParams.subscribe(params => {
       this.mostrarTabla =true;
     });
@@ -82,44 +77,16 @@ export class FormImpresoraComponent implements OnInit {
 
     console.log(this.cartucho);
   }
+
+  cDelete(cSol: Cartucho): void {
+    this.impresora.cartuchos = this.impresora.cartuchos.filter(res => res != cSol);
+  }
+
   getMarcas(): void {
     this.marcaService.getAll().subscribe(res => this.marcas = res);
   }
   getTipos(): void {
     this.tipoImpresoraService.getAll().subscribe(res => this.tipoImpresoras = res);
-  }
-
-  create(): void {
-    console.log(this.impresora);
-    this.impresoraService.add(this.impresora).subscribe(
-      res => {
-        Swal.fire(
-          'Exito',
-          `Categoria ${res.modelo}  Creada!`,
-          'success'
-        )
-        this.route.navigate(['/impresoras']);
-      }
-    )
-  }
-
-  update(): void {
-    console.log(this.impresora);
-    this.impresoraService.update(this.impresora, this.impresora.id).subscribe(
-      res => {
-        Swal.fire(
-          'Exito',
-          `Categoria ${res.modelo}  Actulizada!`,
-          'success'
-        )
-        this.route.navigate(['/impresoras']);
-      }
-    )
-
-  }
-
-  cDelete(cSol: Cartucho): void {
-    this.impresora.cartuchos = this.impresora.cartuchos.filter(res => res != cSol);
   }
 
   comparar(o1: any, o2: any): boolean {
@@ -129,15 +96,64 @@ export class FormImpresoraComponent implements OnInit {
     return o1 === null || o2 === null || o1 === undefined || o2 === undefined ? false : o1.id === o2.id;
   }
 
-  Volver (): void {
+  create(): void {
+    console.log(this.impresora);
     Swal.fire({
-      title: 'Estas seguro de salir del formulario ?',
-      text: `Se perderan todos los datos del formulario`,
+      title: '¿Estás seguro?',
+      text: 'Se agregará una nueva impresora.',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes!'
+      confirmButtonText: 'Sí'
+    }).then((result) => {
+      if (result.isConfirmed) {
+    this.impresoraService.add(this.impresora).subscribe(
+      res => {
+        Swal.fire(
+          'Éxito',
+          `Impresora: ${res.modelo}, creada!`,
+          'success'
+        )
+        this.route.navigate(['/impresoras']);
+      });
+      }});
+  }
+
+  update(): void {
+    console.log(this.impresora);
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Se modificarán todos los datos de la impresora.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí'
+    }).then((result) => {
+      if (result.isConfirmed) {
+    this.impresoraService.update(this.impresora, this.impresora.id).subscribe(
+      res => {
+        Swal.fire(
+          'Éxito',
+          `Impresora: ${res.modelo}, actualizada!`,
+          'success'
+        )
+        this.route.navigate(['/impresoras']);
+      });
+    }});
+  }
+
+
+  Volver (): void {
+    Swal.fire({
+      title: '¿Estás seguro de salir del formulario ?',
+      text: `Se perderán todos los datos del formulario.`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí'
     }).then((result) => {
       if (result.isConfirmed) {
         this.route.navigate(['/impresoras']);

@@ -22,7 +22,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 
 export class FormUsuarioComponent implements OnInit {
-  titulo: string = "Formulario";
+  titulo: string = "Formulario de Usuario";
   roles: Rol[] = [];
   persona: Persona = new Persona();
   myPersonaControl = new FormControl();
@@ -93,22 +93,53 @@ export class FormUsuarioComponent implements OnInit {
 
   create() {
     var numeroAleatorio = Math.floor(Math.random() * 900) + 100;
-
     this.user.roles = [this.roles.find(rol => rol.id)];
-
     this.user.email = "admin" + numeroAleatorio + "@gmail.com";
     console.log(this.user);
 
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text:'Se agregará un nuevo usuario.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí'
+    }).then((result) => {
+      if (result.isConfirmed) {
     this.userService.add(this.user).subscribe(res => {
         Swal.fire(
-            'Exito',
-            `Categoria ${res.username}  Creada!`,
+            'Éxito',
+            `Usuario: ${res.username}, creada!`,
             'success'
         )
         this.route.navigate(['/usuarios']);
     });
+  }});
 }
-  update(){}
+  update(){
+    this.user.roles = [this.roles.find(rol => rol.id)];
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Se modificarán los datos del usuario',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.userService.update(this.user, this.user.id).subscribe(res => {
+          Swal.fire(
+            'Éxito',
+            `Usuario: ${res.username}, actualizada!`,
+            'success'
+          );
+          this.route.navigate(['/usuarios']);
+        });
+      }});
+
+  }
 
   result(): Rol[] {
     return this.roles.filter(item => item.checked);
@@ -116,13 +147,13 @@ export class FormUsuarioComponent implements OnInit {
 
   Volver (): void {
     Swal.fire({
-      title: 'Estas seguro de salir del formulario ?',
-      text: `Se perderan todos los datos del formulario`,
+      title: '¿Estás seguro de salir del formulario?',
+      text: `Se perderán todos los datos del formulario`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes!'
+      confirmButtonText: 'Sí'
     }).then((result) => {
       if (result.isConfirmed) {
         this.route.navigate(['/usuarios']);

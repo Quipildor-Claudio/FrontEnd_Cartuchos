@@ -22,20 +22,20 @@ export class CartuchoComponent implements OnInit {
 
   delete(item:Cartucho):void {
     Swal.fire({
-      title: 'Estas Seguro?',
+      title: 'Estás Seguro?',
       text: `Eliminar ${item.modelo}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Eliminar!'
+      confirmButtonText: 'Sí, Eliminar!'
     }).then((result) => {
       if (result.isConfirmed) {
         this.cartuchoService.delete(item.id).subscribe(() => {
           this.cartuchos = this.cartuchos.filter(cat => cat != item);
           Swal.fire(
             'Eliminado!',
-            'Su archivo a sido eliminado',
+            'El cartucho ha sido eliminado',
             'success'
           )
         }

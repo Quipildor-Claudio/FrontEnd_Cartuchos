@@ -124,16 +124,18 @@ export class SolicitudComponent implements OnInit {
   }
 
   selectedImpresora(event: MatAutocompleteSelectedEvent): void {
-    this.impresora = event.option.value as Impresora;
+      this.impresora = event.option.value as Impresora;
   
-    const existeImpresora = this.solicitud.impresoras.some(
-      (imp) => imp.id === this.impresora.id
-    );
-    if (!existeImpresora) {
-      this.solicitud.impresoras.push(this.impresora);
-    }
-    this.mostrarTabla = true;
-    this.disableImpresoraSelect = false;
+      const existeImpresora = this.solicitud.impresoras.some(
+        (imp) => imp.id === this.impresora.id
+      );
+  
+      if (!existeImpresora && !this.cartuchoAgregado) {
+      }
+  
+      this.mostrarTabla = true;
+      this.disableImpresoraSelect = false;
+    
   }
   
 
@@ -202,6 +204,17 @@ export class SolicitudComponent implements OnInit {
   }
 
   addCartuchos(car: Cartucho): void {
+  
+    const existeImpresora = this.solicitud.impresoras.some(
+      (imp) => imp.id === this.impresora.id
+    );
+
+    if (!existeImpresora && !this.cartuchoAgregado) {
+      this.solicitud.impresoras.push(this.impresora);
+
+    }
+
+
      const maxCantidad = 2;
   if (this.existItem(car.id)) {
     const cartuchoExistente = this.solicitud.itemSolicituds.find(c => c.cartucho.id === car.id);
@@ -221,12 +234,17 @@ export class SolicitudComponent implements OnInit {
       this.mostrarTabla = false;
       this.mostrarAutocompletado = false;
       this.mostrarDatos = true;
-
       this.impresora = new Impresora();
       this.myImpresoraControl.setValue('');
      this.cartuchoAgregado = true;
      this.disableImpresoraSelect = true;
+     
     
+  }
+  onMarcaChange(): void {
+    this.impresora.modelo = ''; 
+    this.myImpresoraControl.setValue('');
+    this.impresora.cartuchos = [];
   }
 
   // elimina cartucho de la tabla de pedidos

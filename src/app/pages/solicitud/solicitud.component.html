@@ -8,7 +8,7 @@
         <div class="col-sm-6">
           <label class="control-label h5">Impresora</label>
           <select class="col-sm-6 form-control" [compareWith]="comparar" [(ngModel)]="impresora.marca" name="imarca"
-          (change)="imarca()" required
+          (change)="imarca()" required (ngModelChange)="onMarcaChange()"
           [ngClass]="{'is-invalid': Form?.controls['imarca']?.invalid && Form?.controls['imarca']?.touched && solicitud.itemSolicituds.length === 0}">
           <option [ngValue]="undefined" disabled>Seleccionar una marca...</option>
           <option *ngFor="let imarca of marcas" [ngValue]="imarca">{{imarca.nombre}}</option>
@@ -153,7 +153,7 @@
 
       <div class="form-group row">
         <div class="col-sm-12 offset-sm-1">  
-          <button class="btn float-end btn-primary" role="button" (click)="update()" *ngIf="solicitud.id; else elseBlock" [disabled]="!mostrarDatos || !solicitud.justificacion">Editar</button>
+          <button class="btn float-end btn-primary" role="button" (click)="update()" *ngIf="solicitud.id; else elseBlock" [disabled]="!mostrarDatos || !solicitud.justificacion">Actulizar</button>
 
           <ng-template #elseBlock>
             <button class="btn float-end btn-primary" role="button" (click)="enviarSolicitud()" [disabled]="!mostrarDatos || !solicitud.justificacion">Crear</button>
