@@ -34,8 +34,8 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let so of solicitud.itemSolicituds">
-                    <td >1</td>
+                  <tr *ngFor="let so of solicitud.itemSolicituds; let i = index">
+                    <td >{{ i + 1 }}</td>
                     <td>{{so.cantidad}}</td>
                     <td>{{so.cartucho.modelo}}, {{so.cartucho.marca.nombre}}, {{so.cartucho.color.nombre}}, {{so.cartucho.tipoCartucho.descripcion}},  {{so.tipoCarga.descripcion}}</td>
                   </tr>
