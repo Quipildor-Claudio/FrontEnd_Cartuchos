@@ -1,12 +1,15 @@
 <div class="row col-sm-10 offset-sm-1 p-4" id="formulario">
-  <div class="header"><h3>{{ titulo }}</h3></div>
-  <hr id="borde"/>
+  <div class="header">
+    <h3>{{ titulo }}</h3>
+  </div>
+  <hr id="borde" />
   <div class="bodycol-md-12 offset-sm-1">
     <form #impresoraForm="ngForm">
       <div class="form-group row">
         <div class="col-sm-5">
           <label for="modelo" class="control-label h5">Modelo</label>
-          <input type="text" class="form-control" [(ngModel)]="cartucho.modelo" name="modelo" #modeloField="ngModel" required minlength="4" placeholder="Ingrese modelo..."
+          <input type="text" class="form-control" [(ngModel)]="cartucho.modelo" name="modelo" #modeloField="ngModel"
+            required minlength="4" placeholder="Ingrese modelo..."
             [ngClass]="{'is-invalid': modeloField.invalid && (modeloField.dirty || modeloField.touched)}">
           <div *ngIf="modeloField.invalid && (modeloField.dirty || modeloField.touched)" class="text-danger">
             <div *ngIf="modeloField.errors['required']">
@@ -20,7 +23,8 @@
 
         <div class="col-sm-5">
           <label for="capacidad" class="control-label h5">Capacidad</label>
-          <input type="text" class="form-control" [(ngModel)]="cartucho.capacidad" name="capacidad" #capacidadField="ngModel" required minlength="4" placeholder="Ingrese la capacidad..."
+          <input type="text" class="form-control" [(ngModel)]="cartucho.capacidad" name="capacidad"
+            #capacidadField="ngModel" required minlength="4" placeholder="Ingrese la capacidad..."
             [ngClass]="{'is-invalid': capacidadField.invalid && (capacidadField.dirty || capacidadField.touched)}">
           <div *ngIf="capacidadField.invalid && (capacidadField.dirty || capacidadField.touched)" class="text-danger">
             <div *ngIf="capacidadField.errors['required']">
@@ -31,64 +35,71 @@
             </div>
           </div>
         </div>
-        </div>
-        
-        <div class="col-sm-5">
-          <label for="descripcion" class="form-label h5">Descripción</label>
-          <input type="text" class="form-control" [(ngModel)]="cartucho.descripcion" name="descripcion" #descripcionField="ngModel" required minlength="4" placeholder="Ingrese la descripción..."
-            [ngClass]="{'is-invalid': descripcionField.invalid && (descripcionField.dirty || descripcionField.touched)}">
-          <div *ngIf="descripcionField.invalid && (descripcionField.dirty || descripcionField.touched)" class="text-danger">
-            <div *ngIf="descripcionField.errors['required']" >
-              Descripción es requerida.
-            </div>
-            <div *ngIf="descripcionField.errors['minlength']">
-              Descripción debe tener al menos 4 caracteres.
-            </div>
+      </div>
+
+      <div class="col-sm-5">
+        <label for="descripcion" class="form-label h5">Descripción</label>
+        <input type="text" class="form-control" [(ngModel)]="cartucho.descripcion" name="descripcion"
+          #descripcionField="ngModel" required minlength="4" placeholder="Ingrese la descripción..."
+          [ngClass]="{'is-invalid': descripcionField.invalid && (descripcionField.dirty || descripcionField.touched)}">
+        <div *ngIf="descripcionField.invalid && (descripcionField.dirty || descripcionField.touched)"
+          class="text-danger">
+          <div *ngIf="descripcionField.errors['required']">
+            Descripción es requerida.
+          </div>
+          <div *ngIf="descripcionField.errors['minlength']">
+            Descripción debe tener al menos 4 caracteres.
           </div>
         </div>
+      </div>
 
       <div class="form-group row">
 
-          <div class="col-sm-5">
-            <label for="marca" class="control-label h5">Marca</label>
-            <select [compareWith]="comparar" class="form-select"
-              [(ngModel)]="cartucho.marca" name="marca" id="marca" aria-describedby="marcaFeedback" required
-              [ngClass]="{'is-invalid': impresoraForm.form.controls['marca']?.invalid && impresoraForm.form.controls['marca']?.touched}">
-              <option selected disabled [ngValue]="undefined">Seleccione la marca del cartucho...</option>
-              <option *ngFor="let marca of marcas" [ngValue]="marca">{{marca.nombre}}</option>
-            </select>
-            <div *ngIf="impresoraForm.form.controls['marca']?.invalid && impresoraForm.form.controls['marca']?.touched" class="invalid-feedback">
-              Marca es requerida.
-            </div>
-          </div>
-
-            <div class="col-sm-5">
-            <label for="color" class="control-label h5">Color</label>
-            <select [compareWith]="comparar" class="form-select"
-              [(ngModel)]="cartucho.color" name="color" id="color" required
-              [ngClass]="{'is-invalid': impresoraForm.form.controls['color']?.invalid && impresoraForm.form.controls['color']?.touched}">
-              <option [ngValue]="undefined">Seleccione el color de cartucho...</option>
-              <option *ngFor="let color of colores" [ngValue]="color">{{color.nombre}}</option>
-            </select>
-            <div *ngIf="impresoraForm.form.controls['color']?.invalid && impresoraForm.form.controls['color']?.touched" class="invalid-feedback">
-              Color es requerido.
-            </div>
-          </div>
-
-    </div>
-
         <div class="col-sm-5">
-          <label for="tipoCartucho" class="control-label h5">Tipo de Cartucho</label>
-          <select [compareWith]="comparar" class="form-select"
-            [(ngModel)]="cartucho.tipoCartucho" name="tipoCartucho" id="tipoCartucho" required
-            [ngClass]="{'is-invalid': impresoraForm.form.controls['tipoCartucho']?.invalid && impresoraForm.form.controls['tipoCartucho']?.touched}">
-            <option [ngValue]="undefined">Seleccione el tipo de cartucho...</option>
-            <option *ngFor="let tipoCartucho of tipoCartuchos" [ngValue]="tipoCartucho">{{tipoCartucho.descripcion}}</option>
+          <label for="marca" class="control-label h5">Marca</label>
+          <select [compareWith]="comparar" class="form-select" [(ngModel)]="cartucho.marca" name="marca" id="marca"
+            aria-describedby="marcaFeedback" required
+            [ngClass]="{'is-invalid': impresoraForm.form.controls['marca']?.invalid && impresoraForm.form.controls['marca']?.touched}">
+            <option selected disabled [ngValue]="undefined">Seleccione la marca del cartucho...</option>
+            <option *ngFor="let marca of marcas" [ngValue]="marca">{{marca.nombre}}</option>
           </select>
-          <div *ngIf="impresoraForm.form.controls['tipoCartucho']?.invalid && impresoraForm.form.controls['tipoCartucho']?.touched" class="invalid-feedback">
-            Tipo de Cartucho es requerido.
+          <div *ngIf="impresoraForm.form.controls['marca']?.invalid && impresoraForm.form.controls['marca']?.touched"
+            class="invalid-feedback">
+            Marca es requerida.
           </div>
         </div>
+
+        <div class="col-sm-5">
+          <label for="color" class="control-label h5">Color</label>
+          <select [compareWith]="comparar" class="form-select" [(ngModel)]="cartucho.color" name="color" id="color"
+            required
+            [ngClass]="{'is-invalid': impresoraForm.form.controls['color']?.invalid && impresoraForm.form.controls['color']?.touched}">
+            <option [ngValue]="undefined">Seleccione el color de cartucho...</option>
+            <option *ngFor="let color of colores" [ngValue]="color">{{color.nombre}}</option>
+          </select>
+          <div *ngIf="impresoraForm.form.controls['color']?.invalid && impresoraForm.form.controls['color']?.touched"
+            class="invalid-feedback">
+            Color es requerido.
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-sm-5">
+        <label for="tipoCartucho" class="control-label h5">Tipo de Cartucho</label>
+        <select [compareWith]="comparar" class="form-select" [(ngModel)]="cartucho.tipoCartucho" name="tipoCartucho"
+          id="tipoCartucho" required
+          [ngClass]="{'is-invalid': impresoraForm.form.controls['tipoCartucho']?.invalid && impresoraForm.form.controls['tipoCartucho']?.touched}">
+          <option [ngValue]="undefined">Seleccione el tipo de cartucho...</option>
+          <option *ngFor="let tipoCartucho of tipoCartuchos" [ngValue]="tipoCartucho">{{tipoCartucho.descripcion}}
+          </option>
+        </select>
+        <div
+          *ngIf="impresoraForm.form.controls['tipoCartucho']?.invalid && impresoraForm.form.controls['tipoCartucho']?.touched"
+          class="invalid-feedback">
+          Tipo de Cartucho es requerido.
+        </div>
+      </div>
 
 
     <div class="form-group row">

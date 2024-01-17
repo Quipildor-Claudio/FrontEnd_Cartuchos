@@ -62,7 +62,6 @@ export class FormUsuarioComponent implements OnInit {
       }
     }
     );
-    console.log(this.user)
   }
   private _filter(value: string): Observable<Persona[]> {
     const filterValue = value.toLowerCase();
@@ -80,12 +79,10 @@ export class FormUsuarioComponent implements OnInit {
   getRoles(): void {
     this.rolService.getAll().subscribe(res => {
       this.roles = res
-      console.log(this.roles);
     });
   }
 
   getPersonaDni() {
-    const per: Persona = new Persona();
     this.personaService.getDni(this.user.persona.dni).subscribe(res => {
       this.user.persona = res;
     });

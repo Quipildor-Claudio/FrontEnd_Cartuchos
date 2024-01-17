@@ -18,7 +18,7 @@
             Este campo es obligatorio cuando hay cartuchos seleccionados.
           </div>
         </div>
-            
+
 
         <div class="col-sm-10" *ngIf="mostrarAutocompletado">
           <mat-form-field>
@@ -27,7 +27,8 @@
               [formControl]="myImpresoraControl" [matAutocomplete]="autoo" required
               [ngClass]="{'is-invalid': myImpresoraControl?.invalid && (myImpresoraControl?.dirty || myImpresoraControl?.touched)}"
               [disabled]="myImpresoraControl?.disabled">
-            <mat-autocomplete #autoo="matAutocomplete" [displayWith]="viewImpresora" (optionSelected)="selectedImpresora($event)">
+            <mat-autocomplete #autoo="matAutocomplete" [displayWith]="viewImpresora"
+              (optionSelected)="selectedImpresora($event)">
               <mat-option *ngFor="let impresora of impresorasFiltrados | async" [value]="impresora">
                 {{impresora.modelo}}&nbsp; {{impresora.tipoImpresora.descripcion}}
               </mat-option>
@@ -87,14 +88,16 @@
           <textarea class="form-control" [(ngModel)]="solicitud.justificacion" name="justificacion" rows="3" required
             [ngClass]="{'is-invalid': Form?.controls['justificacion']?.invalid && (Form?.controls['justificacion']?.dirty || Form?.controls['justificacion']?.touched)}"
             [disabled]="Form?.controls['justificacion']?.disabled"></textarea>
-          <div *ngIf="Form?.controls['justificacion']?.invalid && (Form?.controls['justificacion']?.dirty || Form?.controls['justificacion']?.touched)"
+          <div
+            *ngIf="Form?.controls['justificacion']?.invalid && (Form?.controls['justificacion']?.dirty || Form?.controls['justificacion']?.touched)"
             class="text-danger">
             Este campo es obligatorio.
           </div>
         </div>
       </div>
 
-      <div class="form-group col-sm-12" *ngIf="mostrarDatos && (solicitud.impresoras.length > 0 || solicitud.itemSolicituds.length > 0)">
+      <div class="form-group col-sm-12"
+        *ngIf="mostrarDatos && (solicitud.impresoras.length > 0 || solicitud.itemSolicituds.length > 0)">
         <label class="control-label h5 row">Datos de Solicitud (Previsualización)</label>
         <label class="control-label h6 row">Impresoras seleccionadas</label>
         <table class="table table-hover">
@@ -128,15 +131,19 @@
               <td>{{cSol.cartucho.tipoCartucho.descripcion}}</td>
               <td>
                 <div class="was-validated">
-                  <select [compareWith]="comparar" class="form-select is-invalid " [(ngModel)]="cSol.tipoCarga" name="tipoCarga" style="width:150px;"
-                  [ngClass]="{'is-invalid': Form?.controls['tipoCarga']?.invalid && Form?.controls['tipoCarga']?.touched}" required>
-                  <option [ngValue]="undefined" disabled>Seleccione...</option>
-                  <option *ngFor="let tipoCarga of tipoCargas" [ngValue]="tipoCarga">{{tipoCarga.descripcion}}</option>
-                </select>
-                <div *ngIf="Form?.controls['tipoCarga']?.invalid && Form?.controls['tipoCarga']?.touched" class="text-danger">
-                  Seleccione un tipo de carga.
-                </div>
-                
+                  <select [compareWith]="comparar" class="form-select is-invalid " [(ngModel)]="cSol.tipoCarga"
+                    name="tipoCarga" style="width:150px;"
+                    [ngClass]="{'is-invalid': Form?.controls['tipoCarga']?.invalid && Form?.controls['tipoCarga']?.touched}"
+                    required>
+                    <option [ngValue]="undefined" disabled>Seleccione...</option>
+                    <option *ngFor="let tipoCarga of tipoCargas" [ngValue]="tipoCarga">{{tipoCarga.descripcion}}
+                    </option>
+                  </select>
+                  <div *ngIf="Form?.controls['tipoCarga']?.invalid && Form?.controls['tipoCarga']?.touched"
+                    class="text-danger">
+                    Seleccione un tipo de carga.
+                  </div>
+
                 </div>
               </td>
               <td>
@@ -156,7 +163,8 @@
           <button class="btn float-end btn-primary" role="button" (click)="update()" *ngIf="solicitud.id; else elseBlock" [disabled]="!mostrarDatos || !solicitud.justificacion">Actulizar</button>
 
           <ng-template #elseBlock>
-            <button class="btn float-end btn-primary" role="button" (click)="enviarSolicitud()" [disabled]="!mostrarDatos || !solicitud.justificacion">Crear</button>
+            <button class="btn float-end btn-primary" role="button" (click)="enviarSolicitud()"
+              [disabled]="!mostrarDatos || !solicitud.justificacion">Crear</button>
           </ng-template>
           <button class="btn float-end btn-primary me-3" role="button" (click)="Volver()">Volver</button>
         </div>

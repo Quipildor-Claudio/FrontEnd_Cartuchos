@@ -1,14 +1,16 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { API_URI } from 'config/config';
-import { Observable, map } from 'rxjs';
+import { Observable, catchError, map, throwError } from 'rxjs';
 import { User } from '../models/user';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class UserService {
 
     
@@ -45,7 +47,22 @@ export class UserService {
   }
 
   add(user:User):Observable<any>{
-    return this.http.post<any>(`${API_URI}/user`,user,{headers:this.authService.addAuthorizationHeader()});
+    return this.http.post<any>(`${API_URI}/user`,user,{headers:this.authService.addAuthorizationHeader()})
+    .pipe(
+      catchError(e => {
+        if (this.authService.isNoAutorizado(e)) {
+          return throwError(e);
+        }
+
+        if (e.status == 400) {
+          return throwError(e);
+        }
+       
+        Swal.fire('','Personal ya asignado a un usuario', 'error');
+        return throwError(e);
+      })
+ 
+    );;
   }
   update(user:User,id:number):Observable<any>{
     return this.http.put<any>(`${API_URI}/user/${id}`,user,{headers:this.authService.addAuthorizationHeader()});
