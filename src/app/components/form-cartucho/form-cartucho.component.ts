@@ -16,7 +16,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./form-cartucho.component.css']
 })
 export class FormCartuchoComponent implements OnInit {
-  titulo: string = "Formulario de Cartuchos";
+  titulo: string = "Formulario de Cartuchos y Toners";
   cartucho: Cartucho = new Cartucho();
   colores: Color[] = [];
   marcas: Marca[] = [];

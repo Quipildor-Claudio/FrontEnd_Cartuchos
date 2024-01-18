@@ -10,8 +10,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./colores.component.css']
 })
 export class ColoresComponent implements OnInit {
-  title = "Gestion de Colores";
+  title = "Gestión de Colores";
   colores: Color[];
+  filterText: any;
+
 
   @ViewChild('coloresContainer') coloresContainer: ElementRef;
   color: Color = new Color();
@@ -20,14 +22,13 @@ export class ColoresComponent implements OnInit {
   edicionEnProgreso = false;
   mostrarAgregar:boolean=true;
   mostrarModificar:boolean=true;
+  
 
   ngAfterViewInit(): void {
     if (this.agregandoNuevoColor) {
       this.scrollToAddColor();
     }
   }
-
-
   constructor(private colorService: ColorService, private route: Router) {}
 
   ngOnInit(): void {
@@ -40,19 +41,19 @@ export class ColoresComponent implements OnInit {
 
   delete(item: Color): void {
     Swal.fire({
-      title: 'Estas Seguro?',
+      title: '¿Estás Seguro?',
       text: `Eliminar el color: ${item.nombre}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Eliminar!'
+      confirmButtonText: 'Sí, Eliminar!'
     }).then((result) => {
       if (result.isConfirmed) {
     if (confirm(`Eliminar ${item.nombre}`)) {
       this.colorService.delete(item.id).subscribe(() => {
         this.colores = this.colores.filter(cat => cat !== item);
-        Swal.fire('Eliminado!', 'Su archivo a sido eliminado', 'success');
+        Swal.fire('Eliminado!', 'Su archivo ha sido eliminado', 'success');
       });
     }
   } 
@@ -69,17 +70,17 @@ export class ColoresComponent implements OnInit {
 
   confirmarAgregar(): void {   
     Swal.fire({
-      title: 'Estas Seguro?',
+      title: '¿Estás Seguro?',
       text: `Agregar el color: ${this.color.nombre}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Agregar!'
+      confirmButtonText: 'Sí, Agregar!'
     }).then((result) => {
       if (result.isConfirmed) {
     this.colorService.add(this.color).subscribe(() => {
-      Swal.fire('Éxito', `Categoría ${this.color.nombre} Creada!`, 'success');
+      Swal.fire('Éxito', `Color: ${this.color.nombre}, creada!`, 'success');
       this.route.navigate(['/colores']);
       this.agregandoNuevoColor = false;
       this.getData();
@@ -109,17 +110,17 @@ export class ColoresComponent implements OnInit {
 
   update(item: Color): void {
     Swal.fire({
-      title: 'Estas Seguro?',
+      title: '¿Estás Seguro?',
       text: `Modificar el color: ${item.nombre}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Modificar!'
+      confirmButtonText: 'Sí, Modificar!'
     }).then((result) => {
       if (result.isConfirmed) {
     this.colorService.update(item, item.id).subscribe(() => {
-      Swal.fire('Exito', `${item.nombre} Modificada!`, 'success');
+      Swal.fire('Éxito', `${item.nombre} modificada!`, 'success');
       this.route.navigate(['/colores']);
       this.editarIndex = -1;
       this.edicionEnProgreso = false;

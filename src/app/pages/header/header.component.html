@@ -8,8 +8,7 @@
             <img src="/assets/images/logo_oscuro.png" id="logo">
           </div>
           <a class="navbar-brand text-light h-5" id="titulo" asp-area="" asp-controller="Home"
-            asp-action="Index">Sistema
-            Integral HPS</a><br>
+            asp-action="Index">Sistema Integral de Solicitud de Cartuchos HPS</a><br>
         </div>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
@@ -40,7 +39,7 @@
               <li *ngIf="authService.getUserSession().role == 'COMPUTO' || authService.getUserSession().role == 'ADMINISTRADOR' " class="nav-item dropdown">
                 <a class="nav-link text-light dropdown-toggle" role="button" data-bs-toggle="dropdown"
                   aria-expanded="false">
-                  Gestión de Cartuchos
+                  Gestión de Cartuchos y Toners
                 </a>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="cartuchos">Cartuchos</a></li>

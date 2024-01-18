@@ -9,8 +9,10 @@ import Swal from 'sweetalert2';
   styleUrls: ['./cartucho.component.css']
 })
 export class CartuchoComponent implements OnInit {
-  title:string= "Gestion de Cartuchos ";
+  title:string= "Gestión de Cartuchos ";
   cartuchos: any[];
+  filterText: any;
+
   constructor(private cartuchoService:CartuchoService) { }
 
   ngOnInit(): void {
@@ -22,7 +24,7 @@ export class CartuchoComponent implements OnInit {
 
   delete(item:Cartucho):void {
     Swal.fire({
-      title: 'Estás Seguro?',
+      title: '¿Estás Seguro?',
       text: `Eliminar ${item.modelo}`,
       icon: 'warning',
       showCancelButton: true,
@@ -37,12 +39,6 @@ export class CartuchoComponent implements OnInit {
             'Eliminado!',
             'El cartucho ha sido eliminado',
             'success'
-          )
-        }
-        );
-
-      }
-    })
-  }
-
+          )});
+      }})}
 }

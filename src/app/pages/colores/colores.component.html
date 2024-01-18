@@ -1,6 +1,16 @@
 <div class="card">
   <div class="card-header">
-    <h3 class="card-title">{{title}}</h3>
+    <div class="row">
+      <div class="col-sm-8">
+          <h3 class="card-title">{{title}}</h3>
+      </div>
+      <div class="col-sm-4 row">
+          <div class="input-group ">
+                  <span class="input-group-text"><i class="bi bi-search"></i></span>
+                  <input type="search" class="form-control" name="filterSol" placeholder="Buscar color" [(ngModel)]="filterText">
+          </div>
+      </div>
+    </div>
   </div>
   <div class="card-body">
     <button type="button" id="btn-agregar" class="btn" data-bs-toggle="btn" data-bs-placement="top" title="Agregar Color"  [disabled]="edicionEnProgreso" (click)="agregarColor()"  >Agregar Color</button>
@@ -21,10 +31,10 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of colores; let i = index" class="odd divisiones">
+              <tr *ngFor="let item of colores | filter:filterText ; let i = index" class="odd divisiones">
                 <td>{{item.id}}</td>
                 <td class="custom-nombre-column">
-                  <input *ngIf="editarIndex === i" type="text" [(ngModel)]="item.nombre" class="form-control custom-input" placeholder="Modificar Color" />
+                  <input *ngIf="editarIndex === i" type="text" [(ngModel)]="item.nombre" class="form-control custom-input intable" placeholder="Modificar color" />
                   <span *ngIf="editarIndex !== i">{{item.nombre}}</span>
                 </td>
                 <td>
@@ -49,7 +59,7 @@
               <tr *ngIf="agregandoNuevoColor" class="odd divisiones nuevo-color">
                 <td>{{getNextId()}}</td>
                 <td>
-                  <input type="text" [(ngModel)]="color.nombre" class="form-control custom-input" placeholder="Nuevo Color" />
+                  <input type="text" [(ngModel)]="color.nombre" class="form-control custom-input intable" placeholder="Nuevo Color" />
                 </td>
                 <td>
                   <div class="btn-group">

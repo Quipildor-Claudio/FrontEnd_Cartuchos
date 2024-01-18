@@ -13,6 +13,7 @@ export class PersonaComponent implements OnInit {
   title:string="Gestión de Personas"
   personas:Persona[]=[];
   persona: Persona = new Persona();
+  filterText:any;
   constructor(private personaService:PersonaService, private route: Router) { }
 
   ngOnInit(): void {
@@ -26,19 +27,19 @@ export class PersonaComponent implements OnInit {
   }
   delete(item:Persona):void{
       Swal.fire({
-        title: 'Estas Seguro?',
+        title: '¿Estás Seguro?',
         text: `Eliminar a: ${item.nombre} ${item.apellido}`,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, Eliminar!'
+        confirmButtonText: 'Sí, Eliminar!'
       }).then((result) => {
         if (result.isConfirmed) {
       if (confirm(`Eliminar ${item.nombre}`)) {
         this.personaService.delete(item.id).subscribe(() => {
           this.personas = this.personas.filter(cat => cat !== item);
-          Swal.fire('Eliminado!', 'Su archivo a sido eliminado', 'success');
+          Swal.fire('Eliminado!', 'Su archivo ha sido eliminado', 'success');
         });
       }
       this.route.navigate(['/peronas']);

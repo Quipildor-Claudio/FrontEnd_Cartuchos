@@ -16,6 +16,7 @@
     border: rgb(0, 92, 93);
   }
   
+
   #btn-agregar {
     font-size: 17px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
@@ -48,12 +49,12 @@
     color: none;
   }
   
-  input:focus {
+  .intable:focus {
     outline: none;
     box-shadow: none;
   }
   
-  input {
+  .intable {
     border: none;
     background-color: transparent;
     color: none;

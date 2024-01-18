@@ -1,18 +1,65 @@
-
-
-/* Aplica flexbox al contenedor principal */
-.main-container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh; /* Al menos el 100% del alto de la ventana */
+.custom-nombre-column {
+  width: 500px; 
+}
+.odd {
+  border: 2px solid rgb(0, 92, 93);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Garantiza que el contenido ocupe el espacio restante y se pueda hacer scroll si es necesario */
-.main-container > * {
-  flex: 1;
+.divisiones {
+  border: 1px solid rgb(0, 92, 93);
 }
 
-/* Estilos para el footer */
-.footer {
-  margin-top: auto; /* Empuja el footer hacia abajo para que se quede al final */
+.btn {
+  background: rgb(0, 92, 93);
+  color: white;
+  border: rgb(0, 92, 93);
+}
+
+#btn-agregar {
+  font-size: 17px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+.btn:hover {
+  background: rgb(16, 40, 40);
+  color: white;
+  position: relative;
+  display: inline-block;
+}
+
+tr th {
+  font-size: 18px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+tfoot {
+  border: 1px solid rgb(0, 92, 93);
+}
+
+.custom-input {
+  border: none;
+  background-color: transparent;
+  color: none;
+}
+
+.custom-input:focus {
+  outline: none;
+  color: none;
+}
+
+.intable:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.intable {
+  border: none;
+  background-color: transparent;
+  color: none;
+  margin:0px;
+}
+
+input:focus {
+  color: none;
 }

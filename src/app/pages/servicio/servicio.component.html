@@ -1,7 +1,16 @@
 <div class="card"#serviciosCard  id="serviciosCard"  data-spy="scroll" data-offset="0">
   <div class="card-header">
-    <h3 class="card-title">{{title}}</h3>
-  </div>
+    <div class="row">
+      <div class="col-sm-8">
+          <h3 class="card-title">{{title}}</h3>
+      </div>
+      <div class="col-sm-4 row">
+          <div class="input-group ">
+                  <span class="input-group-text"><i class="bi bi-search"></i></span>
+                  <input type="search" class="form-control" name="filterSol" placeholder="Buscar servicio" [(ngModel)]="filterText">
+          </div>
+      </div>
+    </div>  </div>
   <div class="card-body">
     <button type="button" class="btn btn-primary " [disabled]="edicionEnProgreso" (click)="agregar()">Agregar Servicio</button>
     <div id="" class=" dt-bootstrap4">
@@ -24,10 +33,10 @@
             </thead>
             <tbody>
            
-              <tr *ngFor="let item of servicios; let i = index" class="odd divisiones">
+              <tr *ngFor="let item of servicios | filter:filterText; let i = index" class="odd divisiones">
                 <td>{{item.id}}</td>
                 <td class="custom-nombre-column">
-                  <input *ngIf="editarIndex === i" type="text" [(ngModel)]="item.nombre" class="form-control custom-input" placeholder="Modificar Color" />
+                  <input *ngIf="editarIndex === i" type="text" [(ngModel)]="item.nombre" class="form-control custom-input intable" placeholder="Modificar servicio" />
                   <span *ngIf="editarIndex !== i">{{item.nombre}}</span>
                 </td>
                 <td>
@@ -52,7 +61,7 @@
                <tr *ngIf="agregandoNuevoServicio" class="odd divisiones nuevo-color">
                 <td>{{getNextId()}}</td>
                 <td>
-                  <input type="text" [(ngModel)]="servicio.nombre" class="form-control custom-input" placeholder="Nuevo Servicio" />
+                  <input type="text" [(ngModel)]="servicio.nombre" class="form-control custom-input intable" placeholder="Nuevo Servicio" />
                 </td>
                 <td>
                   <div class="btn-group">

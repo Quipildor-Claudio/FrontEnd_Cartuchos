@@ -10,9 +10,10 @@ import Swal from 'sweetalert2';
   styleUrls: ['./tipo-cartucho.component.css']
 })
 export class TipoCartuchoComponent implements OnInit {
-  title: string = "Gestion de Tipos de Cartuchos";
+  title: string = "Gestión de Tipos de Cartuchos";
   tipo_cartuchos: any[];
   tipo_cartucho: TipoCartucho = new TipoCartucho();
+  filterText:any;
   agregandoNuevoCartuchoTipo: boolean;
   editarIndex = -1;
   edicionEnProgreso = false;
@@ -37,19 +38,19 @@ export class TipoCartuchoComponent implements OnInit {
 
   delete(item: TipoCartucho): void {
     Swal.fire({
-      title: 'Estas Seguro?',
+      title: '¿Estás Seguro?',
       text: `Eliminar el tipo de cartucho: ${this.tipo_cartucho.descripcion}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Eliminar!'
+      confirmButtonText: 'Si, Eliminar!'
     }).then((result) => {
       if (result.isConfirmed) {
         if (confirm(`Eliminar ${item.descripcion}`)) {
           this.tipoCartuchoService.delete(item.id).subscribe(() => {
             this.tipo_cartuchos = this.tipo_cartuchos.filter(cat => cat !== item);
-            Swal.fire('Eliminado!', 'Su archivo a sido eliminado', 'success');
+            Swal.fire('Eliminado!', 'Su archivo ha sido eliminado', 'success');
           });
         }
         this.route.navigate(['/tipo_cartuchos']);
@@ -69,17 +70,17 @@ export class TipoCartuchoComponent implements OnInit {
 
   confirmarAgregar(): void {
     Swal.fire({
-      title: 'Estas Seguro?',
+      title: '¿Estás Seguro?',
       text: `Agregar el tipo de cartucho: ${this.tipo_cartucho.descripcion}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Agregar!'
+      confirmButtonText: 'Si, Agregar!'
     }).then((result) => {
       if (result.isConfirmed) {
         this.tipoCartuchoService.add(this.tipo_cartucho).subscribe(() => {
-          Swal.fire('Éxito', `Categoría ${this.tipo_cartucho.descripcion} Creada!`, 'success');
+          Swal.fire('Éxito', `Tipo de cartucho: ${this.tipo_cartucho.descripcion}, creada!`, 'success');
           this.agregandoNuevoCartuchoTipo = false;
           this.getData();
         })
@@ -109,17 +110,17 @@ export class TipoCartuchoComponent implements OnInit {
 
 update(item: TipoCartucho): void {
   Swal.fire({
-    title: 'Estas Seguro?',
+    title: '¿Estás Seguro?',
     text: `Modificar el tipo de cartucho: ${item.descripcion}`,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, Modificar!'
+    confirmButtonText: 'Sí, Modificar!'
   }).then((result) => {
     if (result.isConfirmed) {
   this.tipoCartuchoService.update(item, item.id).subscribe(() => {
-    Swal.fire('Exito', `${item.descripcion} Modificada!`, 'success');
+    Swal.fire('Exito', `${item.descripcion} modificada!`, 'success');
     this.route.navigate(['/tipo_cartuchos']);
     this.editarIndex = -1;
     this.edicionEnProgreso = false;
@@ -133,4 +134,3 @@ scrollToAddColor(): void {
   }
 }
 }
-

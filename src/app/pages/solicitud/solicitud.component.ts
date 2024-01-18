@@ -126,13 +126,7 @@ export class SolicitudComponent implements OnInit {
   selectedImpresora(event: MatAutocompleteSelectedEvent): void {
       this.impresora = event.option.value as Impresora;
   
-      const existeImpresora = this.solicitud.impresoras.some(
-        (imp) => imp.id === this.impresora.id
-      );
-  
-      if (!existeImpresora && !this.cartuchoAgregado) {
-      }
-  
+
       this.mostrarTabla = true;
       this.disableImpresoraSelect = false;
     
@@ -209,12 +203,10 @@ export class SolicitudComponent implements OnInit {
       (imp) => imp.id === this.impresora.id
     );
 
-    if (!existeImpresora && !this.cartuchoAgregado) {
+    if (!existeImpresora) {
       this.solicitud.impresoras.push(this.impresora);
 
     }
-
-
      const maxCantidad = 2;
   if (this.existItem(car.id)) {
     const cartuchoExistente = this.solicitud.itemSolicituds.find(c => c.cartucho.id === car.id);

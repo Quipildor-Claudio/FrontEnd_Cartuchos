@@ -1,7 +1,16 @@
 <div class="card">
   <div class="card-header">
-    <h3 class="card-title">{{title}}</h3>
-  </div>
+    <div class="row">
+      <div class="col-sm-8">
+          <h3 class="card-title">{{title}}</h3>
+      </div>
+      <div class="col-sm-4 row">
+          <div class="input-group ">
+                  <span class="input-group-text"><i class="bi bi-search"></i></span>
+                  <input type="search" class="form-control" name="filterSol" placeholder="Buscar persona" [(ngModel)]="filterText">
+          </div>
+      </div>
+    </div>  </div>
   <div class="card-body">
     <button type="button" class="btn btn-primary " [routerLink]="['/form-persona']">Agregar Personal</button>
     <div id="" class=" dt-bootstrap4">
@@ -27,7 +36,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr class="odd" *ngFor="let item of personas">
+              <tr class="odd" *ngFor="let item of personas | filter:filterText">
                 <td >{{item.id}}</td>
                 <td>{{item.apellido}}</td>
                 <td>{{item.nombre}}</td>

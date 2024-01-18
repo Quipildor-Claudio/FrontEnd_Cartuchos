@@ -9,8 +9,9 @@ import Swal from 'sweetalert2';
   styleUrls: ['./impresora.component.css']
 })
 export class ImpresoraComponent implements OnInit {
-  title: string = "Gestion  de Impresora";
+  title: string = "Gestión de Impresora";
   impresoras: any[];
+  filterText: any;
   constructor(private impresoraService: ImpresoraService) { }
 
   ngOnInit(): void {
@@ -22,28 +23,22 @@ export class ImpresoraComponent implements OnInit {
 
   delete(item: Impresora): void {
     Swal.fire({
-      title: 'Estas Seguro?',
-      text: `Eliminar ${item.modelo}`,
+      title: '¿Estás Seguro?',
+      text: `Eliminar impresora: ${item.modelo}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Eliminar!'
+      confirmButtonText: ', Sí, Eliminar!'
     }).then((result) => {
       if (result.isConfirmed) {
         this.impresoraService.delete(item.id).subscribe(() => {
           this.impresoras = this.impresoras.filter(cat => cat != item);
           Swal.fire(
             'Eliminado!',
-            'Su archivo a sido eliminado',
+            'Su archivo ha sido eliminado',
             'success'
           )
-        }
-        );
-
-      }
-    })
-  }
-
-
+        });}
+    })}
 }

@@ -14,6 +14,7 @@ export class ServicioComponent implements OnInit {
   servicios:Servicio[]=[];
   agregandoNuevoServicio = false;
   editarIndex = -1;
+  filterText:any;
   scrolled = false;
   edicionEnProgreso = false;
   servicio: Servicio = new Servicio();
@@ -42,22 +43,22 @@ export class ServicioComponent implements OnInit {
 
   delete(item: Servicio): void {
     Swal.fire({
-      title: 'Estas Seguro?',
-      text: `Eliminar la marca: ${this.servicio.nombre}}`,
+      title: '¿Estás Seguro?',
+      text: `Eliminar la servicio: ${this.servicio.nombre}}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Eliminar!'
+      confirmButtonText: 'Sí, Eliminar!'
     }).then((result) => {
       if (result.isConfirmed) {
     if (confirm(`Eliminar ${item.nombre}`)) {
       this.servicioService.delete(item.id).subscribe(() => {
         this.servicios = this.servicios.filter(cat => cat !== item);
-        Swal.fire('Eliminado!', 'Su archivo a sido eliminado', 'success');
+        Swal.fire('Eliminado!', 'Su archivo ha sido eliminado', 'success');
       });
     }
-    this.route.navigate(['/tipo_cargas']);
+    this.route.navigate(['/servicios']);
   } 
  })
 }
@@ -72,18 +73,18 @@ agregar(): void {
 
 confirmarAgregar(): void {
   Swal.fire({
-    title: 'Estas Seguro?',
+    title: '¿Estás Seguro?',
     text: `Agregar el serivicio: ${this.servicio.nombre}}`,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, Agregar!'
+    confirmButtonText: 'Sí, Agregar!'
   }).then((result) => {
     if (result.isConfirmed) {
     this.servicioService.add(this.servicio).subscribe(() => {
-    Swal.fire('Éxito', `Categoría ${this.servicio.nombre} Creada!`, 'success');
-    this.route.navigate(['/tipo_cargas']);
+    Swal.fire('Éxito', `Servicio: ${this.servicio.nombre}, creada!`, 'success');
+    this.route.navigate(['/servicios']);
     this.agregandoNuevoServicio = false;
     this.getData();
     
@@ -114,18 +115,18 @@ getNextId(): number {
 
   update(item: Servicio): void {
     Swal.fire({
-      title: 'Estas Seguro?',
+      title: '¿Estás Seguro?',
       text: `Modificar el servicio: ${this.servicio.nombre}}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Modificar!'
+      confirmButtonText: 'Sí, Modificar!'
     }).then((result) => {
       if (result.isConfirmed) {
     this.servicioService.update(item, item.id).subscribe(() => {
-      Swal.fire('Exito', `${item.nombre} Modificada!`, 'success');
-      this.route.navigate(['/tipo_cargas']);
+      Swal.fire('Exito', `${item.nombre} modificada!`, 'success');
+      this.route.navigate(['/servicios']);
       this.editarIndex = -1;
       this.edicionEnProgreso = false;
     })

@@ -19,7 +19,7 @@ import jsPDF from 'jspdf';
 })
 export class FormSolicitudComponent implements OnInit{
   
-  title:string=" Solicitud";
+  title:string=" Solicitud de Cartuchos";
   estados:Estado[];
   solicitud:Solicitud = new Solicitud();
 

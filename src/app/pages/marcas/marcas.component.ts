@@ -11,9 +11,10 @@ import Swal from 'sweetalert2';
 })
 export class MarcasComponent implements OnInit {
   marcas:any[];
-  title:string="Gestion de Marcas";
+  title:string="Gestión de Marcas";
   marca: Marca = new Marca();
   agregandoNuevaMarca = false;
+  filterText:any
   @ViewChild('marcasContainer') marcasContainer: ElementRef;
   editarIndex = -1;
   edicionEnProgreso = false;
@@ -36,19 +37,19 @@ export class MarcasComponent implements OnInit {
 
   delete(item: Marca): void {
     Swal.fire({
-      title: 'Estas Seguro?',
+      title: '¿Estás Seguro?',
       text: `Eliminar la marca: ${item.nombre}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Eliminar!'
+      confirmButtonText: 'Sí, Eliminar!'
     }).then((result) => {
       if (result.isConfirmed) {
     if (confirm(`Eliminar ${item.nombre}`)) {
       this.marcaService.delete(item.id).subscribe(() => {
         this.marcas = this.marcas.filter(cat => cat !== item);
-        Swal.fire('Eliminado!', 'Su archivo a sido eliminado', 'success');
+        Swal.fire('Eliminado!', 'Su archivo ha sido eliminado', 'success');
       });
     }
   } 
@@ -65,17 +66,17 @@ agregar(): void {
 
 confirmarAgregar(): void {
   Swal.fire({
-    title: 'Estas Seguro?',
+    title: '¿Estás Seguro?',
     text: `Agregar la marca: ${this.marca.nombre}`,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, Agregar!'
+    confirmButtonText: 'Sí, Agregar!'
   }).then((result) => {
     if (result.isConfirmed) {
     this.marcaService.add(this.marca).subscribe(() => {
-    Swal.fire('Éxito', `Categoría ${this.marca.nombre} Creada!`, 'success');
+    Swal.fire('Éxito', `Marca: ${this.marca.nombre}, creada!`, 'success');
     this.agregandoNuevaMarca = false;
     this.getData();
     })
@@ -105,17 +106,17 @@ getNextId(): number {
 
   update(item: Marca): void {
     Swal.fire({
-      title: 'Estas Seguro?',
-      text: `Modificar Marca: ${this.marca.nombre}`,
+      title: '¿Estás Seguro?',
+      text: `Modificar marca: ${item.nombre}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Modificar!'
+      confirmButtonText: 'Sí, Modificar!'
     }).then((result) => {
       if (result.isConfirmed) {
     this.marcaService.update(item, item.id).subscribe(() => {
-      Swal.fire('Exito', `${item.nombre} Modificada!`, 'success');
+      Swal.fire('Exito', `${item.nombre} modificada!`, 'success');
       this.editarIndex = -1;
       this.edicionEnProgreso = false;
     })

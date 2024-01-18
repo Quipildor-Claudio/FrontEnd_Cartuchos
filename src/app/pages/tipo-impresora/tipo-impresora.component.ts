@@ -10,8 +10,9 @@ import Swal from 'sweetalert2';
   styleUrls: ['./tipo-impresora.component.css']
 })
 export class TipoImpresoraComponent implements OnInit {
-  title:string= "Gestion de Tipos de Impresora";
+  title:string= "Gestión de Tipos de Impresora";
   tipo_impresoras: any[];
+  filterText: any;  
   tipo_impresora: TipoImpresora= new TipoImpresora()
   agregandoNuevaImpresoraTipo:boolean;
   editarIndex = -1;
@@ -28,19 +29,19 @@ export class TipoImpresoraComponent implements OnInit {
 
   delete(item: TipoImpresora): void {
     Swal.fire({
-      title: 'Estas Seguro?',
+      title: '¿Estás Seguro?',
       text: `Eliminar el tipo de impresora: ${item.descripcion}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Eliminar!'
+      confirmButtonText: 'Sí, Eliminar!'
     }).then((result) => {
       if (result.isConfirmed) {
     if (confirm(`Eliminar ${item.descripcion}`)) {
       this.tipoImpresoraService.delete(item.id).subscribe(() => {
         this.tipo_impresoras = this.tipo_impresoras.filter(cat => cat !== item);
-        Swal.fire('Eliminado!', 'Su archivo a sido eliminado', 'success');
+        Swal.fire('Eliminado!', 'El archivo ha sido eliminado', 'success');
       });
     }
   } 
@@ -56,13 +57,13 @@ agregar(): void {
 
 confirmarAgregar(): void {
   Swal.fire({
-    title: 'Estas Seguro?',
+    title: '¿Estás Seguro?',
     text: `Agregar Tipo de Impresora: ${this.tipo_impresora.descripcion}`,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, Agregar!'
+    confirmButtonText: 'Sí, Agregar!'
   }).then((result) => {
     if (result.isConfirmed) {
   this.tipoImpresoraService.add(this.tipo_impresora).subscribe(() => {
@@ -96,17 +97,17 @@ cancelarModificacion(): void {
 
 update(item: TipoImpresora): void {
   Swal.fire({
-    title: 'Estas Seguro?',
-    text: `Modificar el Tipo de Impresora: ${item.descripcion}`,
+    title: '¿Estás Seguro?',
+    text: `Modificar el tipo de impresora: ${item.descripcion}`,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, Modificar!'
+    confirmButtonText: 'Sí, Modificar!'
   }).then((result) => {
     if (result.isConfirmed) {
   this.tipoImpresoraService.update(item, item.id).subscribe(() => {
-    Swal.fire('Exito', `${item.descripcion} Modificada!`, 'success');
+    Swal.fire('Exito', `${item.descripcion} modificada!`, 'success');
     this.editarIndex = -1;
     this.edicionEnProgreso = false;
   })

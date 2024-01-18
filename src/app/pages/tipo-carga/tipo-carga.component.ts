@@ -10,8 +10,9 @@ import Swal from 'sweetalert2';
   styleUrls: ['./tipo-carga.component.css']
 })
 export class TipoCargaComponent implements OnInit {
-  title:string= "Gestion de Tipos de Cargas";
+  title:string= "Gestión de Tipos de Cargas";
   tipo_cargas: any[];
+  filterText;any;
   @ViewChild('tipoCargaContainer') tipoCargaContainer: ElementRef;
   tipo_carga: TipoCarga= new TipoCarga();
   agregandoNuevaCarga:boolean;
@@ -36,19 +37,19 @@ export class TipoCargaComponent implements OnInit {
 
   delete(item: TipoCarga): void {
     Swal.fire({
-      title: 'Estas Seguro?',
+      title: '¿Estás Seguro?',
       text: `Eliminar el Tipo de Carga: ${item.descripcion}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Eliminar!'
+      confirmButtonText: 'Si, Eliminar!'
     }).then((result) => {
       if (result.isConfirmed) {
     if (confirm(`Eliminar ${item.descripcion}`)) {
       this.tipoService.delete(item.id).subscribe(() => {
         this.tipo_cargas = this.tipo_cargas.filter(cat => cat !== item);
-        Swal.fire('Eliminado!', 'Su archivo a sido eliminado', 'success');
+        Swal.fire('Eliminado!', 'Su archivo ha sido eliminado', 'success');
       });
     }
     this.route.navigate(['/colores']);
@@ -67,17 +68,17 @@ agregarCarga(): void {
 
 confirmarAgregar(): void {
   Swal.fire({
-    title: 'Estas Seguro?',
+    title: '¿Estás Seguro?',
     text: `Agregar el Tipo de Carga: ${this.tipo_carga.descripcion}`,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, Agregar!'
+    confirmButtonText: 'Sí, Agregar!'
   }).then((result) => {
     if (result.isConfirmed) {
   this.tipoService.add(this.tipo_carga).subscribe(() => {
-    Swal.fire('Éxito', `Tipo de Carga  ${this.tipo_carga.descripcion} Creada!`, 'success');
+    Swal.fire('Éxito', `Tipo de Carga: ${this.tipo_carga.descripcion}, creada!`, 'success');
     this.agregandoNuevaCarga = false;
     this.getData();
     })
@@ -106,17 +107,17 @@ cancelarModificacion(): void {
 
 update(item: TipoCarga): void {
   Swal.fire({
-    title: 'Estas Seguro?',
+    title: '¿Estás Seguro?',
     text: `Modificar el Tipo de Carga: ${item.descripcion}`,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, Modificar!'
+    confirmButtonText: 'Sí, Modificar!'
   }).then((result) => {
     if (result.isConfirmed) {
   this.tipoService.update(item, item.id).subscribe((res) => {
-    Swal.fire('Exito', `${item.descripcion} Modificada!`, 'success');
+    Swal.fire('Exito', `${item.descripcion} modificada!`, 'success');
     this.editarIndex = -1;
     this.edicionEnProgreso = false;
   })

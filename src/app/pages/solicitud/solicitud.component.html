@@ -1,6 +1,6 @@
 <br>
 <div class="row col-sm-10 offset-sm-1 p-4" id="formulario">
-  <h3 class="pb-3">Solicitud</h3>
+  <h3 class="pb-3">Solicitud de Cartuchos</h3>
   <hr id="borde" />
   <div class="col-md-10 offset-sm-1">
     <form #Form="ngForm" #impresoraForm="ngForm" (ngSubmit)="enviaSolicitud()">
@@ -160,7 +160,7 @@
 
       <div class="form-group row">
         <div class="col-sm-12 offset-sm-1">  
-          <button class="btn float-end btn-primary" role="button" (click)="update()" *ngIf="solicitud.id; else elseBlock" [disabled]="!mostrarDatos || !solicitud.justificacion">Actulizar</button>
+          <button class="btn float-end btn-primary" role="button" (click)="update()" *ngIf="solicitud.id; else elseBlock" [disabled]="!mostrarDatos || !solicitud.justificacion">Actualizar</button>
 
           <ng-template #elseBlock>
             <button class="btn float-end btn-primary" role="button" (click)="enviarSolicitud()"
