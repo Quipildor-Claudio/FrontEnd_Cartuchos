@@ -16,7 +16,7 @@ import { SolicitudService } from 'src/app/services/solicitud.service';
 import { TipoCargaService } from 'src/app/services/tipo-carga.service';
 import { TipoCartuchoService } from 'src/app/services/tipo-cartucho.service';
 
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { flatMap, map, startWith } from 'rxjs/operators';
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
@@ -77,7 +77,8 @@ export class SolicitudComponent implements OnInit {
     private userService: UserService,
     private authService: AuthService,
     private route: Router,
-    public activateRoute: ActivatedRoute
+    public activateRoute: ActivatedRoute,
+    
   ) { }
 
   ngOnInit(): void {
@@ -97,6 +98,8 @@ export class SolicitudComponent implements OnInit {
     this.activateRoute.queryParams.subscribe(params => {
       this.mostrarDatos =true;
     });
+
+  
   }
 
   private _filter(value: string): Observable<Cartucho[]> {
@@ -125,8 +128,6 @@ export class SolicitudComponent implements OnInit {
 
   selectedImpresora(event: MatAutocompleteSelectedEvent): void {
       this.impresora = event.option.value as Impresora;
-  
-
       this.mostrarTabla = true;
       this.disableImpresoraSelect = false;
     
@@ -325,5 +326,20 @@ export class SolicitudComponent implements OnInit {
 
     return o1 === null || o2 === null || o1 === undefined || o2 === undefined ? false : o1.id === o2.id;
   }
+  isTipoCargaSelected(): boolean {
+    return this.solicitud.itemSolicituds.some(item => !!item.tipoCarga);
+  }
+  isValidForm(): boolean {
+    const isJustificacionValid = !!this.solicitud.justificacion;
+    const isMostrarDatosValid = this.mostrarDatos;
+  
+    let isTipoCargaSelected = false;
+    if (this.solicitud.itemSolicituds && this.solicitud.itemSolicituds.length > 0) {
+      isTipoCargaSelected = this.solicitud.itemSolicituds.some(item => !!item.tipoCarga);
+    }
+  
+    return isJustificacionValid && isMostrarDatosValid && isTipoCargaSelected;
+  }  
+
 
 }

@@ -3,6 +3,8 @@ import { ColorService } from 'src/app/services/color.service';
 import { Color } from 'src/app/models/color';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-colores',
@@ -87,6 +89,7 @@ export class ColoresComponent implements OnInit {
       })
       }
     })
+
   }
 
   cancelarAgregar(): void {
@@ -134,5 +137,5 @@ scrollToAddColor(): void {
     this.coloresContainer.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
   }
 }
+
 }
- 

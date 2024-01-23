@@ -27,6 +27,12 @@ export class SolicitudPdfComponent implements OnInit {
     // this.PDFAfterDelay();
   }
 
+  formatoFecha(fecha: string) {
+    const partesFecha = fecha.split('-');
+    const [año, mes, dia] = partesFecha;
+    return `${dia.padStart(2, '0')}/${mes.padStart(2, '0')}/${año}`;
+  }
+  
   cargar(): void {
     this.activateRoute.params.subscribe(params => {
       let id = params['id']

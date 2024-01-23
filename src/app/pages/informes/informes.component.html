@@ -65,6 +65,22 @@
         {{title}}
     </div>
     <div class="card-body" id="tabla">
+        <div >
+            <div class="row col-sm-12">
+                <div class="col-sm-8 ">
+                    <h3>Informe de Solicitudes de Cartuchos y Toners</h3>
+                    <div class="h5">
+                        Período: {{formatoFecha(rangoFechas.fechaInicio)}} - {{formatoFecha(rangoFechas.fechaFinal)}}
+                    </div>
+                </div>
+                <div class="col-sm-4  ps-1 pe-0 m-0">
+                    <img src="/assets/images/Logo_HPS.png" id="logo" class="col-sm-3 float-end ps-1 pe-0 m-0">
+                </div>
+            </div>
+<br>
+          
+
+        </div>
         <table class="table table-striped table-bordered table-hover dtr-inline col-sm-12 " >
             <thead>
                 <tr>
@@ -73,8 +89,8 @@
                     <th scope="col">Usuario</th>
                     <th scope="col">Cartucho</th>
                     <th scope="col">Impresora</th>
-                    <th scope="col">Justificacion</th>
-                    <th scope="col">Observacion</th>
+                    <th scope="col">Justificación</th>
+                    <th scope="col">Observación</th>
                     <th scope="col">Estado</th>
                     <th scope="col">Fecha</th>
 

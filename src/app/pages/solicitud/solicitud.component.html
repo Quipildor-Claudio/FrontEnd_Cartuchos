@@ -85,7 +85,7 @@
 
         <div class="mb-3" id="justificacionContainer">
           <label for="textarea" class="form-label h5 mt-3">Justificación</label>
-          <textarea class="form-control" [(ngModel)]="solicitud.justificacion" name="justificacion" rows="3" required
+          <textarea class="form-control" [(ngModel)]="solicitud.justificacion" name="justificacion" rows="3" required type="text"
             [ngClass]="{'is-invalid': Form?.controls['justificacion']?.invalid && (Form?.controls['justificacion']?.dirty || Form?.controls['justificacion']?.touched)}"
             [disabled]="Form?.controls['justificacion']?.disabled"></textarea>
           <div
@@ -104,7 +104,6 @@
           <thead></thead>
           <tbody>
             <tr *ngFor="let iSol of solicitud.impresoras">
-              <td>{{iSol.id}}</td>
               <td>{{iSol.modelo}}</td>
               <td>{{iSol.marca.nombre}}</td>
               <td>{{iSol.tipoImpresora.descripcion}}</td>
@@ -120,30 +119,27 @@
         </table>
         <br />
         <label class="control-label h6 row">Cartuchos</label>
-        <table class="table table-hover">
+        <table class="table table-hover" id="tablaCartuchos">
           <thead></thead>
           <tbody>
-            <tr *ngFor="let cSol of solicitud.itemSolicituds">
+            <tr *ngFor="let cSol of solicitud.itemSolicituds; let i = index">
               <td>{{cSol.cantidad}}</td>
               <td>{{cSol.cartucho.modelo}}</td>
               <td>{{cSol.cartucho.color.nombre}}</td>
-              <td>{{cSol.cartucho.marca.nombre}}</td>
               <td>{{cSol.cartucho.tipoCartucho.descripcion}}</td>
               <td>
                 <div class="was-validated">
-                  <select [compareWith]="comparar" class="form-select is-invalid " [(ngModel)]="cSol.tipoCarga"
-                    name="tipoCarga" style="width:150px;"
-                    [ngClass]="{'is-invalid': Form?.controls['tipoCarga']?.invalid && Form?.controls['tipoCarga']?.touched}"
+                  <select [compareWith]="comparar" class="form-select is-invalid" [(ngModel)]="cSol.tipoCarga"
+                    name="tipoCarga_{{i}}" style="width:150px;"
+                    [ngClass]="{'is-invalid': Form?.controls['tipoCarga_' + i]?.invalid && Form?.controls['tipoCarga_' + i]?.touched}"
                     required>
                     <option [ngValue]="undefined" disabled>Seleccione...</option>
-                    <option *ngFor="let tipoCarga of tipoCargas" [ngValue]="tipoCarga">{{tipoCarga.descripcion}}
-                    </option>
+                    <option *ngFor="let tipoCarga of tipoCargas" [ngValue]="tipoCarga">{{tipoCarga.descripcion}}</option>
                   </select>
-                  <div *ngIf="Form?.controls['tipoCarga']?.invalid && Form?.controls['tipoCarga']?.touched"
+                  <div *ngIf="Form?.controls['tipoCarga_' + i]?.invalid && Form?.controls['tipoCarga_' + i]?.touched"
                     class="text-danger">
                     Seleccione un tipo de carga.
                   </div>
-
                 </div>
               </td>
               <td>
@@ -160,11 +156,11 @@
 
       <div class="form-group row">
         <div class="col-sm-12 offset-sm-1">  
-          <button class="btn float-end btn-primary" role="button" (click)="update()" *ngIf="solicitud.id; else elseBlock" [disabled]="!mostrarDatos || !solicitud.justificacion">Actualizar</button>
-
+          <button class="btn float-end btn-primary" role="button" (click)="update()" *ngIf="solicitud.id;
+          else elseBlock" [disabled]="!solicitud.justificacion || !mostrarDatos">Actualizar</button>
           <ng-template #elseBlock>
             <button class="btn float-end btn-primary" role="button" (click)="enviarSolicitud()"
-              [disabled]="!mostrarDatos || !solicitud.justificacion">Crear</button>
+            [disabled]="!isValidForm() || !solicitud.justificacion">Crear</button>
           </ng-template>
           <button class="btn float-end btn-primary me-3" role="button" (click)="Volver()">Volver</button>
         </div>
