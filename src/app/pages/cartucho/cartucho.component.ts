@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./cartucho.component.css']
 })
 export class CartuchoComponent implements OnInit {
-  title:string= "Gestión de Cartuchos y Toners";
+  title:string= "Gestión de Cartuchos y Toner";
   cartuchos: any[];
   cartucho: Cartucho = new Cartucho();
   filterText: any;
@@ -22,13 +22,13 @@ export class CartuchoComponent implements OnInit {
     this.getData();
   }
   getData(): void {
-    this.cartuchoService.getAll().subscribe(res => this.cartuchos = res);
+    this.cartuchoService.getAll().subscribe(res => this.cartuchos = res.reverse());
   }
 
   delete(item:Cartucho):void {
     Swal.fire({
-      title: '¿Estás Seguro?',
-      text: `Eliminar ${item.modelo}`,
+      title: `${item.tipoCartucho.descripcion +' '+ item.modelo}`,
+      text: `¿Estás Seguro?, Eliminar`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',

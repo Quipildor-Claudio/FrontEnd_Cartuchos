@@ -13,7 +13,7 @@ export class TipoCartuchoComponent implements OnInit {
   title: string = "Gestión de Tipos de Cartuchos";
   tipo_cartuchos: any[];
   tipo_cartucho: TipoCartucho = new TipoCartucho();
-  filterText:any;
+  filterText: any;
   agregandoNuevoCartuchoTipo: boolean;
   editarIndex = -1;
   edicionEnProgreso = false;
@@ -47,13 +47,10 @@ export class TipoCartuchoComponent implements OnInit {
       confirmButtonText: 'Si, Eliminar!'
     }).then((result) => {
       if (result.isConfirmed) {
-        if (confirm(`Eliminar ${item.descripcion}`)) {
-          this.tipoCartuchoService.delete(item.id).subscribe(() => {
-            this.tipo_cartuchos = this.tipo_cartuchos.filter(cat => cat !== item);
-            Swal.fire('Eliminado!', 'Su archivo ha sido eliminado', 'success');
-          });
-        }
-        this.route.navigate(['/tipo_cartuchos']);
+        this.tipoCartuchoService.delete(item.id).subscribe(() => {
+          this.tipo_cartuchos = this.tipo_cartuchos.filter(cat => cat !== item);
+          Swal.fire('Eliminado!', 'Su archivo ha sido eliminado', 'success');
+        });
       }
     })
   }
@@ -69,23 +66,25 @@ export class TipoCartuchoComponent implements OnInit {
   }
 
   confirmarAgregar(): void {
-    Swal.fire({
-      title: '¿Estás Seguro?',
-      text: `Agregar el tipo de cartucho: ${this.tipo_cartucho.descripcion}`,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, Agregar!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.tipoCartuchoService.add(this.tipo_cartucho).subscribe(() => {
-          Swal.fire('Éxito', `Tipo de cartucho: ${this.tipo_cartucho.descripcion}, creada!`, 'success');
-          this.agregandoNuevoCartuchoTipo = false;
-          this.getData();
-        })
-      }
-    })
+    if (this.tipo_cartucho.descripcion != null) {
+      Swal.fire({
+        title: '¿Estás Seguro?',
+        text: `Agregar el tipo de cartucho: ${this.tipo_cartucho.descripcion}`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, Agregar!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.tipoCartuchoService.add(this.tipo_cartucho).subscribe(() => {
+            Swal.fire('Éxito', `Tipo de cartucho: ${this.tipo_cartucho.descripcion}, creada!`, 'success');
+            this.agregandoNuevoCartuchoTipo = false;
+            this.getData();
+          })
+        }
+      })
+    }
   }
 
   cancelarAgregar(): void {
@@ -108,29 +107,31 @@ export class TipoCartuchoComponent implements OnInit {
     this.edicionEnProgreso = false;
   }
 
-update(item: TipoCartucho): void {
-  Swal.fire({
-    title: '¿Estás Seguro?',
-    text: `Modificar el tipo de cartucho: ${item.descripcion}`,
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Sí, Modificar!'
-  }).then((result) => {
-    if (result.isConfirmed) {
-  this.tipoCartuchoService.update(item, item.id).subscribe(() => {
-    Swal.fire('Exito', `${item.descripcion} modificada!`, 'success');
-    this.route.navigate(['/tipo_cartuchos']);
-    this.editarIndex = -1;
-    this.edicionEnProgreso = false;
-  })
-}
-});
-}
-scrollToAddColor(): void {
-  if (this.tipoCartuchoContainer && this.tipoCartuchoContainer.nativeElement) {
-    this.tipoCartuchoContainer.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+  update(item: TipoCartucho): void {
+    if (item.descripcion !="") {
+      Swal.fire({
+        title: '¿Estás Seguro?',
+        text: `Modificar el tipo de cartucho: ${item.descripcion}`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, Modificar!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.tipoCartuchoService.update(item, item.id).subscribe(() => {
+            Swal.fire('Exito', `${item.descripcion} modificada!`, 'success');
+            this.editarIndex = -1;
+            this.edicionEnProgreso = false;
+          })
+        }
+      });
+    }
+
   }
-}
+  scrollToAddColor(): void {
+    if (this.tipoCartuchoContainer && this.tipoCartuchoContainer.nativeElement) {
+      this.tipoCartuchoContainer.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+    }
+  }
 }
