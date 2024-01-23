@@ -20,16 +20,16 @@ export class ColoresComponent implements OnInit {
   editarIndex = -1;
   agregandoNuevoColor = false;
   edicionEnProgreso = false;
-  mostrarAgregar:boolean=true;
-  mostrarModificar:boolean=true;
-  
+  mostrarAgregar: boolean = true;
+  mostrarModificar: boolean = true;
+
 
   ngAfterViewInit(): void {
     if (this.agregandoNuevoColor) {
       this.scrollToAddColor();
     }
   }
-  constructor(private colorService: ColorService, private route: Router) {}
+  constructor(private colorService: ColorService, private route: Router) { }
 
   ngOnInit(): void {
     this.getData();
@@ -41,52 +41,53 @@ export class ColoresComponent implements OnInit {
 
   delete(item: Color): void {
     Swal.fire({
-      title: '¿Estás Seguro?',
-      text: `Eliminar el color: ${item.nombre}`,
+      title: ` ${item.nombre}`,
       icon: 'warning',
+      text: `Eliminar el color?`,
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Sí, Eliminar!'
     }).then((result) => {
       if (result.isConfirmed) {
-    if (confirm(`Eliminar ${item.nombre}`)) {
-      this.colorService.delete(item.id).subscribe(() => {
-        this.colores = this.colores.filter(cat => cat !== item);
-        Swal.fire('Eliminado!', 'Su archivo ha sido eliminado', 'success');
-      });
-    }
-  } 
- })
-}
+        this.colorService.delete(item.id).subscribe(() => {
+          this.colores = this.colores.filter(cat => cat !== item);
+          Swal.fire('Eliminado!', 'Su archivo ha sido eliminado', 'success');
+        });
+      }
+    })
+  }
 
   agregarColor(): void {
     this.agregandoNuevoColor = true;
     this.color = new Color();
-    this.mostrarModificar=false;
+    this.mostrarModificar = false;
     setTimeout(() => {
-    this.scrollToAddColor();
-  },15);}
+      this.scrollToAddColor();
+    }, 15);
+  }
 
-  confirmarAgregar(): void {   
-    Swal.fire({
-      title: '¿Estás Seguro?',
-      text: `Agregar el color: ${this.color.nombre}`,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, Agregar!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-    this.colorService.add(this.color).subscribe(() => {
-      Swal.fire('Éxito', `Color: ${this.color.nombre}, creada!`, 'success');
-      this.route.navigate(['/colores']);
-      this.agregandoNuevoColor = false;
-      this.getData();
+  confirmarAgregar(): void {
+    if (this.color.nombre != null) {
+      Swal.fire({
+        title: '¿Estás Seguro?',
+        text: `Agregar el color: ${this.color.nombre}`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, Agregar!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.colorService.add(this.color).subscribe(() => {
+            Swal.fire('Éxito', `Color: ${this.color.nombre}, creada!`, 'success');
+            this.agregandoNuevoColor = false;
+            this.getData();
+          })
+        }
       })
-      }
-    })
+    }
+
   }
 
   cancelarAgregar(): void {
@@ -96,7 +97,7 @@ export class ColoresComponent implements OnInit {
   getNextId(): number {
     return Math.max(...this.colores.map(c => c.id), 0) + 1;
   }
-  
+
   habilitarModificacion(index: number): void {
     this.editarIndex = index;
     this.edicionEnProgreso = true;
@@ -109,30 +110,31 @@ export class ColoresComponent implements OnInit {
   }
 
   update(item: Color): void {
-    Swal.fire({
-      title: '¿Estás Seguro?',
-      text: `Modificar el color: ${item.nombre}`,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, Modificar!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-    this.colorService.update(item, item.id).subscribe(() => {
-      Swal.fire('Éxito', `${item.nombre} modificada!`, 'success');
-      this.route.navigate(['/colores']);
-      this.editarIndex = -1;
-      this.edicionEnProgreso = false;
-    })
-  }
-});
-}
+    if (item.nombre != "") {
+      Swal.fire({
+        title: '¿Estás Seguro?',
+        text: `Modificar el color: ${item.nombre}`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, Modificar!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.colorService.update(item, item.id).subscribe(() => {
+            Swal.fire('Éxito', `${item.nombre} modificada!`, 'success');
+            this.editarIndex = -1;
+            this.edicionEnProgreso = false;
+          })
+        }
+      });
+    }
 
-scrollToAddColor(): void {
-  if (this.coloresContainer && this.coloresContainer.nativeElement) {
-    this.coloresContainer.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+  }
+
+  scrollToAddColor(): void {
+    if (this.coloresContainer && this.coloresContainer.nativeElement) {
+      this.coloresContainer.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+    }
   }
 }
-}
- 

@@ -69,7 +69,7 @@ export class FormCartuchoComponent implements OnInit {
 
   create(): void {
     Swal.fire({
-      title: '¿Estás seguro?',
+      title:  `${this.cartucho.tipoCartucho.descripcion +' '+ this.cartucho.modelo}`,
       text:'Se agregará un nuevo cartucho.',
       icon: 'warning',
       showCancelButton: true,
@@ -81,7 +81,7 @@ export class FormCartuchoComponent implements OnInit {
     this.cartuchoService.add(this.cartucho).subscribe(res => {
       Swal.fire(
         'Éxito',
-        `Cartucho: ${res.modelo}, creada!`,
+        `Cartucho:${this.cartucho.tipoCartucho.descripcion +' '+ this.cartucho.modelo}, creada!`,
         'success'
       );
       this.route.navigate(['/cartuchos']);
@@ -91,7 +91,7 @@ export class FormCartuchoComponent implements OnInit {
 
   update(): void {
     Swal.fire({
-      title: '¿Estás seguro?',
+      title:  `${this.cartucho.tipoCartucho.descripcion +' '+ this.cartucho.modelo}`,
       text: 'Se modificarán todos los datos del cartucho',
       icon: 'warning',
       showCancelButton: true,
@@ -103,7 +103,7 @@ export class FormCartuchoComponent implements OnInit {
     this.cartuchoService.update(this.cartucho, this.cartucho.id).subscribe(res => {
       Swal.fire(
         'Éxito',
-        `Cartucho: ${res.modelo}, actualizada!`,
+        `Cartucho: ${this.cartucho.tipoCartucho.descripcion +' '+ this.cartucho.modelo}, actualizada!`,
         'success'
       );
       this.route.navigate(['/cartuchos']);
