@@ -28,6 +28,7 @@ export class HomeComponent implements OnInit {
   user: User = new User();
   page: number;
   paginador: any;
+  url:string = '/home/page';
 
   constructor(
     private solicitudService: SolicitudService,

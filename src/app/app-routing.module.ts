@@ -38,10 +38,14 @@ const routes: Routes = [
   { path: 'solicitudes/page/:page', component: HomeComponent ,canActivate:[authGuard]},
 
   { path: 'cartuchos', component: CartuchoComponent,canActivate:[authGuard] },
+  { path: 'cartuchos/page/:page', component: CartuchoComponent,canActivate:[authGuard] },
+
   { path: 'form-cartucho', component: FormCartuchoComponent ,canActivate:[authGuard]},
   { path: 'form-cartucho/:id', component: FormCartuchoComponent,canActivate:[authGuard] },
 
   { path: 'impresoras', component: ImpresoraComponent ,canActivate:[authGuard]},
+  { path: 'impresoras/page/:page', component: ImpresoraComponent ,canActivate:[authGuard]},
+
   { path: 'form-impresora', component: FormImpresoraComponent ,canActivate:[authGuard]},
   { path: 'form-impresora/:id', component: FormImpresoraComponent ,canActivate:[authGuard]},
 

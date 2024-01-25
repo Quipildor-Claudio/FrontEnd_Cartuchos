@@ -19,6 +19,11 @@ export class ImpresoraService {
       map(response=>response as any[])
     );
   }
+  getAllPage(page:number): Observable<any[]> {
+    return this.http.get(`${API_URI}/impresoras/page/${page}`,{headers:this.authService.addAuthorizationHeader()}).pipe(
+      map((response:any)=>response as any[])
+    );
+  }
 
   getOne(id):Observable<Impresora>{
     return this.http.get(`${API_URI}/impresoras/${id}`,{headers:this.authService.addAuthorizationHeader()}).pipe(

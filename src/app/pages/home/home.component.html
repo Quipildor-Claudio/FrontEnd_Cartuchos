@@ -1,8 +1,8 @@
 <div class="card">
-    
+
     <div class="card-header row m-1">
         <div class="col-sm-6">
-            <h5>Barra de Busqueda</h5>    
+            <h5>Barra de Busqueda</h5>
         </div>
         <div class="col-sm-6 ">
             <button class="float-end btn" (click)="resetearAll()">
@@ -10,7 +10,7 @@
             </button>
         </div>
     </div>
-    
+
     <div class="card-body">
         <div class="container text-center">
             <div class="row">
@@ -18,7 +18,7 @@
                 <div class="col-sm-4  ">
                     <div class="col-sm-12">
                         <select [compareWith]="comparar" class="form-select buscar" [(ngModel)]="estado" name="estado"
-                             (ngModelChange)="onEstadoChange($event)">
+                            (ngModelChange)="onEstadoChange($event)">
                             <option selected [ngValue]="undefined">Busqueda por Estado de Solicitud</option>
                             <option *ngFor="let estado of estados" [ngValue]="estado.descripcion">{{estado.descripcion}}
                             </option>
@@ -28,11 +28,11 @@
                 </div>
                 <div class="col-sm-4">
                     <input type="search" class="form-control buscar" name="filterSol" placeholder="Busqueda General"
-                         [(ngModel)]="filterText" (ngModelChange)="resetearBusqueda()">
+                        [(ngModel)]="filterText" (ngModelChange)="resetearBusqueda()">
                 </div>
                 <div class="col-sm-4">
                     <input type="search" class="form-control buscar" name="filterSol" placeholder="Busqueda por Id"
-                         [(ngModel)]="filterId" (ngModelChange)="searchId($event)">
+                        [(ngModel)]="filterId" (ngModelChange)="searchId($event)">
                 </div>
             </div>
         </div>
@@ -41,7 +41,7 @@
 <br>
 <div class="card">
     <div class="card-header">
-        <h5>        {{title}}        </h5>
+        <h5> {{title}} </h5>
     </div>
     <div class="card-body">
         <table class="table table-striped table-bordered table-hover dtr-inline">
@@ -52,7 +52,7 @@
                     <th scope="col">Usuario</th>
                     <th scope="col">Cartucho</th>
                     <th scope="col">Impresora</th>
-             
+
                     <th scope="col">Justificación</th>
                     <th scope="col">Observación</th>
                     <th scope="col">Estado</th>
@@ -94,16 +94,17 @@
                         <br>
 
                     </td>
-               
-              
+
+
                     <td>
                         {{item.justificacion !== null ?item.justificacion:"---"}}
                     </td>
                     <td>
                         {{item.observacion !== null?item.observacion:"---"}}
                     </td>
-                    <td >
-                        <span [ngClass]="{'aprobada': item.estado.descripcion === 'APROBADA', 'solicitada': item.estado.descripcion === 'SOLICITADA','cancelada': item.estado.descripcion === 'CANCELADA', 'observada': item.estado.descripcion === 'OBSERVADA'}">{{item.estado.descripcion}}</span>
+                    <td>
+                        <span
+                            [ngClass]="{'aprobada': item.estado.descripcion === 'APROBADA', 'solicitada': item.estado.descripcion === 'SOLICITADA','cancelada': item.estado.descripcion === 'CANCELADA', 'observada': item.estado.descripcion === 'OBSERVADA'}">{{item.estado.descripcion}}</span>
                     </td>
                     <td>
                         {{item.fechaCreacion}}
@@ -111,7 +112,8 @@
                     <td class="align-items-center ">
                         <div class="d-flex flex-column align-items-center">
                             <div class="btn-group">
-                                <button type="button" class="btn" [routerLink]="['/solicitudes',item.id]" *ngIf="item.estado.descripcion === 'SOLICITADA' || item.estado.descripcion === 'CANCELADA' ||item.estado.descripcion === 'OBSERVADA'">
+                                <button type="button" class="btn" [routerLink]="['/solicitudes',item.id]"
+                                    *ngIf="item.estado.descripcion === 'SOLICITADA' || item.estado.descripcion === 'CANCELADA' ||item.estado.descripcion === 'OBSERVADA'">
                                     <i class="bi bi-pencil-square"></i>
                                 </button>
                                 &nbsp;
@@ -119,23 +121,23 @@
                                     <i class="bi bi-trash3"></i>
                                 </button>
                             </div>
-                            
+
                             <div class="btn-group mt-2">
-                                <button *ngIf="user.roles[0].descripcion !== 'PERSONAL'"  type="button" class="btn" [routerLink]="['/form-solicitud',item.id]">
+                                <button *ngIf="user.roles[0].descripcion !== 'PERSONAL'" type="button" class="btn"
+                                    [routerLink]="['/form-solicitud',item.id]">
                                     <i class="bi bi-journal-text"></i></button>
-                    
+
                                 &nbsp;
-                                <button type="button" class="btn" [routerLink]="['/solicitud-pdf',item.id]" *ngIf="item.estado.descripcion === 'APROBADA'"><i class="bi bi-filetype-pdf"></i></button>
+                                <button type="button" class="btn" [routerLink]="['/solicitud-pdf',item.id]"
+                                    *ngIf="item.estado.descripcion === 'APROBADA'"><i
+                                        class="bi bi-filetype-pdf"></i></button>
                             </div>
                         </div>
                     </td>
-                    
-
                 </tr>
-
             </tbody>
             <tfoot>
-                <paginator-nav *ngIf="paginador" [paginador]="paginador" > </paginator-nav>
+                <paginator-nav *ngIf="paginador" [paginador]="paginador" [url]="url"> </paginator-nav>
             </tfoot>
 
         </table>

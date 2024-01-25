@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TipoImpresora } from 'src/app/models/tipo-impresora';
 import { TipoImpresoraService } from 'src/app/services/tipo-impresora.service';
 import Swal from 'sweetalert2';
@@ -18,7 +18,10 @@ export class TipoImpresoraComponent implements OnInit {
   editarIndex = -1;
   edicionEnProgreso = false;
 
-  constructor(private tipoImpresoraService: TipoImpresoraService, private route: Router) { }
+
+  constructor(private tipoImpresoraService: TipoImpresoraService,
+    private route: Router,
+ ) { }
 
   ngOnInit(): void {
     this.getData();
@@ -26,6 +29,7 @@ export class TipoImpresoraComponent implements OnInit {
   getData(): void {
     this.tipoImpresoraService.getAll().subscribe(res => this.tipo_impresoras = res);
   }
+
 
   delete(item: TipoImpresora): void {
     Swal.fire({

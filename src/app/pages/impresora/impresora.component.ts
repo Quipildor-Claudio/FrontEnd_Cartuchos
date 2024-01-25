@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { Impresora } from 'src/app/models/impresora';
@@ -15,13 +16,30 @@ export class ImpresoraComponent implements OnInit {
   impresoras: any[];
   filterText: any;
   impresora: Impresora= new Impresora();
-  constructor(private impresoraService: ImpresoraService) { }
+  page: number;
+  paginador: any;
+  url: string = '/impresoras/page';
+  constructor(private impresoraService: ImpresoraService,
+    private activatedRoute:ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.getData();
+    this.getPage();
+  }
+
+  getPage(): void {
+    this.activatedRoute.paramMap.subscribe(params => {
+      this.page = +params.get('page');
+      if (!this.page) {
+        this.page = 0;
+      }
+      this.getData();
+    });
   }
   getData(): void {
-    this.impresoraService.getAll().subscribe(res => this.impresoras = res);
+    this.impresoraService.getAllPage(this.page).subscribe((res:any)=>{
+      this.impresoras= res.content as Impresora[];
+      this.paginador = res;
+    });
   }
 
   delete(item: Impresora): void {
