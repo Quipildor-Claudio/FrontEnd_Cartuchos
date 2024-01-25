@@ -13,9 +13,10 @@ export class SolicitudService {
 
   getAll(): Observable<any[]> {
     return this.http.get(`${API_URI}/solicitudes`,{headers:this.authService.addAuthorizationHeader()}).pipe(
-      map(response=>response as any[])
+      map(response=>response as Solicitud[])
     );
   }
+
 
 
   getOne(id:any):Observable<Solicitud>{
@@ -28,7 +29,22 @@ export class SolicitudService {
     return this.http.put<any>(`${API_URI}/solicitudes/${id}`,solicitud,{headers:this.authService.addAuthorizationHeader()});
   }
 
+  getAllPage(page:number): Observable<any[]> {
+    return this.http.get(`${API_URI}/solicitudes/page/${page}`,{headers:this.authService.addAuthorizationHeader()}).pipe(
+      map((response:any)=>response as any[])
+    );
+  }
+  getBusquedaServicoPage(data:string,page:number): Observable<any[]> {
+    return this.http.get(`${API_URI}/solicitudes/buscarPorServicio/page/${data}/${page}`,{headers:this.authService.addAuthorizationHeader()}).pipe(
+      map((response:any)=>response as any[])
+    );
+  }
 
+  getBusquedaUsername(data:string,page:number): Observable<any[]> {
+    return this.http.get(`${API_URI}/solicitudes/buscarPorUsername/page/${data}/${page}`,{headers:this.authService.addAuthorizationHeader()}).pipe(
+      map((response:any)=>response as any[])
+    );
+  }
   getBuscarFecha(fechaInicio:string,fechaFinal:string): Observable<any[]> {
     return this.http.get(`${API_URI}/solicitudes/buscarPorFecha/${fechaInicio}/${fechaFinal}`,{headers:this.authService.addAuthorizationHeader()}).pipe(
       map(response=>response as any[])

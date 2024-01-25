@@ -32,6 +32,10 @@ const routes: Routes = [
   { path: 'login', component:LoginComponent},
 
   { path: 'home', component: HomeComponent ,canActivate:[authGuard]},
+  { path: 'home/page/:page', component: HomeComponent ,canActivate:[authGuard]},
+
+
+  { path: 'solicitudes/page/:page', component: HomeComponent ,canActivate:[authGuard]},
 
   { path: 'cartuchos', component: CartuchoComponent,canActivate:[authGuard] },
   { path: 'form-cartucho', component: FormCartuchoComponent ,canActivate:[authGuard]},

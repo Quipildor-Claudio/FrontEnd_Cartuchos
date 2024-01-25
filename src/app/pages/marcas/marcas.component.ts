@@ -107,7 +107,7 @@ export class MarcasComponent implements OnInit {
   }
 
   update(item: Marca): void {
-    if(item.nombre!=""){
+    if (item.nombre != "") {
       Swal.fire({
         title: '¿Estás Seguro?',
         text: `Modificar marca: ${item.nombre}`,

@@ -7,7 +7,8 @@ import { Estado } from 'src/app/models/estado';
 import { AuthService } from 'src/app/auth/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 
 
@@ -25,40 +26,70 @@ export class HomeComponent implements OnInit {
   filterText: any;
   filterId: any;
   user: User = new User();
+  page: number;
+  paginador: any;
 
   constructor(
     private solicitudService: SolicitudService,
     private estadoService: EstadoService,
     private authService: AuthService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {
   }
 
   ngOnInit(): void {
-    this.getData();
+    this.getUserServe();
+    this.getPage();
     this.getEstados();
   }
 
-
-
-  getData() {
-    let name = this.authService.getUserSession();
-    this.userService.getUserbyName(name.username).subscribe(res => {
-      this.user = res;
-      console.log(res);
-      if (this.user.roles[0].descripcion == "ADMINISTRADOR" || this.user.roles[0].descripcion == "COMPUTO") {
-        this.solicitudService.getAll().subscribe(res => this.solicitudes = res.reverse());
-      } else {
-        if (this.user.roles[0].descripcion == "JEFE DE SERVICIO") {
-          this.solicitudService.getBusquedaServico(this.user.persona.servicio.nombre).subscribe(res => this.solicitudes = res.reverse());
-        }else{
-          this.solicitudes = this.user.solicitudes.reverse();
-        }
+  getPage(): void {
+    this.activatedRoute.paramMap.subscribe(params => {
+      this.page = +params.get('page');
+      if (!this.page) {
+        this.page = 0;
       }
+      this.getDataServer();
     });
   }
 
+  getUserServe(): void {
+    let user = this.authService.getUserSession();
+    this.userService.getUserbyName(user.username).subscribe(res => {
+      this.user = res;
+    });
+  }
+
+  getDataServer(): void {
+    let userr = this.authService.getUserSession();
+    if (userr.role == "ADMINISTRADOR" || userr.role == "COMPUTO") {
+      this.solicitudService.getAllPage(this.page).subscribe((res: any) => {
+        this.solicitudes = res.content as Solicitud[];
+        this.paginador = res;
+      });
+    } else {
+      if (userr.role == "JEFE DE SERVICIO") {
+        this.userService.getUserbyName(userr.username).subscribe(res => {
+          this.solicitudService.getBusquedaServicoPage(this.user.persona.servicio.nombre, this.page).subscribe((ress: any) => {
+            this.solicitudes = ress.content as Solicitud[];
+            this.paginador = ress;
+          }
+          );
+        });
+      }else{
+        this.solicitudService.getBusquedaUsername(userr.username,this.page).subscribe((data:any)=>{
+          this.solicitudes = data.content as Solicitud[];
+          this.paginador =data;
+        });
+
+      }
+
+    }
+  }
+
+ 
   getEstados(): void {
     this.estadoService.getAll().subscribe(res => this.estados = res);
   }
@@ -89,23 +120,23 @@ export class HomeComponent implements OnInit {
   }
   onEstadoChange(event: any) {
     if (event) {
-      this.filterId='';
-      this.filterText='';
+      this.filterId = '';
+      this.filterText = '';
       this.solicitudService.getBusquedaEstado(event).subscribe(res => {
         this.solicitudes = res
       });
     }
   }
 
-  resetearBusqueda(){
-    this.filterId='';
+  resetearBusqueda() {
+    this.filterId = '';
     this.getEstados();
   }
-  resetearAll(){
-    this.filterId='';
+  resetearAll() {
+    this.filterId = '';
     this.getEstados();
     this.filterText = '';
-    this.getData();
+    this.getDataServer();
   }
 
   searchId(id: any) {
@@ -120,7 +151,7 @@ export class HomeComponent implements OnInit {
       }
       );
     } else {
-      this.getData();
+      this.getDataServer();
     }
   }
 
