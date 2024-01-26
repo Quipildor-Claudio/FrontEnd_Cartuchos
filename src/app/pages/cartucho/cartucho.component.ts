@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { Cartucho } from 'src/app/models/cartucho';
@@ -15,14 +16,30 @@ export class CartuchoComponent implements OnInit {
   cartuchos: any[];
   cartucho: Cartucho = new Cartucho();
   filterText: any;
+  page: number;
+  paginador: any;
+  url:string = '/cartuchos/page';
 
-  constructor(private cartuchoService:CartuchoService) { }
+  constructor(private cartuchoService:CartuchoService,
+    private activatedRoute:ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.getData();
+    this.getPage();
+  }
+  getPage(): void {
+    this.activatedRoute.paramMap.subscribe(params => {
+      this.page = +params.get('page');
+      if (!this.page) {
+        this.page = 0;
+      }
+      this.getData();
+    });
   }
   getData(): void {
-    this.cartuchoService.getAll().subscribe(res => this.cartuchos = res.reverse());
+    this.cartuchoService.getAllPage(this.page).subscribe((res:any)=>{
+      this.cartuchos = res.content as Cartucho[];
+      this.paginador = res;
+    });
   }
 
   delete(item:Cartucho):void {

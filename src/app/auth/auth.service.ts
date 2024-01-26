@@ -12,17 +12,18 @@ import Swal from 'sweetalert2';
 export class AuthService {
   private _user = {
     'username': "",
-    'role': ""
+    'role': "",
+    'service':""
   }
 
   private _token: string;
   private httpheaders = new HttpHeaders({ 'content-type': 'application/json' });
 
   constructor(private http: HttpClient,
-              public router:Router
+    public router: Router
   ) { }
 
- 
+
 
   public get token(): string {
     if (this._token != null) {
@@ -43,7 +44,7 @@ export class AuthService {
     let payload = this.getDataToken(accessToken);
     //console.log(payload);
     this._user.username = payload.username;
-    this._user.role = this.convertAuthorities( payload.authorities);
+    this._user.role = this.convertAuthorities(payload.authorities);
     sessionStorage.setItem('userSession', JSON.stringify(this._user));
   }
 

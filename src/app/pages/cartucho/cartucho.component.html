@@ -65,11 +65,7 @@
                             </tr>
                         </tbody>
                         <tfoot>
-                            <tr>
-                                <!--     <th>ID</th>
-                                <th>NOMBRE</th> -->
-                                <td></td>
-                            </tr>
+                            <paginator-nav *ngIf="paginador" [paginador]="paginador" [url]="url"> </paginator-nav>
                         </tfoot>
                     </table>
                 </div>

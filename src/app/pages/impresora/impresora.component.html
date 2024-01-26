@@ -57,8 +57,7 @@
                             </tr>
                         </tbody>
                         <tfoot>
-                            <tr>
-                            </tr>
+                            <paginator-nav *ngIf="paginador" [paginador]="paginador" [url]="url"> </paginator-nav>
                         </tfoot>
                     </table>
                 </div>

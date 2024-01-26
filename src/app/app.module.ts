@@ -38,6 +38,7 @@ import { MaterialModule } from './material-module';
 import { DataTablesModule } from "angular-datatables";
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { FilterPipe } from './pipes/filter.pipe';
+import { PaginatorComponent } from './components/paginator/paginator.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,8 +67,8 @@ import { FilterPipe } from './pipes/filter.pipe';
     FormPersonaComponent,
     FormEstadoComponent,
     InformesComponent,
-    SolicitudPdfComponent
-
+    SolicitudPdfComponent,
+    PaginatorComponent
 
 
   ],
