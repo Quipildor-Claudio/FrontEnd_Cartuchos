@@ -39,6 +39,7 @@ import { DataTablesModule } from "angular-datatables";
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { FilterPipe } from './pipes/filter.pipe';
 import { PaginatorComponent } from './components/paginator/paginator.component';
+import { AyudaComponent } from './components/ayuda/ayuda.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,7 +69,8 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
     FormEstadoComponent,
     InformesComponent,
     SolicitudPdfComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    AyudaComponent
 
 
   ],
