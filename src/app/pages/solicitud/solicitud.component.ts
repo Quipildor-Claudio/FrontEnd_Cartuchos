@@ -210,9 +210,12 @@ export class SolicitudComponent implements OnInit {
     }
      const maxCantidad = 2;
   if (this.existItem(car.id)) {
+    
     const cartuchoExistente = this.solicitud.itemSolicituds.find(c => c.cartucho.id === car.id);
 
     if (cartuchoExistente && cartuchoExistente.cantidad < maxCantidad) {
+      let item = new ItemSolicitud();
+      item.cantidad++;
       this.incrementLot(car.id);
     } else {
     }
@@ -239,25 +242,37 @@ export class SolicitudComponent implements OnInit {
     this.myImpresoraControl.setValue('');
     this.impresora.cartuchos = [];
   }
-
-  // elimina cartucho de la tabla de pedidos
+  //Elimina a cartucho y a su impresora asociada de la tabla
   cDelete(item: any): void {
-    if (item.cantidad == 1) {
-      this.solicitud.itemSolicituds = this.solicitud.itemSolicituds.filter(res => res != item);
+    if (item.cantidad === 1) {
+      this.solicitud.itemSolicituds = this.solicitud.itemSolicituds.filter(res => res !== item);
+      this.solicitud.impresoras = this.solicitud.impresoras.filter(impresora =>
+        impresora.cartuchos.some(cartucho => cartucho.id !== item.cartucho.id)
+      );
+      this.solicitud.impresoras = this.solicitud.impresoras.filter(impresora =>
+        this.solicitud.itemSolicituds.some(solicitud => solicitud.cartucho.id === impresora.cartuchos[0].id)
+      );
     } else {
-
       this.solicitud.itemSolicituds = this.solicitud.itemSolicituds.map((aux: ItemSolicitud) => {
         if (item.cartucho.id === aux.cartucho.id) {
           aux.cantidad -= 1;
-
         }
         return aux;
       });
     }
   }
+
+  
+  sumarCantidad(item: any){
+    return item.cantidad++;
+  }
+  
+
   // elimina impresora de la tabla de pedidos
   iDelete(iSol: Impresora): void {
     this.solicitud.impresoras = this.solicitud.impresoras.filter(res => res != iSol);
+    
+    
   }
 
   enviarSolicitud(): void {
@@ -329,17 +344,18 @@ export class SolicitudComponent implements OnInit {
   isTipoCargaSelected(): boolean {
     return this.solicitud.itemSolicituds.some(item => !!item.tipoCarga);
   }
+  
   isValidForm(): boolean {
     const isJustificacionValid = !!this.solicitud.justificacion;
     const isMostrarDatosValid = this.mostrarDatos;
   
-    let isTipoCargaSelected = false;
-    if (this.solicitud.itemSolicituds && this.solicitud.itemSolicituds.length > 0) {
-      isTipoCargaSelected = this.solicitud.itemSolicituds.some(item => !!item.tipoCarga);
+    if (isJustificacionValid && isMostrarDatosValid) {
+      // Verificar si todos los tipos de carga están seleccionados
+      const areTipoCargaSelected = this.solicitud.itemSolicituds.every(item => !!item.tipoCarga);
+      return areTipoCargaSelected;
     }
   
-    return isJustificacionValid && isMostrarDatosValid && isTipoCargaSelected;
-  }  
-
+    return false;
+  }
 
 }

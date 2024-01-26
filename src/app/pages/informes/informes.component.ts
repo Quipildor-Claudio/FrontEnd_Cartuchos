@@ -166,11 +166,16 @@ export class InformesComponent implements OnInit {
     this.rangoFechas.fechaFinal=new Date();
     this.rangoFechas.fechaInicio=new Date();
   }
+
+  
   
   formatoFecha(fecha: string) {
+    if (fecha!=null){
     const partesFecha = fecha.split('-');
     const [año, mes, dia] = partesFecha;
     return `${dia.padStart(2, '0')}/${mes.padStart(2, '0')}/${año}`;
+    }
+    else{  return fecha='';
+    }
   }
-  
 }

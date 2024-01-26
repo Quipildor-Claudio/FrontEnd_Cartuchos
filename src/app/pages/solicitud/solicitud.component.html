@@ -66,7 +66,11 @@
                   <td>{{item.capacidad}}</td>
                   <td>{{item.color.nombre}}</td>
                   <td>{{item.tipoCartucho.descripcion}}</td>
-                  <td>{{item.descripcion}}</td>
+                  <td class="scroll">
+                    <div class="scroll-inner">
+                    {{item.descripcion}}
+                    </div>
+                  </td>
                   <td>
                     <div class="btn-group">
                       <button type="button" class="btn  btn-primary" (click)="addCartuchos(item)">
@@ -106,14 +110,7 @@
             <tr *ngFor="let iSol of solicitud.impresoras">
               <td>{{iSol.modelo}}</td>
               <td>{{iSol.marca.nombre}}</td>
-              <td>{{iSol.tipoImpresora.descripcion}}</td>
-              <td>
-                <div class="btn-group">
-                  <button type="button" class="btn btn-danger" (click)="iDelete(iSol)">
-                    <i class="fa fa-times"></i>
-                  </button>
-                </div>
-              </td>
+              <td >{{iSol.tipoImpresora.descripcion}}</td>
             </tr>
           </tbody>
         </table>
@@ -126,7 +123,9 @@
               <td>{{cSol.cantidad}}</td>
               <td>{{cSol.cartucho.modelo}}</td>
               <td>{{cSol.cartucho.color.nombre}}</td>
-              <td>{{cSol.cartucho.tipoCartucho.descripcion}}</td>
+              <td class="scroll" >
+                <div data-bs-spy="scroll">{{cSol.cartucho.tipoCartucho.descripcion}}</div>
+              </td>
               <td>
                 <div class="was-validated">
                   <select [compareWith]="comparar" class="form-select is-invalid" [(ngModel)]="cSol.tipoCarga"
