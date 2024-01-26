@@ -205,7 +205,8 @@ export class SolicitudComponent implements OnInit {
     );
 
     if (!existeImpresora) {
-      this.solicitud.impresoras.push(this.impresora);
+      const nuevaImpresora = { ...this.impresora };
+      this.solicitud.impresoras.push(nuevaImpresora);
 
     }
      const maxCantidad = 2;
@@ -215,7 +216,7 @@ export class SolicitudComponent implements OnInit {
 
     if (cartuchoExistente && cartuchoExistente.cantidad < maxCantidad) {
       let item = new ItemSolicitud();
-      item.cantidad++;
+      
       this.incrementLot(car.id);
     } else {
     }
@@ -224,16 +225,16 @@ export class SolicitudComponent implements OnInit {
       item.cartucho = car;
       item.cantidad = 1;
       item.tipoCarga = null;
-      this.solicitud.itemSolicituds.push(item);
+      this.solicitud.itemSolicituds.push(item);      
     }
 
-      this.mostrarTabla = false;
-      this.mostrarAutocompletado = false;
+      //this.mostrarTabla = false;
+      //this.mostrarAutocompletado = false;
       this.mostrarDatos = true;
-      this.impresora = new Impresora();
+       //this.impresora = new Impresora();
       this.myImpresoraControl.setValue('');
-     this.cartuchoAgregado = true;
-     this.disableImpresoraSelect = true;
+      this.cartuchoAgregado = true;
+      //this.disableImpresoraSelect = true;
      
     
   }
@@ -263,10 +264,7 @@ export class SolicitudComponent implements OnInit {
   }
 
   
-  sumarCantidad(item: any){
-    return item.cantidad++;
-  }
-  
+
 
   // elimina impresora de la tabla de pedidos
   iDelete(iSol: Impresora): void {

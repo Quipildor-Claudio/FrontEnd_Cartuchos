@@ -20,7 +20,7 @@ export class InformesComponent implements OnInit {
   filteredSol: Solicitud[] = [];
   filterText: any;
   filterId: any;
-  
+  mostrarInformeDatos:boolean=false;
   rangoFechas = {
     fechaInicio: null,
     fechaFinal: null,
@@ -119,16 +119,16 @@ export class InformesComponent implements OnInit {
   }
 
   PDF() {
-  
+    this.mostrarInformeDatos=true;
+    setTimeout(() => {
     const DATA = document.getElementById('tabla');
     const doc = new jsPDF('p', 'pt', 'a4');
     const options = {
       background: 'white',
       scale: 3
-    };
+    }
     
     html2canvas(DATA, options).then((canvas) => {
-
       const img = canvas.toDataURL('image/PNG');
 
       const bufferX = 15;
@@ -137,12 +137,16 @@ export class InformesComponent implements OnInit {
       const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
       const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
       doc.addImage(img, 'PNG', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'FAST');
-      return doc;
-    }).then((docResult) => {
-      docResult.save(`${new Date().toISOString()}informe.pdf`);
-     
-    });
+      setTimeout(() => {
+        doc.save(`${new Date().toISOString()}informe.pdf`);
+        window.close();
+      }, 5);
+    
+      this.mostrarInformeDatos=false;
+    }
+    ); },20);
   }
+    
 
   validarFechas() {
     if (new Date(this.rangoFechas.fechaInicio) > new Date(this.rangoFechas.fechaFinal)) {

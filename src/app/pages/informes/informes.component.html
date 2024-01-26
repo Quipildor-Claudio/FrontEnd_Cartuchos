@@ -64,8 +64,9 @@
     <div class="card-header">
         {{title}}
     </div>
-    <div class="card-body" id="tabla">
-        <div >
+    <div class="card-body" id="tabla" >
+        <br>
+        <div *ngIf="mostrarInformeDatos">
             <div class="row col-sm-12">
                 <div class="col-sm-8 ">
                     <h3>Informe de Solicitudes de Cartuchos y Toners</h3>
