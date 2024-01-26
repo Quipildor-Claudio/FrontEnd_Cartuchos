@@ -55,10 +55,10 @@ export class FormUsuarioComponent implements OnInit {
       let id = params['id']
       if (id) {
         this.userService.getOne(id).subscribe(res => this.user = res);
-          if (this.user.persona) {
-            //this.myPersonaControl.patchValue(this.viewPersona(this.user.persona));
-            
-          }
+        if (this.user.persona) {
+          //this.myPersonaControl.patchValue(this.viewPersona(this.user.persona));
+
+        }
       }
     }
     );
@@ -93,28 +93,31 @@ export class FormUsuarioComponent implements OnInit {
     this.user.roles = [this.roles.find(rol => rol.id)];
     this.user.email = "admin" + numeroAleatorio + "@gmail.com";
     console.log(this.user);
-
-    Swal.fire({
-      title: '¿Estás seguro?',
-      text:'Se agregará un nuevo usuario.',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí'
-    }).then((result) => {
-      if (result.isConfirmed) {
-    this.userService.add(this.user).subscribe(res => {
-        Swal.fire(
-            'Éxito',
-            `Usuario: ${res.username}, creada!`,
-            'success'
-        )
-        this.route.navigate(['/usuarios']);
-    });
-  }});
-}
-  update(){
+    if (this.user.persona.id!=null) {
+      Swal.fire({
+        title: '¿Estás seguro?',
+        text: 'Se agregará un nuevo usuario.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.userService.add(this.user).subscribe(res => {
+            Swal.fire(
+              'Éxito',
+              `Usuario: ${res.username}, creada!`,
+              'success'
+            )
+            this.route.navigate(['/usuarios']);
+          });
+        }
+      });
+    }
+   
+  }
+  update() {
     this.user.roles = [this.roles.find(rol => rol.id)];
     Swal.fire({
       title: '¿Estás seguro?',
@@ -134,7 +137,8 @@ export class FormUsuarioComponent implements OnInit {
           );
           this.route.navigate(['/usuarios']);
         });
-      }});
+      }
+    });
 
   }
 
@@ -142,7 +146,7 @@ export class FormUsuarioComponent implements OnInit {
     return this.roles.filter(item => item.checked);
   }
 
-  Volver (): void {
+  Volver(): void {
     Swal.fire({
       title: '¿Estás seguro de salir del formulario?',
       text: `Se perderán todos los datos del formulario`,
@@ -154,8 +158,10 @@ export class FormUsuarioComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.route.navigate(['/usuarios']);
-      }});}
-      
-    
- 
+      }
+    });
+  }
+
+
+
 }
