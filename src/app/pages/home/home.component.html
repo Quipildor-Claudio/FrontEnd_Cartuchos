@@ -103,6 +103,7 @@
                         {{item.observacion !== null?item.observacion:"---"}}
                     </td>
                     <td>
+
                         <span
                             [ngClass]="{'aprobada': item.estado.descripcion === 'APROBADA', 'solicitada': item.estado.descripcion === 'SOLICITADA','cancelada': item.estado.descripcion === 'CANCELADA', 'observada': item.estado.descripcion === 'OBSERVADA'}">{{item.estado.descripcion}}</span>
                     </td>

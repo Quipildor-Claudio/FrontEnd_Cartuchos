@@ -82,7 +82,9 @@
             </li>
 
 
-            <li class="nav-item">
+            <li
+            *ngIf="authService.getUserSession().role == 'COMPUTO' || authService.getUserSession().role == 'ADMINISTRADOR' "
+             class="nav-item">
               <a class="nav-link text-light" aria-current="page" href="ayuda">Ayuda</a>
             </li>
             <li *ngIf="authService.isAuthenticated()" class="nav-item dropdown">

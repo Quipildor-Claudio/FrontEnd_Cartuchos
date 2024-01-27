@@ -39,7 +39,7 @@
                   <input *ngIf="editarIndex === i" type="text" [(ngModel)]="item.descripcion" class="form-control custom-input intable" placeholder="Modificar tipo de carga" />
                   <span *ngIf="editarIndex !== i">{{item.descripcion}}</span>
                 </td>
-                <td>
+                <td class="col-sm-3">
                   <!--Botones Ocultos-->
                   <div class="btn-group">
                     <button *ngIf="!edicionEnProgreso" type="button" class="btn btn-warning" data-bs-toggle="tooltip " data-bs-placement="top" title="Modificar" id="btn-modificar" (click)="habilitarModificacion(i)" [disabled]="agregandoNuevaCarga" [disabled]="agregandoNuevaCarga">

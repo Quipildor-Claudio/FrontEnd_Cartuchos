@@ -26,16 +26,32 @@ table {
 }
 span.solicitada {
   background-color: yellow; 
+  color: black;
+  padding: 4px 8px;
+  text-align: center;
+  border-radius: 5px;
 }
 
 span.aprobada {
-  background-color: lightgreen; 
+  background-color: lightgreen;
+  color: black;
+  padding: 4px 8px;
+  text-align: center;
+  border-radius: 5px; 
 }
 span.cancelada{
 background-color: red;
+color: black;
+padding: 4px 8px;
+text-align: center;
+border-radius: 5px;
 }
 span.observada{
   background-color: orange;
+  color: black;
+  padding: 4px 8px;
+  text-align: center;
+  border-radius: 5px;
 }
 
 .form-control{

@@ -13,14 +13,14 @@ export class AuthService {
   private _user = {
     'username': "",
     'role': "",
-    'service':""
+    'name': ""
   }
 
   private _token: string;
   private httpheaders = new HttpHeaders({ 'content-type': 'application/json' });
 
   constructor(private http: HttpClient,
-    public router: Router
+    public router: Router,
   ) { }
 
 
@@ -45,6 +45,8 @@ export class AuthService {
     //console.log(payload);
     this._user.username = payload.username;
     this._user.role = this.convertAuthorities(payload.authorities);
+
+
     sessionStorage.setItem('userSession', JSON.stringify(this._user));
   }
 

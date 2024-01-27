@@ -27,7 +27,8 @@ export class FormSolicitudComponent implements OnInit{
     private solicitudService:SolicitudService,
     private estadoService:EstadoService,
     private route: Router,
-    public activateRoute:ActivatedRoute
+    public activateRoute:ActivatedRoute,
+    
     ) { }
 
   ngOnInit(): void {
@@ -46,6 +47,7 @@ export class FormSolicitudComponent implements OnInit{
     );
   }  
   getEstados():void{
+
     this.estadoService.getAll().subscribe(res=>this.estados=res);
   }
 
