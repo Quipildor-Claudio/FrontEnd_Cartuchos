@@ -89,10 +89,7 @@ export class FormUsuarioComponent implements OnInit {
   }
 
   create() {
-    var numeroAleatorio = Math.floor(Math.random() * 900) + 100;
     this.user.roles = [this.roles.find(rol => rol.id)];
-    this.user.email = "admin" + numeroAleatorio + "@gmail.com";
-    console.log(this.user);
     if (this.user.persona.id!=null) {
       Swal.fire({
         title: '¿Estás seguro?',

@@ -1,9 +1,10 @@
-import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { API_URI } from 'config/config';
-import { Observable, map } from 'rxjs';
+import { Observable, catchError, map, throwError } from 'rxjs';
 import { TipoCartucho } from '../models/tipo-cartucho';
 import { AuthService } from '../auth/auth.service';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,22 @@ export class TipoCartuchoService {
   }
 
   delete(id:number):Observable<any>{
-    return this.http.delete<any>(`${API_URI}/tipoCartuchos/${id}`,{headers:this.authService.addAuthorizationHeader()});
+    return this.http.delete<any>(`${API_URI}/tipoCartuchos/${id}`,{headers:this.authService.addAuthorizationHeader()})
+    .pipe(
+      catchError(e => {
+        if (this.authService.isNoAutorizado(e)) {
+          return throwError(e);
+        }
+
+        if (e.status == 400) {
+          return throwError(e);
+        }
+        Swal.fire({
+          title: "No se puede elinar el cartucho seleccionado el mismo se en encuntra en varias solicitudes.",
+          icon: "error"
+        });
+        return throwError(e);
+      })
+    );;
   }
 }

@@ -69,6 +69,22 @@ export class UserService {
   }
 
   delete(id:number):Observable<any>{
-    return this.http.delete<any>(`${API_URI}/user/${id}`,{headers:this.authService.addAuthorizationHeader()});
+    return this.http.delete<any>(`${API_URI}/user/${id}`,{headers:this.authService.addAuthorizationHeader()})
+    .pipe(
+      catchError(e => {
+        if (this.authService.isNoAutorizado(e)) {
+          return throwError(e);
+        }
+
+        if (e.status == 400) {
+          return throwError(e);
+        }
+        Swal.fire({
+          title: "No se puede eliminar el usuario seleccionado.",
+          icon: "error"
+        });
+        return throwError(e);
+      })
+    );
   }
 }
