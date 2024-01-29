@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import html2canvas from 'html2canvas';
+import { event } from 'jquery';
 import jsPDF from 'jspdf';
+import { AuthService } from 'src/app/auth/auth.service';
 import { Estado } from 'src/app/models/estado';
 import { Solicitud } from 'src/app/models/solicitud';
 import { EstadoService } from 'src/app/services/estado.service';
@@ -26,7 +29,8 @@ export class InformesComponent implements OnInit {
     fechaFinal: null,
   };
 
-  constructor(private solicitudService: SolicitudService, private estadoService: EstadoService) { }
+  constructor(private solicitudService: SolicitudService, private estadoService: EstadoService, 
+    public authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.getEstados();
@@ -34,6 +38,8 @@ export class InformesComponent implements OnInit {
   getDataReset(){
     this.solicitudes = [];
   }
+
+ 
 
   getData() {
     this.solicitudService.getAll().subscribe(res => {

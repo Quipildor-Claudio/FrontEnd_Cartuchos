@@ -43,12 +43,13 @@
     <div class="card-header">
         <h5> {{title}} </h5>
     </div>
-    <div class="card-body">
-        <table class="table table-striped table-bordered table-hover dtr-inline">
+    <div class="card-body col-sm-12">
+        <div class="table-responsive">
+            <table class="col-sm-12 table table-striped table-bordered table-hover dtr-inline">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th scope="col">Servicio</th>
+                    <th class="col-id">ID</th>
+                    <th scope="col  ">Servicio</th>
                     <th scope="col">Usuario</th>
                     <th scope="col">Cartucho</th>
                     <th scope="col">Impresora</th>
@@ -64,7 +65,7 @@
 
 
                 <tr class="odd" *ngFor="let item of solicitudes | filter:filterText">
-                    <td>
+                    <td class="col-id">
                         {{item.id}}
                     </td>
                     <td>{{item.usuario.persona.servicio.nombre !== null?item.usuario.persona.servicio.nombre
@@ -117,13 +118,13 @@
                                     <i class="bi bi-pencil-square"></i>
                                 </button>
                                 &nbsp;
-                                <button type="button" class="btn" (click)="delete(item)">
+                                <button type="button" class="btn" (click)="delete(item)" *ngIf="item.estado.descripcion === 'APROBADA' || user.roles[0].descripcion == 'ADMINISTRADOR' || user.roles[0].descripcion == 'COMPUTO' ">
                                     <i class="bi bi-trash3"></i>
                                 </button>
                             </div>
 
                             <div class="btn-group mt-2">
-                                <button *ngIf="user.roles[0].descripcion !== 'PERSONAL'" type="button" class="btn"
+                                <button *ngIf="user.roles[0].descripcion == 'ADMINISTRADOR'" type="button" class="btn"
                                     [routerLink]="['/form-solicitud',item.id]">
                                     <i class="bi bi-journal-text"></i></button>
 
