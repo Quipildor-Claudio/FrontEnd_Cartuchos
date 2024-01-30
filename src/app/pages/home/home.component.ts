@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
   user: User = new User();
   page: number;
   paginador: any;
-  url:string = '/home/page';
+  url: string = '/home/page';
 
   constructor(
     private solicitudService: SolicitudService,
@@ -79,10 +79,10 @@ export class HomeComponent implements OnInit {
           }
           );
         });
-      }else{
-        this.solicitudService.getBusquedaUsername(userr.username,this.page).subscribe((data:any)=>{
+      } else {
+        this.solicitudService.getBusquedaUsername(userr.username, this.page).subscribe((data: any) => {
           this.solicitudes = data.content as Solicitud[];
-          this.paginador =data;
+          this.paginador = data;
         });
 
       }
@@ -90,7 +90,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
- 
+
   getEstados(): void {
     this.estadoService.getAll().subscribe(res => this.estados = res);
   }
@@ -123,9 +123,24 @@ export class HomeComponent implements OnInit {
     if (event) {
       this.filterId = '';
       this.filterText = '';
-      this.solicitudService.getBusquedaEstado(event).subscribe(res => {
-        this.solicitudes = res
-      });
+      console.log(this.user);
+      if (this.user.roles[0].descripcion == "PERSONAL") {
+        this.solicitudService.getBusquedaEstadoAndUser(event, this.user.username).subscribe(res => {
+          this.solicitudes = res;
+        });
+
+      } else {
+        if (this.user.roles[0].descripcion == "JEFE DE SERVICIO") {
+          this.solicitudService.getBusquedaEstadoAndServicio(event, this.user.persona.servicio.nombre).subscribe(res => {
+            this.solicitudes = res;
+          })
+        } else {
+          this.solicitudService.getBusquedaEstado(event).subscribe(res => {
+            this.solicitudes = res;
+          });
+        }
+      }
+
     }
   }
 

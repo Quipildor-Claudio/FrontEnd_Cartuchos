@@ -53,12 +53,30 @@ export class SolicitudService {
       map(response=>response as any[])
     );
   }
-
+  getBuscarFechaAndServico(fechaInicio:string,fechaFinal:string,name:string): Observable<any[]> {
+    return this.http.get(`${API_URI}/solicitudes/buscarPorFechaandServico/${fechaInicio}/${fechaFinal}/${name}`,{headers:this.authService.addAuthorizationHeader()}).pipe(
+      map(response=>response as any[])
+    );
+  }
   getBusquedaEstado(data:string): Observable<any[]> {
     return this.http.get(`${API_URI}/solicitudes/buscarPorEstado/${data}`,{headers:this.authService.addAuthorizationHeader()}).pipe(
       map(response=>response as any[])
     );
   }
+
+  getBusquedaEstadoAndUser(estado:string,name:string): Observable<any[]> {
+    return this.http.get(`${API_URI}/solicitudes/buscarporEstadoandUser/${estado}/${name}`,{headers:this.authService.addAuthorizationHeader()}).pipe(
+      map(response=>response as any[])
+    );
+  }
+
+  getBusquedaEstadoAndServicio(estado:string,name:string): Observable<any[]> {
+    return this.http.get(`${API_URI}/solicitudes/buscarporEstadoandServicio/${estado}/${name}`,{headers:this.authService.addAuthorizationHeader()}).pipe(
+      map(response=>response as any[])
+    );
+  }
+
+
   getBusquedaServico(data:string): Observable<any[]> {
     return this.http.get(`${API_URI}/solicitudes/buscarPorServicio/${data}`,{headers:this.authService.addAuthorizationHeader()}).pipe(
       map(response=>response as any[])

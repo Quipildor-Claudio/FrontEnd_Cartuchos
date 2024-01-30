@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import { AuthService } from 'src/app/auth/auth.service';
 import { Estado } from 'src/app/models/estado';
 import { Solicitud } from 'src/app/models/solicitud';
+import { User } from 'src/app/models/user';
 import { EstadoService } from 'src/app/services/estado.service';
 import { SolicitudService } from 'src/app/services/solicitud.service';
+import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -20,18 +23,23 @@ export class InformesComponent implements OnInit {
   filteredSol: Solicitud[] = [];
   filterText: any;
   filterId: any;
-  mostrarInformeDatos:boolean=false;
+  mostrarInformeDatos: boolean = false;
+  user: User = new User();
   rangoFechas = {
     fechaInicio: null,
     fechaFinal: null,
   };
 
-  constructor(private solicitudService: SolicitudService, private estadoService: EstadoService) { }
+  constructor(private solicitudService: SolicitudService,
+    private estadoService: EstadoService,
+    private authService: AuthService,
+    private userService: UserService) { }
 
   ngOnInit(): void {
     this.getEstados();
+    this.getUser();
   }
-  getDataReset(){
+  getDataReset() {
     this.solicitudes = [];
   }
 
@@ -41,23 +49,42 @@ export class InformesComponent implements OnInit {
       console.log(this.solicitudes);
     });
   }
+  getUser() {
+    this.userService.getUserbyName(this.authService.getUserSession().username).subscribe(res => this.user = res);
+  }
 
   /*irALink(): void {
     window.location.href = 'http://localhost:8086/solicitudes/export-pdf';
   }*/
 
   buscar(): void {
-    if (this.validarFechas()) {
-    if(this.rangoFechas.fechaFinal&&this.rangoFechas.fechaFinal){
-      this.solicitudService.getBuscarFecha(this.rangoFechas.fechaInicio, this.rangoFechas.fechaFinal).subscribe(res => this.solicitudes = res);
-    }}
-    else{
-      Swal.fire({
-        title: 'Fechas Invalidas',
-        text: `Error al ingresar las fechas de busqueda`,
-        icon: 'error',
-      })
-      
+
+    if (this.user.roles[0].descripcion == "JEFE DE SERVICIO") {
+      if (this.validarFechas()) {
+        if (this.rangoFechas.fechaFinal && this.rangoFechas.fechaFinal) {
+          this.solicitudService.getBuscarFechaAndServico(this.rangoFechas.fechaInicio, this.rangoFechas.fechaFinal, this.user.persona.servicio.nombre).subscribe(res => this.solicitudes = res);
+        }
+      } else {
+        Swal.fire({
+          title: 'Fechas Invalidas',
+          text: `Error al ingresar las fechas de busqueda`,
+          icon: 'error',
+        })
+      }
+    }
+    else {
+      if (this.validarFechas()) {
+        if (this.rangoFechas.fechaFinal && this.rangoFechas.fechaFinal) {
+          this.solicitudService.getBuscarFecha(this.rangoFechas.fechaInicio, this.rangoFechas.fechaFinal).subscribe(res => this.solicitudes = res);
+        }
+      }
+      else {
+        Swal.fire({
+          title: 'Fechas Invalidas',
+          text: `Error al ingresar las fechas de busqueda`,
+          icon: 'error',
+        })
+      }
     }
   }
 
@@ -71,23 +98,29 @@ export class InformesComponent implements OnInit {
 
   onEstadoChange(event: any) {
     if (event) {
-      this.resetearfechas();      
-      this.filterId='';
-      this.filterText='';
-      this.solicitudService.getBusquedaEstado(event).subscribe(res => {
-        this.solicitudes = res
-      });
+      this.resetearfechas();
+      this.filterId = '';
+      this.filterText = '';
+
+      if (this.user.roles[0].descripcion == "JEFE DE SERVICIO") {
+        this.solicitudService.getBusquedaEstadoAndServicio(event, this.user.persona.servicio.nombre).subscribe(res => this.solicitudes = res);
+      } else {
+        this.solicitudService.getBusquedaEstado(event).subscribe(res => {
+          this.solicitudes = res
+        });
+      }
+
     }
   }
 
-  resetearBusqueda(){
-    this.filterId='';
+  resetearBusqueda() {
+    this.filterId = '';
     this.getEstados();
     this.resetearfechas();
   }
 
-  resetearAll(){
-    this.filterId='';
+  resetearAll() {
+    this.filterId = '';
     this.getEstados();
     this.filterText = '';
     this.resetearfechas();
@@ -119,34 +152,35 @@ export class InformesComponent implements OnInit {
   }
 
   PDF() {
-    this.mostrarInformeDatos=true;
+    this.mostrarInformeDatos = true;
     setTimeout(() => {
-    const DATA = document.getElementById('tabla');
-    const doc = new jsPDF('p', 'pt', 'a4');
-    const options = {
-      background: 'white',
-      scale: 3
-    }
-    
-    html2canvas(DATA, options).then((canvas) => {
-      const img = canvas.toDataURL('image/PNG');
+      const DATA = document.getElementById('tabla');
+      const doc = new jsPDF('p', 'pt', 'a4');
+      const options = {
+        background: 'white',
+        scale: 3
+      }
 
-      const bufferX = 15;
-      const bufferY = 15;
-      const imgProps = (doc as any).getImageProperties(img);
-      const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
-      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-      doc.addImage(img, 'PNG', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'FAST');
-      setTimeout(() => {
-        doc.save(`${new Date().toISOString()}informe.pdf`);
-        window.close();
-      }, 5);
-    
-      this.mostrarInformeDatos=false;
-    }
-    ); },20);
+      html2canvas(DATA, options).then((canvas) => {
+        const img = canvas.toDataURL('image/PNG');
+
+        const bufferX = 15;
+        const bufferY = 15;
+        const imgProps = (doc as any).getImageProperties(img);
+        const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+        doc.addImage(img, 'PNG', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'FAST');
+        setTimeout(() => {
+          doc.save(`${new Date().toISOString()}informe.pdf`);
+          window.close();
+        }, 5);
+
+        this.mostrarInformeDatos = false;
+      }
+      );
+    }, 20);
   }
-    
+
 
   validarFechas() {
     if (new Date(this.rangoFechas.fechaInicio) > new Date(this.rangoFechas.fechaFinal)) {
@@ -162,24 +196,25 @@ export class InformesComponent implements OnInit {
     if (new Date(this.rangoFechas.fechaInicio) < fechaMinima) {
       console.log('La fecha de inicio debe ser mayor o igual a 01/01/2024');
       return false;
-    }   
+    }
     return true;
   }
 
-  resetearfechas(){
-    this.rangoFechas.fechaFinal=new Date();
-    this.rangoFechas.fechaInicio=new Date();
+  resetearfechas() {
+    this.rangoFechas.fechaFinal = new Date();
+    this.rangoFechas.fechaInicio = new Date();
   }
 
-  
-  
+
+
   formatoFecha(fecha: string) {
-    if (fecha!=null){
-    const partesFecha = fecha.split('-');
-    const [año, mes, dia] = partesFecha;
-    return `${dia.padStart(2, '0')}/${mes.padStart(2, '0')}/${año}`;
+    if (fecha != null) {
+      const partesFecha = fecha.split('-');
+      const [año, mes, dia] = partesFecha;
+      return `${dia.padStart(2, '0')}/${mes.padStart(2, '0')}/${año}`;
     }
-    else{  return fecha='';
+    else {
+      return fecha = '';
     }
   }
 }
