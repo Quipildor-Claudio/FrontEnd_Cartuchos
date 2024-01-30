@@ -7,7 +7,7 @@
       <div class="form-group col-sm-10">
         <div class="col-sm-6">
           <label class="control-label h5">Impresora</label>
-          <select class="col-sm-6 form-control" [compareWith]="comparar" [(ngModel)]="impresora.marca" name="imarca"
+          <select class="col-sm-6 form-select " [compareWith]="comparar" [(ngModel)]="impresora.marca" name="imarca"
           (change)="imarca()" required (ngModelChange)="onMarcaChange()"
           [ngClass]="{'is-invalid': Form?.controls['imarca']?.invalid && Form?.controls['imarca']?.touched && solicitud.itemSolicituds.length === 0}">
           <option [ngValue]="undefined" disabled>Seleccionar una marca...</option>
@@ -19,9 +19,10 @@
           </div>
         </div>
 
+        <br>
 
         <div class="col-sm-10" *ngIf="mostrarAutocompletado">
-          <mat-form-field>
+          <mat-form-field  class="col-sm-10" >
             <mat-label>Modelo</mat-label>
             <input type="text" placeholder="Escribir Modelo" aria-label="impresoras" matInput
               [formControl]="myImpresoraControl" [matAutocomplete]="autoo" required
@@ -45,10 +46,11 @@
         <div class="row">
           <div class="col-sm-12" *ngIf="mostrarTabla">
             <label class="control-label h5">Cartuchos y Toners</label>
-            <table class="table table-striped table-bordered table-hover dtr-inline">
+            <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover dtr-inline table-sm  ">
               <thead>
                 <tr>
-                  <th style="width: 10px">ID</th>
+                  <th>ID</th>
                   <th>MODELO</th>
                   <th>Marca</th>
                   <th>CAPACIDAD</th>
@@ -80,6 +82,7 @@
               </tfoot>
             </table>
           </div>
+          </div>
         </div>
 
         <div class="mb-3" id="justificacionContainer">
@@ -99,7 +102,7 @@
         *ngIf="mostrarDatos && (solicitud.impresoras.length > 0 || solicitud.itemSolicituds.length > 0)">
         <label class="control-label h5 row">Datos de Solicitud (Previsualización)</label>
         <label class="control-label h6 row">Impresoras seleccionadas</label>
-        <table class="table table-hover">
+        <table class="table table-hover table-sm">
           <thead></thead>
           <tbody>
             <tr *ngFor="let iSol of solicitud.impresoras">
@@ -111,7 +114,7 @@
         </table>
         <br />
         <label class="control-label h6 row">Cartuchos</label>
-        <table class="table table-hover" id="tablaCartuchos">
+        <table class="table table-hover table-sm" id="tablaCartuchos">
           <thead></thead>
           <tbody>
             <tr *ngFor="let cSol of solicitud.itemSolicituds; let i = index">

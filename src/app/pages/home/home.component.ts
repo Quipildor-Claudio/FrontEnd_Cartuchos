@@ -98,7 +98,7 @@ export class HomeComponent implements OnInit {
   delete(item): void {
     Swal.fire({
       title: 'Estas Seguro?',
-      text: `Eliminar ${item.id}`,
+      text: `Eliminar la solicitud con id: ${item.id}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',

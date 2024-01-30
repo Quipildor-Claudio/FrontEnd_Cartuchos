@@ -65,5 +65,8 @@ span.observada{
 }
 
 th.col-id {
- width:  1.333333%; 
+ width: 20px; 
 }
+col-id {
+  width: 30px; 
+ }

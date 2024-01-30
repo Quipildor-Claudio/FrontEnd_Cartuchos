@@ -43,9 +43,9 @@ export class ColoresComponent implements OnInit {
 
   delete(item: Color): void {
     Swal.fire({
-      title: ` ${item.nombre}`,
+      title: `¿Estás seguro?`,
       icon: 'warning',
-      text: `Eliminar el color?`,
+      text: `Eliminar el color ${item.nombre}`,
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
