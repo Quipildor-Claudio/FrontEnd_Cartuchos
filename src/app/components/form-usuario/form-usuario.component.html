@@ -32,6 +32,13 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="col-sm-5">
+                    <label for="email" class="control-label h5">Email</label>
+                    <input type="email" class="form-control" [(ngModel)]="user.email" name="email" #email="ngModel" required minlength="3"
+                       />
+                  
+                </div>
             </div>
 
             <div class="form-group row">

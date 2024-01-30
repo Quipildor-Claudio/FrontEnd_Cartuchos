@@ -115,10 +115,12 @@ export class CartuchoService {
           if (e.status == 400) {
             return throwError(e);
           }
-          Swal.fire(e.error.mensaje, e.error.error, 'error');
+          Swal.fire({
+            title: "No se puede eliminar el cartucho seleccionado el mismo se en encuntra en varias solicitudes.",
+            icon: "error"
+          });
           return throwError(e);
         })
-
       );
   }
 

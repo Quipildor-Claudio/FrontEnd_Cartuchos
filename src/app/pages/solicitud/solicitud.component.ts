@@ -78,7 +78,7 @@ export class SolicitudComponent implements OnInit {
     private authService: AuthService,
     private route: Router,
     public activateRoute: ActivatedRoute,
-    
+
   ) { }
 
   ngOnInit(): void {
@@ -94,12 +94,12 @@ export class SolicitudComponent implements OnInit {
       map(value => typeof value === 'string' ? value : value.modelo),
       flatMap(value => value ? this._filterr(value) : [])
     );
-    
+
     this.activateRoute.queryParams.subscribe(params => {
-      this.mostrarDatos =true;
+      this.mostrarDatos = true;
     });
 
-  
+
   }
 
   private _filter(value: string): Observable<Cartucho[]> {
@@ -127,12 +127,12 @@ export class SolicitudComponent implements OnInit {
   }
 
   selectedImpresora(event: MatAutocompleteSelectedEvent): void {
-      this.impresora = event.option.value as Impresora;
-      this.mostrarTabla = true;
-      this.disableImpresoraSelect = false;
-    
+    this.impresora = event.option.value as Impresora;
+    this.mostrarTabla = true;
+    this.disableImpresoraSelect = false;
+
   }
-  
+
 
   cargar(): void {
     this.activateRoute.params.subscribe(params => {
@@ -146,7 +146,7 @@ export class SolicitudComponent implements OnInit {
 
   update(): void {
     console.log(this.solicitud);
-    this.solicitudService.update(this.solicitud,this.solicitud.id).subscribe(() => {
+    this.solicitudService.update(this.solicitud, this.solicitud.id).subscribe(() => {
       Swal.fire(
         'Exito',
         `La solicitud N°${this.solicitud.id} actualizada!`,
@@ -189,17 +189,17 @@ export class SolicitudComponent implements OnInit {
   enviaSolicitud() {
     const marcaControl = this.Form?.controls['imarca'];
 
-  if (this.impresoraForm && this.impresoraForm.valid && this.impresora.marca) {
-    console.log('Estado del formulario:', this.impresoraForm.valid);
-    marcaControl?.setErrors(null); 
-  } else {
-    console.log('Formulario inválido. No se puede enviar.');
-    marcaControl?.setErrors({ 'invalidImpresora': true });
-  }
+    if (this.impresoraForm && this.impresoraForm.valid && this.impresora.marca) {
+      console.log('Estado del formulario:', this.impresoraForm.valid);
+      marcaControl?.setErrors(null);
+    } else {
+      console.log('Formulario inválido. No se puede enviar.');
+      marcaControl?.setErrors({ 'invalidImpresora': true });
+    }
   }
 
   addCartuchos(car: Cartucho): void {
-  
+
     const existeImpresora = this.solicitud.impresoras.some(
       (imp) => imp.id === this.impresora.id
     );
@@ -209,37 +209,37 @@ export class SolicitudComponent implements OnInit {
       this.solicitud.impresoras.push(nuevaImpresora);
 
     }
-     const maxCantidad = 2;
-  if (this.existItem(car.id)) {
-    
-    const cartuchoExistente = this.solicitud.itemSolicituds.find(c => c.cartucho.id === car.id);
+    const maxCantidad = 2;
+    if (this.existItem(car.id)) {
 
-    if (cartuchoExistente && cartuchoExistente.cantidad < maxCantidad) {
-      let item = new ItemSolicitud();
-      
-      this.incrementLot(car.id);
+      const cartuchoExistente = this.solicitud.itemSolicituds.find(c => c.cartucho.id === car.id);
+
+      if (cartuchoExistente && cartuchoExistente.cantidad < maxCantidad) {
+        let item = new ItemSolicitud();
+
+        this.incrementLot(car.id);
+      } else {
+      }
     } else {
-    }
-  }else {
       let item = new ItemSolicitud();
       item.cartucho = car;
       item.cantidad = 1;
       item.tipoCarga = null;
-      this.solicitud.itemSolicituds.push(item);      
+      this.solicitud.itemSolicituds.push(item);
     }
 
-      //this.mostrarTabla = false;
-      //this.mostrarAutocompletado = false;
-      this.mostrarDatos = true;
-       //this.impresora = new Impresora();
-      this.myImpresoraControl.setValue('');
-      this.cartuchoAgregado = true;
-      //this.disableImpresoraSelect = true;
-     
-    
+    //this.mostrarTabla = false;
+    //this.mostrarAutocompletado = false;
+    this.mostrarDatos = true;
+    //this.impresora = new Impresora();
+    this.myImpresoraControl.setValue('');
+    this.cartuchoAgregado = true;
+    //this.disableImpresoraSelect = true;
+
+
   }
   onMarcaChange(): void {
-    this.impresora.modelo = ''; 
+    this.impresora.modelo = '';
     this.myImpresoraControl.setValue('');
     this.impresora.cartuchos = [];
   }
@@ -263,22 +263,28 @@ export class SolicitudComponent implements OnInit {
     }
   }
 
-  
+
 
 
   // elimina impresora de la tabla de pedidos
   iDelete(iSol: Impresora): void {
     this.solicitud.impresoras = this.solicitud.impresoras.filter(res => res != iSol);
-    
-    
+
+
   }
 
   enviarSolicitud(): void {
     this.solicitud.usuario = this.user;
 
     // obtiene el objeto de stado solicitado del array 
+    /** if (this.solicitud.usuario.roles[0].descripcion == "PERSONAL"){
+       const est = this.estados.filter((res) => res.descripcion == "PENDIENTE");
+       this.solicitud.estado = est[0];
+ 
+     }else{ */
     const est = this.estados.filter((res) => res.descripcion == "SOLICITADA");
     this.solicitud.estado = est[0];
+
     console.log(this.solicitud);
 
     this.solicitudService.add(this.solicitud).subscribe(res => {
@@ -342,18 +348,18 @@ export class SolicitudComponent implements OnInit {
   isTipoCargaSelected(): boolean {
     return this.solicitud.itemSolicituds.some(item => !!item.tipoCarga);
   }
-  
+
   isValidForm(): boolean {
     const isJustificacionValid = !!this.solicitud.justificacion;
     const isMostrarDatosValid = this.mostrarDatos;
-   
+ 
 
     if (isJustificacionValid && isMostrarDatosValid && this.mostrarTabla && this.cartuchoAgregado) {
       // Verificar si todos los tipos de carga están seleccionados
       const areTipoCargaSelected = this.solicitud.itemSolicituds.every(item => !!item.tipoCarga, );
         return areTipoCargaSelected;      
     }
-  
+
     return false;
   }
 

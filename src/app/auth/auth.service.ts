@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { API_URI } from 'config/config';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { UserService } from '../services/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,14 +14,14 @@ export class AuthService {
   private _user = {
     'username': "",
     'role': "",
-    'service':""
+    'name': ""
   }
 
   private _token: string;
   private httpheaders = new HttpHeaders({ 'content-type': 'application/json' });
 
   constructor(private http: HttpClient,
-    public router: Router
+    public router: Router,
   ) { }
 
 
@@ -45,6 +46,8 @@ export class AuthService {
     //console.log(payload);
     this._user.username = payload.username;
     this._user.role = this.convertAuthorities(payload.authorities);
+
+
     sessionStorage.setItem('userSession', JSON.stringify(this._user));
   }
 
