@@ -5,6 +5,7 @@ import { User } from 'src/app/models/user';
 import Swal from 'sweetalert2';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
   usuario: User = new User();
   name: string = "";
   constructor(private authService: AuthService,
-    private router: Router) {
+    private router: Router,
+    private userService:UserService) {
 
   }
 

@@ -47,7 +47,6 @@ export class AuthService {
     this._user.username = payload.username;
     this._user.role = this.convertAuthorities(payload.authorities);
 
-
     sessionStorage.setItem('userSession', JSON.stringify(this._user));
   }
 

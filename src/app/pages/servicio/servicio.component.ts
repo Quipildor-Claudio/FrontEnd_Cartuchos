@@ -43,7 +43,7 @@ export class ServicioComponent implements OnInit {
   delete(item: Servicio): void {
     Swal.fire({
       title: '¿Estás Seguro?',
-      text: `Eliminar la servicio: ${this.servicio.nombre}`,
+      text: `Eliminar la servicio: ${item.nombre}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
