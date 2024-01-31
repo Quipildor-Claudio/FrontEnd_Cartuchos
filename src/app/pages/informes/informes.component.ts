@@ -32,7 +32,10 @@ export class InformesComponent implements OnInit {
     fechaFinal: null,
   };
 
-  constructor(private solicitudService: SolicitudService, private estadoService: EstadoService) { }
+  constructor(private solicitudService: SolicitudService,
+    private estadoService: EstadoService,
+    private authService: AuthService,
+    private userService: UserService) { }
 
   ngOnInit(): void {
     this.getEstados();
