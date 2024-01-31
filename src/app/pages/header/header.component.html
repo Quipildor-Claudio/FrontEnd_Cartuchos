@@ -29,8 +29,8 @@
                 Gestión de Solicitudes
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="solicitudes">Solicitudes</a></li>
-                <li><a class="dropdown-item text-light" href="informes">Informes</a></li>
+                <li ><a class="dropdown-item" href="solicitudes">Solicitudes</a></li>
+                <li  *ngIf="authService.getUserSession().role == 'COMPUTO' || authService.getUserSession().role == 'ADMINISTRADOR' || authService.getUserSession().role == 'JEFE DE SERVICIO' " ><a class="dropdown-item text-light" href="informes">Informes</a></li>
                 <!-- <li><a class="dropdown-item" href="estados">Estados</a></li> -->
               </ul>
             </li>
