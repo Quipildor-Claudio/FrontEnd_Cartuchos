@@ -48,17 +48,12 @@
                 </div>
             </div>
 
-            <div class="form-group row">
-                <label for="rol" class="control-label h5">Seleccionar Rol</label>
-                <div class="col-sm-12">
-                    <div class="form-check pt-3">
-                        <div *ngFor="let rol of roles" class="form-check form-check-inline">
-                            <input type="radio" [value]="rol.id" name="selectedRole" class="form-check-input p-1 me-2 ms-2 " id="rol"  [checked]="user.id  === rol.id" />
-                            <label class="form-check-label h6" for="roles">{{ rol.descripcion }}</label>
-                        </div>
-                    </div>
-                </div>
+            <div *ngFor="let rol of roles" class="form-check form-check-inline">
+                <input type="radio" [value]="rol.id" name="selectedRole" class="form-check-input p-1 me-2 ms-2"
+                    id="rol{{rol.id}}" [checked]="isSelectedRole(rol.id)" (change)="selectRole(rol.id)" />
+                <label class="form-check-label h6" for="rol{{rol.id}}">{{ rol.descripcion }}</label>
             </div>
+            
              
 
             <div class="form-group row col-sm-11">
