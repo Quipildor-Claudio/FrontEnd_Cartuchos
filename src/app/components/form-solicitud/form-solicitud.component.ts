@@ -21,6 +21,7 @@ export class FormSolicitudComponent implements OnInit{
   
   title:string=" Solicitud de Cartuchos";
   estados:Estado[];
+  EstadosDes:string;
   solicitud:Solicitud = new Solicitud();
 
   constructor(

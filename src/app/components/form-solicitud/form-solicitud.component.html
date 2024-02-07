@@ -11,7 +11,7 @@
         <td>
           <form #solicitudForm="ngForm" id="original" #originalForm>
             <div class="row">
-              <img src="/assets/images/Logo_HPS.png" id="logo" class="col-sm-1 me-5">
+              <img src="../assets/images/Logo_HPS.png" id="logo" class="col-sm-1 me-5">
                   <div class="row col-sm-10 ms-4">
                     <div class="col-sm-12 text-end"><h5>Pedido de Provision N°: {{solicitud.id}}</h5></div>
                     <div class="col-sm-12 text-end"><h5>San Salvador de Jujuy, {{solicitud.fechaCreacion}}</h5></div>  
@@ -44,7 +44,7 @@
             <div class="form-group row" id="estados">
               <label for="estado" class="form-label col-sm-2 pe-0 h5" >Estado de Solicitud</label>
               <div class="col-sm-5">
-                <select [compareWith]="comparar" class="form-select" [(ngModel)]="solicitud.estado" name="estado" id="estado">
+                <select [compareWith]="comparar" class="form-select" [(ngModel)]="solicitud.estado" name="estado" id="estado" > 
                   <option [ngValue]="undefined">Seleccione un estado...</option>
                   <option *ngFor="let estado of estados" [ngValue]="estado">{{estado.descripcion}}</option>
                 </select>
@@ -55,7 +55,7 @@
               </div>
             </div>
 
-            <div *ngIf="solicitud.estado?.descripcion === 'OBSERVADA'" class="mb-3" id="justificacionContainer">
+            <div *ngIf="solicitud.estado?.descripcion === 'OBSERVADA' " class="mb-3" id="justificacionContainer">
               <label for="observacion" class="form-label h5 mt-3">Observacion</label>
               <textarea class="form-control" [(ngModel)]="solicitud.observacion" name="observacion" rows="3" required></textarea>
               <div class="invalid-feedback">Este campo es obligatorio.</div>
