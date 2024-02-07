@@ -40,6 +40,7 @@ import { FilterPipeModule } from 'ngx-filter-pipe';
 import { FilterPipe } from './pipes/filter.pipe';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { AyudaComponent } from './components/ayuda/ayuda.component';
+import { CabioContrasenaComponent } from './components/cabio-contrasena/cabio-contrasena.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,7 +71,8 @@ import { AyudaComponent } from './components/ayuda/ayuda.component';
     InformesComponent,
     SolicitudPdfComponent,
     PaginatorComponent,
-    AyudaComponent
+    AyudaComponent,
+    CabioContrasenaComponent
 
 
   ],
