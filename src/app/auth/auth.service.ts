@@ -5,7 +5,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { API_URI } from 'config/config';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { UserService } from '../services/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -114,6 +113,9 @@ export class AuthService {
     }
 
     if (e.status == 403) {
+      if (this.isAuthenticated()) {
+        this.logout();
+      }
       Swal.fire('Acceso denegado', `Hola ${this._user.username} no tienes acceso a este recurso!`, 'warning');
       this.router.navigate(['/home']);
       return true;

@@ -40,7 +40,7 @@
               <tr class="odd" *ngFor="let item of usuarios | filter:filterText">
                 <td >{{item.id}}</td>
                 <td >{{item.username}}</td>
-                <td >{{item.persona.apellido}}</td>
+                <td >{{item.persona.apellido}} &nbsp;{{item.persona.nombre}}</td>
                 <td >{{item.persona.dni}}</td>
                 <div *ngFor="let rol of item.roles">
                   <td >{{rol.descripcion}}</td>

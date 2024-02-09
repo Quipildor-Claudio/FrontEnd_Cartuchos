@@ -13,6 +13,8 @@ export class Solicitud {
     usuario:User;
     impresoras:Impresora[]=[];
     estado: Estado;
+    aprobado:string;
+    retirado:boolean;
     itemSolicituds:ItemSolicitud[]=[];
     fechaCreacion: string;
     fecha_actualizacion: string;

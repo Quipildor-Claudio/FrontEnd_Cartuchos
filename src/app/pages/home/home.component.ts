@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ConstantPool } from '@angular/compiler';
 
 
 
@@ -69,6 +70,7 @@ export class HomeComponent implements OnInit {
       this.solicitudService.getAllPage(this.page).subscribe((res: any) => {
         this.solicitudes = res.content as Solicitud[];
         this.paginador = res;
+        //console.log(this.solicitudes);
       });
     } else {
       if (userr.role == "JEFE DE SERVICIO") {
@@ -169,6 +171,34 @@ export class HomeComponent implements OnInit {
     } else {
       this.getDataServer();
     }
+  }
+
+  checkRetirado(event: any, item: any): void {
+
+    let aux = event.currentTarget.checked ? "Retirada" : "Sin Retirar";
+    Swal.fire({
+      title: "Estas Seguro ?",
+      text: `De cambiar el estado de la solicitud Num: ${item.id} a ${aux}`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, cambiar!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.solicitudService.update(item, item.id).subscribe(res => {
+          Swal.fire({
+            title: "Cambiado!",
+            text: `El estado de la solicitud Num: ${res.id} fue cambiada ${aux}  `,
+            icon: "success"
+          });
+        });
+
+      }else{
+        item.retirado = item.retirado ?null:true;
+      }
+    });
+
   }
 
   comparar(o1: any, o2: any): boolean {
