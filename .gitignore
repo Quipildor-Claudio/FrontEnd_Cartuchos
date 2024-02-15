@@ -42,4 +42,4 @@ testem.log
 Thumbs.db
 
 # RUTA DE ENLACE
-/config
+/config/*
