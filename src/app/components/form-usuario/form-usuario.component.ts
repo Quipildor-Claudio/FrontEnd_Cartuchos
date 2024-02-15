@@ -113,7 +113,8 @@ export class FormUsuarioComponent implements OnInit {
 }
 
   update() {
-    if (this.user.persona.id != null) {
+    if (this.user.persona.id != null) 
+    {
       Swal.fire({
       title: '¿Estás seguro?',
       text: 'Se modificarán los datos del usuario',
@@ -167,7 +168,5 @@ selectRole(roleId: number): void {
   const selectedRole: Rol = this.roles.find(role => role.id === roleId);
   this.user.roles = selectedRole ? [selectedRole] : [];
 }
-
-
 
 }

@@ -13,9 +13,9 @@
         
         <tr>
           <td>
-            <form #solicitudForm="ngForm" id="original" #originalForm>
+            <form #solicitudForm="ngForm" id="original" #originalForm  class="form-half">
               <div class="row col sm-12">
-                <img src="/assets/images/Logo_HPS.png" id="logo" class="col-sm-1 me-5">
+                <img src="..\assets\images\Logo_HPS.png" id="logo" class="col-sm-1 me-5">
                     <div class="row col-sm-10 ms-4">
                       <div class="col-sm-12 text-end"><h5>Pedido de Provision N°: {{solicitud.id}}</h5></div>
                       <div class="col-sm-12 text-end" ><h5 >San Salvador de Jujuy, {{formatoFecha(solicitud.fechaCreacion)}}</h5></div>  
@@ -61,16 +61,22 @@
         </tr>
               <tr>
           <td>
-            <form #solicitudFormDuplicate="ngForm" id="duplicado" >
-              <br>
-              <br>
-              <br>
-              <br>
-              <br>
-              <br>
-              <br>
+        
+            <br>
+            <br>
+            <br>
+            <br>            
+            <br>
+            <br>
+            <br>
+            <br>   
+            <br>
+            <br>
+            <br>
+            <form #solicitudFormDuplicate="ngForm" id="duplicado"  class="form-half">
+             
               <div class="row">
-                <img src="/assets/images/Logo_HPS.png" id="logo" class="col-sm-1 me-5">
+                <img src="..\assets\images\Logo_HPS.png" id="logo" class="col-sm-1 me-5">
                     <div class="row col-sm-10 ms-4">
                       <div class="col-sm-12 text-end"><h5>Pedido de Provision N°: {{solicitud.id}}</h5></div>
                       <div class="col-sm-12 text-end"><h5>San Salvador de Jujuy, {{formatoFecha(solicitud.fechaCreacion)}}</h5></div>  
@@ -102,7 +108,7 @@
   
                   </div>
                   <div class="col-sm-6 ">
-                    <img src="/assets/images/autorizacion.png" id="logoAuto" >
+                    <img src="..\assets\images\autorizacion.png" id="logoAuto" >
                   </div>
             </div> 
              

@@ -18,11 +18,12 @@ import { AuthService } from 'src/app/auth/auth.service';
   templateUrl: './form-solicitud.component.html',
   styleUrls: ['./form-solicitud.component.css']
 })
-export class FormSolicitudComponent implements OnInit {
-
-  title: string = " Solicitud de Cartuchos";
-  estados: Estado[];
-  solicitud: Solicitud = new Solicitud();
+export class FormSolicitudComponent implements OnInit{
+  
+  title:string=" Solicitud de Cartuchos";
+  estados:Estado[];
+  EstadosDes:string;
+  solicitud:Solicitud = new Solicitud();
 
   constructor(
     private solicitudService: SolicitudService,

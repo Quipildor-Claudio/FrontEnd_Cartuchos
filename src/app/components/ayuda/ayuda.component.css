@@ -1,0 +1,13 @@
+
+  .accordion-button{
+    background: rgb(0, 92, 93);
+    color: white;
+    border-color: rgb(0, 92, 93);
+  }
+  button span{
+    font-size: 20px;
+  }
+.card-header{
+    background: rgb(0, 92, 93);
+    color:white;
+}
