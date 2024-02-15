@@ -113,8 +113,7 @@
                             {{item.aprobado !==null?item.aprobado:"---"}}
                         </td>
                         <td>
-                            <div class="form-check">
-                                <label for="enabled" class="control-label h5 me-1"></label>
+                            <div class="form-check " >
                                 <input type="checkbox" [(ngModel)]="item.retirado" name="enabled"
                                     class="form-check-input p-2 " (change)="checkRetirado($event,item)"/>
                             </div>
