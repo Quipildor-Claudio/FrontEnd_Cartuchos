@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import html2canvas from 'html2canvas';
+import { event } from 'jquery';
 import jsPDF from 'jspdf';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Estado } from 'src/app/models/estado';
@@ -42,6 +44,7 @@ export class InformesComponent implements OnInit {
   getDataReset() {
     this.solicitudes = [];
   }
+
 
   getData() {
     this.solicitudService.getAll().subscribe(res => {
@@ -98,7 +101,6 @@ export class InformesComponent implements OnInit {
 
   onEstadoChange(event: any) {
     if (event) {
-      this.resetearfechas();
       this.filterId = '';
       this.filterText = '';
 
@@ -116,7 +118,6 @@ export class InformesComponent implements OnInit {
   resetearBusqueda() {
     this.filterId = '';
     this.getEstados();
-    this.resetearfechas();
   }
 
   resetearAll() {
@@ -129,7 +130,6 @@ export class InformesComponent implements OnInit {
 
   searchId(id: any) {
     console.log(id);
-    this.resetearfechas();
     this.filterText = '';
     this.getEstados();
     if (id !== '') {

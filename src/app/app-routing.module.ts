@@ -27,6 +27,7 @@ import { SolicitudPdfComponent } from './components/solicitud-pdf/solicitud-pdf.
 import { LoginComponent } from './auth/login/login.component';
 import { authGuard } from './auth/guards/auth.guard';
 import { AyudaComponent } from './components/ayuda/ayuda.component';
+import { CabioContrasenaComponent } from './components/cabio-contrasena/cabio-contrasena.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -92,6 +93,8 @@ const routes: Routes = [
   { path: 'informes', component: InformesComponent ,canActivate:[authGuard]},
 
   { path: 'ayuda', component: AyudaComponent ,canActivate:[authGuard]},
+  { path: 'cambio-contraseña', component: CabioContrasenaComponent ,canActivate:[authGuard]},
+
 
 
 

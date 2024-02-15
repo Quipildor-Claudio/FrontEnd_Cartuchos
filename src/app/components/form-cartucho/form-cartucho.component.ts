@@ -69,8 +69,8 @@ export class FormCartuchoComponent implements OnInit {
 
   create(): void {
     Swal.fire({
-      title:  `${this.cartucho.tipoCartucho.descripcion +' '+ this.cartucho.modelo}`,
-      text:'Se agregará un nuevo cartucho.',
+      title: `${this.cartucho.tipoCartucho.descripcion + ' ' + this.cartucho.modelo}`,
+      text: 'Se agregará un nuevo cartucho.',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -78,20 +78,21 @@ export class FormCartuchoComponent implements OnInit {
       confirmButtonText: 'Sí'
     }).then((result) => {
       if (result.isConfirmed) {
-    this.cartuchoService.add(this.cartucho).subscribe(res => {
-      Swal.fire(
-        'Éxito',
-        `Cartucho:${this.cartucho.tipoCartucho.descripcion +' '+ this.cartucho.modelo}, creada!`,
-        'success'
-      );
-      this.route.navigate(['/cartuchos']);
+        this.cartuchoService.add(this.cartucho).subscribe(res => {
+          Swal.fire(
+            'Éxito',
+            `Cartucho:${this.cartucho.tipoCartucho.descripcion + ' ' + this.cartucho.modelo}, creada!`,
+            'success'
+          );
+          this.route.navigate(['/cartuchos']);
+        });
+      }
     });
-  }});
   }
 
   update(): void {
     Swal.fire({
-      title:  `${this.cartucho.tipoCartucho.descripcion +' '+ this.cartucho.modelo}`,
+      title: `${this.cartucho.tipoCartucho.descripcion + ' ' + this.cartucho.modelo}`,
       text: 'Se modificarán todos los datos del cartucho',
       icon: 'warning',
       showCancelButton: true,
@@ -100,15 +101,16 @@ export class FormCartuchoComponent implements OnInit {
       confirmButtonText: 'Sí'
     }).then((result) => {
       if (result.isConfirmed) {
-    this.cartuchoService.update(this.cartucho, this.cartucho.id).subscribe(res => {
-      Swal.fire(
-        'Éxito',
-        `Cartucho: ${this.cartucho.tipoCartucho.descripcion +' '+ this.cartucho.modelo}, actualizada!`,
-        'success'
-      );
-      this.route.navigate(['/cartuchos']);
+        this.cartuchoService.update(this.cartucho, this.cartucho.id).subscribe(res => {
+          Swal.fire(
+            'Éxito',
+            `Cartucho: ${this.cartucho.tipoCartucho.descripcion + ' ' + this.cartucho.modelo}, actualizada!`,
+            'success'
+          );
+          this.route.navigate(['/cartuchos']);
+        });
+      }
     });
-  }});
   }
 
   Volver(): void {

@@ -123,7 +123,7 @@ export class ServicioComponent implements OnInit {
       }).then((result) => {
         if (result.isConfirmed) {
           this.servicioService.update(item, item.id).subscribe(() => {
-            Swal.fire('Exito', `${item.nombre} modificada!`, 'success');
+            Swal.fire('Exito', `${this.servicio.nombre} modificada!`, 'success');
             this.editarIndex = -1;
             this.edicionEnProgreso = false;
           })

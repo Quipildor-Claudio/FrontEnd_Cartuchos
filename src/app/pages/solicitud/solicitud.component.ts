@@ -352,11 +352,12 @@ export class SolicitudComponent implements OnInit {
   isValidForm(): boolean {
     const isJustificacionValid = !!this.solicitud.justificacion;
     const isMostrarDatosValid = this.mostrarDatos;
+ 
 
-    if (isJustificacionValid && isMostrarDatosValid) {
+    if (isJustificacionValid && isMostrarDatosValid && this.mostrarTabla && this.cartuchoAgregado) {
       // Verificar si todos los tipos de carga están seleccionados
-      const areTipoCargaSelected = this.solicitud.itemSolicituds.every(item => !!item.tipoCarga);
-      return areTipoCargaSelected;
+      const areTipoCargaSelected = this.solicitud.itemSolicituds.every(item => !!item.tipoCarga, );
+        return areTipoCargaSelected;      
     }
 
     return false;

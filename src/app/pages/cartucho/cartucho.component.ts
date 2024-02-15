@@ -44,8 +44,8 @@ export class CartuchoComponent implements OnInit {
 
   delete(item:Cartucho):void {
     Swal.fire({
-      title: `${item.tipoCartucho.descripcion +' '+ item.modelo}`,
-      text: `¿Estás Seguro?, Eliminar`,
+      title: `¿Estás Seguro?`,
+      text: `Eliminar el cartucho ${item.tipoCartucho.descripcion +' '+ item.modelo}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',

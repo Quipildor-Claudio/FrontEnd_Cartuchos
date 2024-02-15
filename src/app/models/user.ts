@@ -10,7 +10,7 @@ export class User {
     persona:Persona = new Persona();
     roles:Rol[]=[];
     enabled:boolean;
-    create_at:string;
+    create_at:string;//fecha creacion
     solicitudes:Solicitud[]=[];
     
     activo():string{

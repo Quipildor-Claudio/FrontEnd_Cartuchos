@@ -1,31 +1,36 @@
 table {
-    width: 100%;
-    border-color: rgb(0, 92, 93);
-  }
-  .card{
-    border-color: rgb(0, 92, 93);
-  }
-  .buscar{
-    border-color: rgb(0, 92, 93);
-    color: rgb(74, 89, 92 );
-  }
-  .buscar:hover{
-    background-color: rgb(195, 244, 245);
-    color: rgb(58, 65, 66);
-  }
-  .btn{
-    background: rgb(0, 92, 93);
-    color: white;
-    border: rgb(0, 92, 93);
+  border-color: rgb(0, 92, 93);
 }
-.btn:hover{
+
+.card {
+  border-color: rgb(0, 92, 93);
+}
+
+.buscar {
+  border-color: rgb(0, 92, 93);
+  color: rgb(74, 89, 92);
+}
+
+.buscar:hover {
+  background-color: rgb(195, 244, 245);
+  color: rgb(58, 65, 66);
+}
+
+.btn {
+  background: rgb(0, 92, 93);
+  color: white;
+  border: rgb(0, 92, 93);
+}
+
+.btn:hover {
   background: rgb(16, 40, 40);
   color: white;
   position: relative;
   display: inline-block;
 }
+
 span.solicitada {
-  background-color: yellow; 
+  background-color: yellow;
   color: black;
   padding: 4px 8px;
   text-align: center;
@@ -37,16 +42,18 @@ span.aprobada {
   color: black;
   padding: 4px 8px;
   text-align: center;
-  border-radius: 5px; 
+  border-radius: 5px;
 }
-span.cancelada{
-background-color: red;
-color: black;
-padding: 4px 8px;
-text-align: center;
-border-radius: 5px;
+
+span.cancelada {
+  background-color: red;
+  color: black;
+  padding: 4px 8px;
+  text-align: center;
+  border-radius: 5px;
 }
-span.observada{
+
+span.observada {
   background-color: orange;
   color: black;
   padding: 4px 8px;
@@ -54,13 +61,22 @@ span.observada{
   border-radius: 5px;
 }
 
-.form-control{
-  border:solid 1px; 
-  border-color: rgb(0, 92, 93); 
-  color:rgb(84, 102, 100);
+.form-control {
+  border: solid 1px;
+  border-color: rgb(0, 92, 93);
+  color: rgb(84, 102, 100);
 }
-.form-select{
-  border:solid 1px; 
-  border-color: rgb(0, 92, 93); 
-  color:rgb(84, 102, 100);
+
+.form-select {
+  border: solid 1px;
+  border-color: rgb(0, 92, 93);
+  color: rgb(84, 102, 100);
+}
+
+th.col-id {
+  width: 20px;
+}
+
+col-id {
+  width: 30px;
 }

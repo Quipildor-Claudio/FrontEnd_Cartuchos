@@ -45,7 +45,7 @@ export class ImpresoraComponent implements OnInit {
   delete(item: Impresora): void {
     Swal.fire({
       title: '¿Estás Seguro?',
-      text: `Eliminar impresora: ${item.modelo}`,
+      text: `Eliminar la impresora: ${item.modelo}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',

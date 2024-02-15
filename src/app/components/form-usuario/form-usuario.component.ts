@@ -25,11 +25,10 @@ export class FormUsuarioComponent implements OnInit {
   titulo: string = "Formulario de Usuario";
   roles: Rol[] = [];
   persona: Persona = new Persona();
+  selectedRoleId: number; 
   myPersonaControl = new FormControl();
   personasFiltrados: Observable<Persona[]>;
   user: User = new User();
-  selectedRoleId: number;
-
   constructor(
     public activatedRoute: ActivatedRoute,
     public route: Router,
@@ -89,34 +88,33 @@ export class FormUsuarioComponent implements OnInit {
   }
 
   create() {
-    this.user.roles = [this.roles.find(rol => rol.id)];
-    if (this.user.persona.id!=null) {
-      Swal.fire({
-        title: '¿Estás seguro?',
-        text: 'Se agregará un nuevo usuario.',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.userService.add(this.user).subscribe(res => {
-            Swal.fire(
-              'Éxito',
-              `Usuario: ${res.username}, creada!`,
-              'success'
-            )
-            this.route.navigate(['/usuarios']);
-          });
-        }
-      });
+    if (this.user.persona.id != null) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: 'Se agregará un nuevo usuario.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.userService.add(this.user).subscribe(res => {
+                    Swal.fire(
+                        'Éxito',
+                        `Usuario: ${res.username}, creada!`,
+                        'success'
+                    )
+                    this.route.navigate(['/usuarios']);
+                });
+            }
+        });
     }
-   
-  }
+}
+
   update() {
-    this.user.roles = [this.roles.find(rol => rol.id)];
-    Swal.fire({
+    if (this.user.persona.id != null) {
+      Swal.fire({
       title: '¿Estás seguro?',
       text: 'Se modificarán los datos del usuario',
       icon: 'warning',
@@ -138,7 +136,7 @@ export class FormUsuarioComponent implements OnInit {
     });
 
   }
-
+  }
   result(): Rol[] {
     return this.roles.filter(item => item.checked);
   }
@@ -158,6 +156,17 @@ export class FormUsuarioComponent implements OnInit {
       }
     });
   }
+
+
+isSelectedRole(roleId: number): boolean {
+    return this.selectedRoleId === roleId;
+}
+
+selectRole(roleId: number): void {
+  this.selectedRoleId = roleId;
+  const selectedRole: Rol = this.roles.find(role => role.id === roleId);
+  this.user.roles = selectedRole ? [selectedRole] : [];
+}
 
 
 

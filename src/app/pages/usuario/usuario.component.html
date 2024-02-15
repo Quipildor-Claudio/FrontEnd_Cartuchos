@@ -20,9 +20,9 @@
         <div class="col-sm-12 col-md-6"></div>
       </div>
       <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-12 table-responsive ">
           <table 
-          class="table table-striped table-bordered table-hover dtr-inline">
+          class="table table-striped table-bordered table-hover dtr-inline table-sm">
             <thead class="divisiones">
               <tr>
                 <th style="width: 10px">
@@ -32,6 +32,7 @@
                 <th>DNI</th>
                 <th>Rol</th>
                 <th>Activo</th>
+                <th>Servicios</th>
                 <th>Funciones Disponibles</th>
               </tr>
             </thead>
@@ -39,12 +40,17 @@
               <tr class="odd" *ngFor="let item of usuarios | filter:filterText">
                 <td >{{item.id}}</td>
                 <td >{{item.username}}</td>
-                <td >{{item.persona.apellido}}</td>
+                <td >{{item.persona.apellido}} &nbsp;{{item.persona.nombre}}</td>
                 <td >{{item.persona.dni}}</td>
                 <div *ngFor="let rol of item.roles">
                   <td >{{rol.descripcion}}</td>
                 </div>
                 <td >{{item.enabled?'Activo':'Inactivo'}}</td>
+                <td>
+                  {{item.persona.servicio.nombre}}
+                </td>
+                
+                  
 
                 <td class="col-sm-1">
                   <div class="btn-group">
@@ -54,7 +60,6 @@
                     <button type="button" class="btn btn-danger" (click)="delete(item)">
                       <i class="bi bi-trash3"></i>
                     </button>
-
                   </div>
                 </td>
               </tr>

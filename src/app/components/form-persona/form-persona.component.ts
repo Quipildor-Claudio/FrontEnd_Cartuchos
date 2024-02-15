@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 })
 
 export class FormPersonaComponent implements OnInit {
-  titulo: string = "Formulario";
+  titulo: string = "Formulario de Persona";
   persona:Persona=new Persona();
   servios:Servicio[]=[];
   
