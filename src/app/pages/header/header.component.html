@@ -2,22 +2,22 @@
 
   <div *ngIf="authService.isAuthenticated()">
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow  text-light" id="header">
-      <div class="container-fluid" style="display: block;">
-        <div>
-          <div style="display: inline-block;">
+      <div class="col-sm-12 row">
+        <div class="col-sm-10 row">
+          <div  class="col-sm-1 ps-4 pe-3 me-3">
             <img src="/assets/images/logo_oscuro.png" id="logo">
           </div>
-          <a class="navbar-brand text-light h-5" id="titulo" asp-area="" asp-controller="Home"
+          <a class="navbar-brand text-light h-5 col-sm-8 mt-3" id="titulo" asp-area="" asp-controller="Home"
             asp-action="Index">Sistema Integral de Solicitud de Cartuchos - Hospital Pablo Soria </a><br>
-        </div>
+        
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
           aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav">
+        <div class="collapse navbar-collapse col-sm-8 row" id="navbarNavDropdown">
+          <ul class="navbar-nav ps-4">
 
             <li class="nav-item">
               <a class="nav-link text-light" aria-current="page" href="home">Home</a>
@@ -84,23 +84,36 @@
 
             <li
             
-             class="nav-item">
+             class="nav-item ">
               <a class="nav-link text-light" aria-current="page" href="ayuda">Ayuda</a>
-            </li>
-            <li *ngIf="authService.isAuthenticated()" class="nav-item dropdown">
-              <a class="nav-link text-light dropdown-toggle" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                {{authService.getUserSession().username}}
-              </a>
-              <ul class="dropdown-menu float-end ">
-                <li><a (click)="logout()" class="dropdown-item text-light" href="login">Salir</a></li>
-
-              </ul>
-            </li>
-
+            </li>   
           </ul>
         </div>
       </div>
+        
+      <div class="col-sm-2 ms-auto row d-flex align-items-end me-0 pe-0">
+        <div class="float-end">
+          <ul class="navbar-nav row float-end align-items-center ml-auto ms-0 ">
+            <li *ngIf="authService.isAuthenticated()" class="nav-item dropdown" id="usuario">
+              <a class="nav-link text-light pe-0 me-0 ms-5 " role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="text-center">
+                  <img src="/assets/images/usuario.png" id="user" class="mx-auto d-block">
+                  <span class="d-block dropdown-toggle">{{authService.getUserSession().username}}</span>
+                </div>
+              </a>
+              <div class="col-sm-2 row float-end ms-5 ps-5">
+                <ul class="dropdown-menu align-items-end ms-5">
+                  <li class=""><a (click)="logout()" class="dropdown-item text-light" href="login">Salir</a></li>
+                </ul>
+              </div>
+              
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      </div>
+      
     </nav>
   </div>
 

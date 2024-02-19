@@ -3,9 +3,14 @@
     font-size:20px; 
     display:inline-block;
 }
+
 #logo{
     align-items:start;
     width: 70px;
+    display:inline-block;
+}
+#user{
+    width: 30px;
     display:inline-block;
 }
 #nav-link{
@@ -31,3 +36,8 @@
 .nav-link:hover{
     color: rgb(65, 187, 170);
 }
+
+.bi-2x {
+    font-size: 40px;
+  }
+  
