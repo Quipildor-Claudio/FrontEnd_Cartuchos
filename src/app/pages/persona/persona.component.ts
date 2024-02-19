@@ -24,7 +24,7 @@ export class PersonaComponent implements OnInit {
   getData(){
     this.personaService.getAll().subscribe(res=>{
       this.personas=res
-      console.log(this.personas);
+      //console.log(this.personas);
     });
   }
   delete(item:Persona):void{

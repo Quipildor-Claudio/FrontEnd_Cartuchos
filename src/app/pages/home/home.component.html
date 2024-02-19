@@ -46,102 +46,113 @@
     <div class="card-body col-sm-12">
         <div class="table-responsive col-sm-12">
             <table class="table table-striped table-bordered table-hover dtr-inline table-sm ">
-            <thead>
-                <tr>
-                    <th scope="col" style="width: 1% !important">ID</th>
-                    <th scope="col  ">Servicio</th>
-                    <th scope="col">Usuario</th>
-                    <th scope="col">Cartucho</th>
-                    <th scope="col">Impresora</th>
-
-                    <th scope="col">Justificación</th>
-                    <th scope="col">Observación</th>
-                    <th scope="col">Estado</th>
-                    <th scope="col">Fecha</th>
-                    <th scope="col">Opciones</th>
-                </tr>
-            </thead>
-            <tbody>
-
-
-                <tr class="odd" *ngFor="let item of solicitudes | filter:filterText">
-                    <td style="max-width: 1% !important;">
-                        {{item.id}}
-                    </td>
-                    <td>{{item.usuario.persona.servicio.nombre !== null?item.usuario.persona.servicio.nombre
-                        :"---"}}
-                    </td>
-                    <td>
-                        {{item.usuario.persona.apellido !== null ? item.usuario.persona.apellido:"---"}}
-                        {{item.usuario.persona.nombre !== null ? item.usuario.persona.nombre:"---"}}
-
-                    </td>
-
-                    <td>
-                        <div *ngFor="let car of item.itemSolicituds">
-                            {{car.cantidad}}-
-                            {{car.cartucho.marca.nombre}}
-                            {{car.cartucho.modelo}}
-                            {{car.cartucho.color.nombre}}
-                            {{car.tipoCarga.descripcion}}
-                        </div>
-                        <br>
-                    </td>
-                    <td>
-                        <div *ngFor="let imp of item.impresoras">
-                            {{imp.marca.nombre}}
-                            {{imp.modelo}}
-                        </div>
-                        <br>
-
-                    </td>
+                <thead>
+                    <tr>
+                        <th scope="col" style="width: 1% !important">ID</th>
+                        <th scope="col ">Servicio</th>
+                        <th scope="col">Usuario</th>
+                        <th scope="col">Cartucho</th>
+                        <th scope="col">Impresora</th>
+                        <th scope="col">Justificación</th>
+                        <th scope="col">Observación</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Aprob. Por</th>
+                        <th scope="col">Retirado</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
 
 
-                    <td>
-                        {{item.justificacion !== null ?item.justificacion:"---"}}
-                    </td>
-                    <td>
-                        {{item.observacion !== null?item.observacion:"---"}}
-                    </td>
-                    <td>
+                    <tr class="odd" *ngFor="let item of solicitudes | filter:filterText">
+                        <td style="max-width: 1% !important;">
+                            {{item.id}}
+                        </td>
+                        <td>{{item.usuario.persona.servicio.nombre !== null?item.usuario.persona.servicio.nombre
+                            :"---"}}
+                        </td>
+                        <td>
+                            {{item.usuario.persona.apellido !== null ? item.usuario.persona.apellido:"---"}}
+                            {{item.usuario.persona.nombre !== null ? item.usuario.persona.nombre:"---"}}
 
-                        <span
-                            [ngClass]="{'aprobada': item.estado.descripcion === 'APROBADA', 'solicitada': item.estado.descripcion === 'SOLICITADA','cancelada': item.estado.descripcion === 'CANCELADA', 'observada': item.estado.descripcion === 'OBSERVADA'}">{{item.estado.descripcion}}</span>
-                    </td>
-                    <td>
-                        {{item.fechaCreacion}}
-                    </td>
-                    <td class="align-items-center ">
-                        <div class="d-flex flex-column align-items-center">
-                            <div class="btn-group">
-                                <button type="button" class="btn" [routerLink]="['/solicitudes',item.id]"
-                                    *ngIf="item.estado.descripcion === 'SOLICITADA' || item.estado.descripcion === 'CANCELADA' ||item.estado.descripcion === 'OBSERVADA'">
-                                    <i class="bi bi-pencil-square"></i>
-                                </button>
-                                &nbsp;
-                                <button type="button" class="btn" (click)="delete(item)" *ngIf="item.estado.descripcion === 'APROBADA' || user.roles[0].descripcion == 'ADMINISTRADOR' || user.roles[0].descripcion == 'COMPUTO' ">
-                                    <i class="bi bi-trash3"></i>
-                                </button>
+                        </td>
+
+                        <td>
+                            <div *ngFor="let car of item.itemSolicituds">
+                                {{car.cantidad}}-
+                                {{car.cartucho.marca.nombre}}
+                                {{car.cartucho.modelo}}
+                                {{car.cartucho.color.nombre}}
+                                {{car.tipoCarga.descripcion}}
                             </div>
-
-                            <div class="btn-group mt-2">
-                                <button *ngIf="user.roles[0].descripcion == 'ADMINISTRADOR'" type="button" class="btn"
-                                    [routerLink]="['/form-solicitud',item.id]">
-                                    <i class="bi bi-journal-text"></i></button>
-
-                                &nbsp;
-                                <button type="button" class="btn" [routerLink]="['/solicitud-pdf',item.id]"
-                                    *ngIf="item.estado.descripcion === 'APROBADA'"><i
-                                        class="bi bi-filetype-pdf"></i></button>
+                            <br>
+                        </td>
+                        <td>
+                            <div *ngFor="let imp of item.impresoras">
+                                {{imp.marca.nombre}}
+                                {{imp.modelo}}
                             </div>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <paginator-nav *ngIf="paginador" [paginador]="paginador" [url]="url"> </paginator-nav>
-            </tfoot>
+                            <br>
 
-        </table>
+                        </td>
+
+
+                        <td>
+                            {{item.justificacion !== null ?item.justificacion:"---"}}
+                        </td>
+                        <td>
+                            {{item.observacion !== null?item.observacion:"---"}}
+                        </td>
+                        <td>
+
+                            <span
+                                [ngClass]="{'aprobada': item.estado.descripcion === 'APROBADA', 'solicitada': item.estado.descripcion === 'SOLICITADA','cancelada': item.estado.descripcion === 'CANCELADA', 'observada': item.estado.descripcion === 'OBSERVADA'}">{{item.estado.descripcion}}</span>
+                        </td>
+                        <td>
+                            {{item.aprobado !==null?item.aprobado:"---"}}
+                        </td>
+                        <td>
+                            <div class="form-check " >
+                                <input type="checkbox" [(ngModel)]="item.retirado" name="enabled"
+                                    class="form-check-input p-2 " (change)="checkRetirado($event,item)"/>
+                            </div>
+                        </td>
+                        <td>
+                            {{item.fechaCreacion}}
+                        </td>
+                        <td class="align-items-center ">
+                            <div class="d-flex flex-column align-items-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn" [routerLink]="['/solicitudes',item.id]"
+                                        *ngIf="item.estado.descripcion === 'SOLICITADA' || item.estado.descripcion === 'CANCELADA' ||item.estado.descripcion === 'OBSERVADA'">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </button>
+                                    &nbsp;
+                                    <button type="button" class="btn" (click)="delete(item)"
+                                        *ngIf="item.estado.descripcion === 'APROBADA' || user.roles[0].descripcion == 'ADMINISTRADOR' || user.roles[0].descripcion == 'COMPUTO' ">
+                                        <i class="bi bi-trash3"></i>
+                                    </button>
+                                </div>
+
+                                <div class="btn-group mt-2">
+                                    <button *ngIf="user.roles[0].descripcion == 'ADMINISTRADOR'" type="button"
+                                        class="btn" [routerLink]="['/form-solicitud',item.id]">
+                                        <i class="bi bi-journal-text"></i></button>
+
+                                    &nbsp;
+                                    <button type="button" class="btn" [routerLink]="['/solicitud-pdf',item.id]"
+                                        *ngIf="item.estado.descripcion === 'APROBADA'"><i
+                                            class="bi bi-filetype-pdf"></i></button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <paginator-nav *ngIf="paginador" [paginador]="paginador" [url]="url"> </paginator-nav>
+                </tfoot>
+
+            </table>
+        </div>
     </div>
-</div>

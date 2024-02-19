@@ -9,14 +9,14 @@ import { User } from 'src/app/models/user';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  usuario:User= new User();
+  usuario: User = new User();
   constructor(public authService: AuthService,
-     private router: Router,
-) { }
+    private router: Router,
+  ) { }
 
   ngOnInit(): void {
- 
- 
+
+
   }
   logout(): void {
     this.authService.logout();

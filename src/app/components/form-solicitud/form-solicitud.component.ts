@@ -9,6 +9,7 @@ import html2canvas from 'html2canvas';
 import 'jspdf';
 import 'jspdf-autotable';
 import jsPDF from 'jspdf';
+import { AuthService } from 'src/app/auth/auth.service';
 
 
 
@@ -25,12 +26,13 @@ export class FormSolicitudComponent implements OnInit{
   solicitud:Solicitud = new Solicitud();
 
   constructor(
-    private solicitudService:SolicitudService,
-    private estadoService:EstadoService,
+    private solicitudService: SolicitudService,
+    private estadoService: EstadoService,
     private route: Router,
-    public activateRoute:ActivatedRoute,
-    
-    ) { }
+    public activateRoute: ActivatedRoute,
+    private authService:AuthService
+
+  ) { }
 
   ngOnInit(): void {
     this.cargar();
@@ -41,27 +43,27 @@ export class FormSolicitudComponent implements OnInit{
     this.activateRoute.params.subscribe(params => {
       let id = params['id']
       if (id) {
-        this.solicitudService.getOne(id).subscribe(res=>this.solicitud=res);
+        this.solicitudService.getOne(id).subscribe(res => this.solicitud = res);
         console.log(this.solicitud);
       }
     }
     );
-  }  
-  getEstados():void{
+  }
+  getEstados(): void {
 
-    this.estadoService.getAll().subscribe(res=>this.estados=res);
+    this.estadoService.getAll().subscribe(res => this.estados = res);
   }
 
-  create():void{
-      console.log(this.solicitud);
-      this.solicitudService.update(this.solicitud,this.solicitud.id).subscribe(res => {
-        Swal.fire(
-          'Exito',
-          `Solicitud ${res.id}  Actualizada !`,
-          'success'
-        )
-        this.route.navigate(['/home']);
-      });  
+  create(): void {
+    this.solicitud.aprobado = this.authService.getUserSession().username;
+    this.solicitudService.update(this.solicitud, this.solicitud.id).subscribe(res => {
+      Swal.fire(
+        'Exito',
+        `Solicitud ${res.id}  Actualizada !`,
+        'success'
+      )
+      this.route.navigate(['/home']);
+    });
   }
   comparar(o1: any, o2: any): boolean {
     if (o1 === undefined && o2 === undefined) {
@@ -70,18 +72,18 @@ export class FormSolicitudComponent implements OnInit{
 
     return o1 === null || o2 === null || o1 === undefined || o2 === undefined ? false : o1.id === o2.id;
   }
-    
+
   PDF() {
     $("#duplicado").removeAttr('hidden');
-    $("#estados").attr('hidden','hidden');
-    $("#estados1").attr('hidden','hidden');
+    $("#estados").attr('hidden', 'hidden');
+    $("#estados1").attr('hidden', 'hidden');
     const DATA = document.getElementById('tabla');
     const doc = new jsPDF('p', 'pt', 'a4');
     const options = {
       background: 'white',
       scale: 3
     };
-    
+
     html2canvas(DATA, options).then((canvas) => {
 
       const img = canvas.toDataURL('image/PNG');
@@ -95,12 +97,12 @@ export class FormSolicitudComponent implements OnInit{
       return doc;
     }).then((docResult) => {
       docResult.save(`${new Date().toISOString()}solicitud_${this.solicitud.id}.pdf`);
-      $("#duplicado").attr('hidden','hidden');
+      $("#duplicado").attr('hidden', 'hidden');
       $("#estados").removeAttr('hidden');
     });
   }
 
-  Volver (): void {
+  Volver(): void {
     Swal.fire({
       title: 'Estas seguro de salir?',
       icon: 'warning',
@@ -111,10 +113,11 @@ export class FormSolicitudComponent implements OnInit{
     }).then((result) => {
       if (result.isConfirmed) {
         this.route.navigate(['/home']);
-      }});}
-
-
-    
-
+      }
+    });
   }
-  
+
+
+
+
+}
