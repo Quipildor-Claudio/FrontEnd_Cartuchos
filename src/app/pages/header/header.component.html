@@ -86,41 +86,7 @@
             
              class="nav-item ">
               <a class="nav-link text-light" aria-current="page" href="ayuda">Ayuda</a>
-            </li>
-
-
-            <li
-            *ngIf=" authService.getUserSession().role == 'ADMINISTRADOR' "
-             class="nav-item">
-              <a class="nav-link text-light" aria-current="page" href="cambio-contraseña">Cambio</a>
-            </li>
-
-
-            <li *ngIf="authService.isAuthenticated()" class="nav-item dropdown">
-              <a class="nav-link text-light dropdown-toggle" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                {{authService.getUserSession().username}}
             </li>   
-          </ul>
-        </div>
-      </div>
-        
-      <div class="col-sm-2 ms-auto row d-flex align-items-end me-0 pe-0">
-        <div class="float-end">
-          <ul class="navbar-nav row float-end align-items-center ml-auto ms-0 ">
-            <li *ngIf="authService.isAuthenticated()" class="nav-item dropdown" id="usuario">
-              <a class="nav-link text-light pe-0 me-0 ms-5 " role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <div class="text-center">
-                  <img src="/assets/images/usuario.png" id="user" class="mx-auto d-block">
-                  <span class="d-block dropdown-toggle">{{authService.getUserSession().username}}</span>
-                </div>
-              </a>
-              <ul class="dropdown-menu float-end ">
-                <li><a (click)="logout()" class="dropdown-item text-light" href="login">Salir</a></li>
-
-              </ul>
-            </li>
-
           </ul>
         </div>
       </div>
