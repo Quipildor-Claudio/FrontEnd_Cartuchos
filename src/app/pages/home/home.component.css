@@ -15,7 +15,9 @@ table {
   background-color: rgb(195, 244, 245);
   color: rgb(58, 65, 66);
 }
-
+#logo{
+  width: 30px;
+}
 .btn {
   background: rgb(0, 92, 93);
   color: white;
@@ -44,7 +46,9 @@ span.aprobada {
   text-align: center;
   border-radius: 5px;
 }
-
+span{
+font-size: 12px;
+}
 span.cancelada {
   background-color: red;
   color: black;
@@ -73,10 +77,14 @@ span.observada {
   color: rgb(84, 102, 100);
 }
 
-th.col-id {
-  width: 20px;
+.id-column {
+  max-width: 30px !important; /* Ajusta según tus necesidades */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-col-id {
-  width: 30px;
+table{
+  
+  overflow-y: hidden,
 }
