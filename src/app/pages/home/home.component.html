@@ -109,7 +109,6 @@
                             {{item.observacion !== null?item.observacion:"---"}}
                         </td>
                         <td>
-
                             <span
                                 [ngClass]="{'aprobada': item.estado.descripcion === 'APROBADA', 'solicitada': item.estado.descripcion === 'SOLICITADA','cancelada': item.estado.descripcion === 'CANCELADA', 'observada': item.estado.descripcion === 'OBSERVADA'}">{{item.estado.descripcion}}</span>
                         </td>
@@ -119,7 +118,8 @@
                         <td >
                             <div class="form-check col-4 offset-4"  *ngIf="user.persona.servicio.nombre == 'ADMINISTRADOR'">
                                 <input type="checkbox" [(ngModel)]="item.retirado" name="enabled"
-                                    class="form-check-input p-2 " (change)="checkRetirado($event,item)"/>
+                                    class="form-check-input p-2 " (change)="checkRetirado($event,item)"
+                                    [disabled]=" user.roles[0].descripcion == 'PERSONAL' || user.roles[0].descripcion == 'JEFE DE PERSONAL'" />
                             </div>
                         </td>
                         <td>
@@ -143,7 +143,6 @@
                                     <button *ngIf="user.roles[0].descripcion == 'ADMINISTRADOR'" type="button"
                                         class="btn" [routerLink]="['/form-solicitud',item.id]">
                                         <i class="bi bi-journal-text"></i></button>
-
                                     &nbsp;
                                     <button type="button" class="btn" [routerLink]="['/solicitud-pdf',item.id]"
                                         *ngIf="item.estado.descripcion === 'APROBADA'"><i
