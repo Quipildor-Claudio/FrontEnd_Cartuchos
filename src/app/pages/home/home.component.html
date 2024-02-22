@@ -49,7 +49,7 @@
                 <thead>
                     <tr>
                             
-                        <th scope="col" >ID</th>
+                        <th scope="col" style="width: 10px" >ID</th>
                         <th scope="col ">Servicio</th>
                         <th scope="col">Usuario</th>
                         <th scope="col">Cartucho</th>
@@ -57,7 +57,7 @@
                         <th scope="col">Justificación</th>
                         <th scope="col">Observación</th>
                         <th scope="col">Estado</th>
-                        <th scope="col">Aprob. Por</th>
+                        <th scope="col" *ngIf="user.persona.servicio.nombre == 'ADMINISTRADOR'">Aprob. Por</th>
                         <th scope="col">Retirado</th>
                         <th scope="col">Fecha</th>
                         <th scope="col">Opciones</th>
@@ -68,7 +68,7 @@
 
                     <tr class="odd" *ngFor="let item of solicitudes | filter:filterText">
 
-                            <td >
+                            <td style="width: 10px">
                                 {{item.id}}
                             </td>
                         
@@ -113,11 +113,11 @@
                             <span
                                 [ngClass]="{'aprobada': item.estado.descripcion === 'APROBADA', 'solicitada': item.estado.descripcion === 'SOLICITADA','cancelada': item.estado.descripcion === 'CANCELADA', 'observada': item.estado.descripcion === 'OBSERVADA'}">{{item.estado.descripcion}}</span>
                         </td>
-                        <td>
+                        <td *ngIf="user.persona.servicio.nombre == 'ADMINISTRADOR'">
                             {{item.aprobado !==null?item.aprobado:"---"}}
                         </td>
-                        <td>
-                            <div class="form-check " >
+                        <td >
+                            <div class="form-check col-4 offset-4"  *ngIf="user.persona.servicio.nombre == 'ADMINISTRADOR'">
                                 <input type="checkbox" [(ngModel)]="item.retirado" name="enabled"
                                     class="form-check-input p-2 " (change)="checkRetirado($event,item)"/>
                             </div>
@@ -125,16 +125,16 @@
                         <td>
                             {{item.fechaCreacion}}
                         </td>
-                        <td class="align-items-center ">
+                        <td class="align-items-center  ">
                             <div class="d-flex flex-column align-items-center">
-                                <div class="btn-group">
+                                <div class="btn-group  ">
                                     <button type="button" class="btn" [routerLink]="['/solicitudes',item.id]"
                                         *ngIf="item.estado.descripcion === 'SOLICITADA' || item.estado.descripcion === 'CANCELADA' ||item.estado.descripcion === 'OBSERVADA'">
                                         <i class="bi bi-pencil-square"></i>
                                     </button>
                                     &nbsp;
                                     <button type="button" class="btn" (click)="delete(item)"
-                                        *ngIf="item.estado.descripcion === 'APROBADA' || user.roles[0].descripcion == 'ADMINISTRADOR' || user.roles[0].descripcion == 'COMPUTO' ">
+                                        *ngIf="user.roles[0].descripcion == 'ADMINISTRADOR'">
                                         <i class="bi bi-trash3"></i>
                                     </button>
                                 </div>

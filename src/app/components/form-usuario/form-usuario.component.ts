@@ -50,18 +50,21 @@ export class FormUsuarioComponent implements OnInit {
   }
 
   cargar(): void {
-    this.activatedRoute.params.subscribe(params => {
-      let id = params['id']
-      if (id) {
-        this.userService.getOne(id).subscribe(res => this.user = res);
-        if (this.user.persona) {
-          //this.myPersonaControl.patchValue(this.viewPersona(this.user.persona));
-
-        }
-      }
+     this.activatedRoute.params.subscribe(params => {
+            let id = params['id'];
+            if (id) {
+                this.userService.getOne(id).subscribe(res => {
+                    this.user = res;
+                    if (this.user.persona) {
+                        this.myPersonaControl.setValue(this.user.persona); // Asignar valor al control
+                    }
+                    const selectedRole = this.user.roles && this.user.roles.length > 0 ? this.user.roles[0].id : null;
+                    this.selectRole(selectedRole);
+                });
+            }
+        });
     }
-    );
-  }
+
   private _filter(value: string): Observable<Persona[]> {
     const filterValue = value.toLowerCase();
     return this.personaService.getListaDni(filterValue);

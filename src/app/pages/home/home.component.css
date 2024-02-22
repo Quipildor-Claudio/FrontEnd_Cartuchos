@@ -85,6 +85,19 @@ span.observada {
 }
 
 table{
-  
   overflow-y: hidden,
+}
+.form-check-input{
+  border-color: rgb(0, 92, 93);
+}
+.form-check-input:hover{
+  background-color: rgb(0, 92, 93);
+}
+.form-check-label{
+  color:rgb(0, 92, 93); ;
+}
+
+.form-check-input:checked{
+  background-color: rgb(0, 92, 93) !important; 
+  border: 1px solid rgb(0, 92, 93) !important;  
 }
