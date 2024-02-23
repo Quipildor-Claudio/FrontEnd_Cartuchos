@@ -116,7 +116,7 @@
                             {{item.aprobado !==null?item.aprobado:"---"}}
                         </td>
                         <td >
-                            <div class="form-check col-4 offset-4"  *ngIf="user.persona.servicio.nombre == 'ADMINISTRADOR'">
+                            <div class="form-check col-4 offset-4"  >
                                 <input type="checkbox" [(ngModel)]="item.retirado" name="enabled"
                                     class="form-check-input p-2 " (change)="checkRetirado($event,item)"
                                     [disabled]=" user.roles[0].descripcion == 'PERSONAL' || user.roles[0].descripcion == 'JEFE DE PERSONAL'" />
