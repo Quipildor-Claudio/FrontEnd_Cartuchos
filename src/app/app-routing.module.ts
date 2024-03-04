@@ -95,14 +95,6 @@ const routes: Routes = [
   { path: 'ayuda', component: AyudaComponent ,canActivate:[authGuard]},
   { path: 'cambio-contraseña', component: CabioContrasenaComponent ,canActivate:[authGuard]},
 
-
-
-
-
-
-
-
-
 ];
 
 @NgModule({
