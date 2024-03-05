@@ -155,10 +155,11 @@
       <div class="form-group row">
         <div class="col-sm-12 offset-sm-1">  
           <button class="btn float-end btn-primary" role="button" (click)="update()" *ngIf="solicitud.id;
-          else elseBlock" [disabled]="!solicitud.justificacion || !mostrarDatos">Actualizar</button>
+          else elseBlock" [disabled]="!solicitud.justificacion || !mostrarDatos || solicitud.itemSolicituds.length === 0">Actualizar</button>
           <ng-template #elseBlock>
             <button class="btn float-end btn-primary" role="button" (click)="enviarSolicitud()"
-            [disabled]="!isValidForm() || !solicitud.justificacion">Crear</button>
+            [disabled]="!isValidForm() || !solicitud.justificacion || solicitud.itemSolicituds.length === 0">Crear</button>
+    
           </ng-template>
           <button class="btn float-end btn-primary me-3" role="button" (click)="Volver()">Volver</button>
         </div>
