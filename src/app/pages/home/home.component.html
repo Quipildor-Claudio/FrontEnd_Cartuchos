@@ -57,7 +57,7 @@
                         <th scope="col">Justificación</th>
                         <th scope="col">Observación</th>
                         <th scope="col">Estado</th>
-                        <th scope="col" *ngIf="user.persona.servicio.nombre == 'ADMINISTRADOR'">Aprob. Por</th>
+                        <th scope="col" *ngIf=" user.roles[0].descripcion == 'ADMINISTRADOR'">Aprob. Por</th>
                         <th scope="col">Retirado</th>
                         <th scope="col">Fecha</th>
                         <th scope="col">Opciones</th>
@@ -112,7 +112,7 @@
                             <span
                                 [ngClass]="{'aprobada': item.estado.descripcion === 'APROBADA', 'solicitada': item.estado.descripcion === 'SOLICITADA','cancelada': item.estado.descripcion === 'CANCELADA', 'observada': item.estado.descripcion === 'OBSERVADA'}">{{item.estado.descripcion}}</span>
                         </td>
-                        <td *ngIf="user.persona.servicio.nombre == 'ADMINISTRADOR'">
+                        <td *ngIf="user.roles[0].descripcion == 'ADMINISTRADOR'">
                             {{item.aprobado !==null?item.aprobado:"---"}}
                         </td>
                         <td >
