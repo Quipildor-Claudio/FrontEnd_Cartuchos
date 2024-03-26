@@ -42,6 +42,8 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
 import { AyudaComponent } from './components/ayuda/ayuda.component';
 import { CabioContrasenaComponent } from './components/cabio-contrasena/cabio-contrasena.component';
 import { PaginaComputosComponent } from './components/pagina-computos/pagina-computos.component';
+import { PaginaTicketsComponent } from './components/pagina-tickets/pagina-tickets.component';
+import { FormTicketComponent } from './components/form-ticket/form-ticket.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -74,7 +76,9 @@ import { PaginaComputosComponent } from './components/pagina-computos/pagina-com
     PaginatorComponent,
     AyudaComponent,
     CabioContrasenaComponent,
-    PaginaComputosComponent
+    PaginaComputosComponent,
+    PaginaTicketsComponent,
+    FormTicketComponent
 
 
   ],
