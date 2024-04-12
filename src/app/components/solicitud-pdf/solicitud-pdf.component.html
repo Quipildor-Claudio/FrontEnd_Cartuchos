@@ -1,129 +1,104 @@
-<div class="card">
-  <div class="card-header row col-sm-12 ms-0 pe-1 ">
-    <h4 class="col-sm-6" >{{ title }}</h4>
-    <div class="col-sm-6">
-      <button class="btn btn-primary float-end ms-3" role="button" (click)='Volver()' >Cancelar</button>
 
-    <button class="btn btn-danger float-end " role="button" (click)="PDF()">Generar PDF</button>
-    
+<div class="card">
+  <div class="card-header row col-sm-12 ms-0 pe-1">
+    <h4 class="col-sm-6">{{ title }}</h4>
+    <div class="col-sm-6">
+      <button class="btn btn-primary float-end ms-3" role="button" (click)='Volver()'>Cancelar</button>
+      <button class="btn btn-danger float-end" role="button" (click)="PDF()">Generar PDF</button>
     </div>
   </div>
-    <div class="card-body ">
-      <table id="tabla" class="col-sm-12 ">
-        
-        <tr>
-          <td>
-            <form #solicitudForm="ngForm" id="original" #originalForm  class="form-half">
-              <div class="row col sm-12">
-                <img src="..\assets\images\Logo_HPS.png" id="logo" class="col-sm-1 me-5">
-                    <div class="row col-sm-10 ms-4">
-                      <div class="col-sm-12 text-end"><h5>Pedido de Provision N°: {{solicitud.id}}</h5></div>
-                      <div class="col-sm-12 text-end" ><h5 >San Salvador de Jujuy, {{formatoFecha(solicitud.fechaCreacion)}}</h5></div>  
-                    </div>
-              </div>
-              <br/>
-              <h5>Articulo destinado a: {{solicitud.usuario?.persona?.servicio?.nombre}}</h5>
-              <h5>Para utilizar en el: SERVICIO</h5>
-              <h5>Solicitado por: SERVICIO DE {{solicitud.usuario?.persona?.servicio?.nombre}} - Usuario: {{solicitud.usuario?.persona?.nombre}} {{solicitud.usuario?.persona?.apellido}}</h5>
-  
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">Renglón</th>
-                    <th scope="col">Cantidad</th>
-                    <th scope="col">Descripcion</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let so of solicitud.itemSolicituds; let i = index">
-                    <td >{{ i + 1 }}</td>
-                    <td>{{so.cantidad}}</td>
-                    <td>{{so.cartucho.modelo}}, {{so.cartucho.color.nombre}}, {{so.cartucho.tipoCartucho.descripcion}},  {{so.tipoCarga.descripcion}}</td>
-                  </tr>
-                </tbody>
-              </table>
-  
-            
-              
-            </form>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <div *ngIf="solicitudForm.invalid">
-              <div class="form-group row">
-                <div class="col-sm-6">
-                  <label for="errorOriginal" class="text-danger">Por favor, complete todos los campos obligatorios en el formulario original.</label>
-                </div>
-              </div>
+  <div class="card-body" id="body">
+    <table id="tabla" class="col-sm-12 table-responsive print-section ">
+      <tr>
+        <td class="mt-5 mb-5 ">
+          <div class="row ">
+            <img src="..\assets\images\Logo_HPS.png" id="logo" class=" row col-sm-1 me-5">
+            <div class="col-sm-7"> <p>                                                    </p></div>
+            <div class=" col-sm-3 ms-4" id="info">
+              <div class="row col-md-12 text-end "><h5>Pedido de Provision N°: {{solicitud.id}}</h5></div>
+              <div class="row col-md-12 text-end "><h5>San Salvador de Jujuy, {{formatoFecha(solicitud.fechaCreacion)}}</h5></div>  
             </div>
-          </td>
-        </tr>
+          </div>
+          
+          <h5>Articulo destinado a: {{solicitud.usuario?.persona?.servicio?.nombre}}</h5>
+          <h5>Para utilizar en el: SERVICIO</h5>
+          <h5>Solicitado por: SERVICIO DE {{solicitud.usuario?.persona?.servicio?.nombre}} - Usuario: {{solicitud.usuario?.persona?.nombre}} {{solicitud.usuario?.persona?.apellido}}</h5>
+
+          <table class="table">
+            <thead>
               <tr>
-          <td>
-        
-            <br>
-            <br>
-            <br>
-            <br>            
-            <br>
-            <br>
-            <br>
-            <br>   
-            <br>
-            <br>
-            <br>
-            <form #solicitudFormDuplicate="ngForm" id="duplicado"  class="form-half">
-             
-              <div class="row">
-                <img src="..\assets\images\Logo_HPS.png" id="logo" class="col-sm-1 me-5">
-                    <div class="row col-sm-10 ms-4">
-                      <div class="col-sm-12 text-end"><h5>Pedido de Provision N°: {{solicitud.id}}</h5></div>
-                      <div class="col-sm-12 text-end"><h5>San Salvador de Jujuy, {{formatoFecha(solicitud.fechaCreacion)}}</h5></div>  
-                    </div>
-              </div>
-            <h5>Articulo destinado a: {{solicitud.usuario?.persona?.servicio?.nombre}}</h5>
-            <h5>Para utilizar en el: SERVICIO</h5>
-            <h5>Solicitado por: SERVICIO DE {{solicitud.usuario?.persona?.servicio?.nombre}} - Usuario: {{solicitud.usuario?.persona?.nombre}} {{solicitud.usuario?.persona?.apellido}}</h5>
-  
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">Renglón</th>
-                  <th scope="col">Cantidad</th>
-                  <th scope="col">Descripcion</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let so of solicitud.itemSolicituds; let i = index">
-                  <td >{{ i + 1 }}</td>
-                  <td>{{so.cantidad}}</td>
-                  <td>{{so.cartucho.modelo}}, {{so.cartucho.color.nombre}}, {{so.cartucho.tipoCartucho.descripcion}}, {{so.tipoCarga.descripcion}}</td>
-                </tr>
-              </tbody>
-            </table>
-            <br>
-            <div class="row ">
-                  <div class="col-sm-6 text-center  ">
-  
-                  </div>
-                  <div class="col-sm-6 ">
-                    <img src="..\assets\images\autorizacion.png" id="logoAuto" >
-                  </div>
-            </div> 
-             
-            </form>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <div *ngIf="solicitudFormDuplicate.invalid">
-              <div class="form-group row">
-                <div class="col-sm-6">
-                  <label for="errorDuplicate" class="text-danger">Por favor, complete todos los campos obligatorios en el formulario duplicado.</label>
-                </div>
-              </div>
+                <th scope="col" >Renglón</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Descripcion</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let so of solicitud.itemSolicituds; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{so.cantidad}}</td>
+                <td>{{so.cartucho.modelo}}, {{so.cartucho.color.nombre}}, {{so.cartucho.tipoCartucho.descripcion}},  {{so.tipoCarga.descripcion}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <br>
+          <br>
+          <br>
+          <br>            
+          <br>
+          <br>
+          <br>
+          <br>   
+          <br>
+          <br>
+          <br>   
+          <br>
+          <br>
+          <br>   
+          <br>
+          <br>
+          <br>
+          <div class="row col-sm-12">
+            <img src="..\assets\images\Logo_HPS.png" id="logo" class=" row col-sm-1 me-5">
+            <div class="col-sm-7 "> <p>                                                    </p></div>
+            <div class=" col-sm-3 ms-4" id="info">
+              <div class="row col-md-12 text-end mb-0 pb-0"><h5>Pedido de Provision N°: {{solicitud.id}}</h5></div>
+              <div class="row col-md-12 text-end mt-0 pt-0"><h5>San Salvador de Jujuy, {{formatoFecha(solicitud.fechaCreacion)}}</h5></div>  
             </div>
-          </td>
-        </tr>
-      </table>
+          </div>
+          <h5>Articulo destinado a: {{solicitud.usuario?.persona?.servicio?.nombre}}</h5>
+          <h5>Para utilizar en el: SERVICIO</h5>
+          <h5>Solicitado por: SERVICIO DE {{solicitud.usuario?.persona?.servicio?.nombre}} - Usuario: {{solicitud.usuario?.persona?.nombre}} {{solicitud.usuario?.persona?.apellido}}</h5>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Renglón</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Descripcion</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let so of solicitud.itemSolicituds; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{so.cantidad}}</td>
+                <td>{{so.cartucho.modelo}}, {{so.cartucho.color.nombre}}, {{so.cartucho.tipoCartucho.descripcion}}, {{so.tipoCarga.descripcion}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <br>
+          <div class="row ">
+            <div class="col-sm-6 text-center">
+            </div>
+            <div class="col-sm-6">
+              <img src="..\assets\images\autorizacion.png" id="logoAuto">
+            </div>
+          </div> 
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

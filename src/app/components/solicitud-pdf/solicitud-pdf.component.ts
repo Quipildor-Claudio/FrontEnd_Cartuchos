@@ -5,6 +5,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import Swal from 'sweetalert2';
+import * as printJS from 'print-js';
+import { style } from '@angular/animations';
+import { fontStyle } from 'html2canvas/dist/types/css/property-descriptors/font-style';
 
 @Component({
   selector: 'app-solicitud-pdf',
@@ -56,37 +59,18 @@ export class SolicitudPdfComponent implements OnInit {
         this.route.navigate(['/home']);
       }});}
 
-
-  PDF() {
-    const DATA = document.getElementById('tabla');
-    const doc = new jsPDF('p', 'pt', 'a4');
-    const options = {
-      background: 'white',
-      scale: 3
-    };
-    
-    html2canvas(DATA, options).then((canvas) => {
-
-      const img = canvas.toDataURL('image/PNG');
-
-      const bufferX = 15;
-      const bufferY = 15;
-      const imgProps = (doc as any).getImageProperties(img);
-      const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
-      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-      doc.addImage(img, 'PNG', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'FAST');
-      setTimeout(() => {
-        doc.save(`${new Date().toISOString()}solicitud_${this.solicitud.id}.pdf`);
-        window.close();
-      }, 10);
-    });
-    
-  
-  }
-  PDFAfterDelay(): void {
-    // Espera 3 segundos antes de ejecutar la función PDF()
-    setTimeout(() => {
-      this.PDF();
-    },150);
-  }
-}
+      PDF(): void {
+        printJS({
+          printable: 'body', 
+          type: 'html', 
+          documentTitle: `${new Date().toISOString()}solicitud_${this.solicitud.id}.pdf`, // Título del documento
+          showModal: true, // Mostrar un modal de carga
+          modalMessage: 'Imprimiendo, por favor espere...', // Mensaje del modal
+          style:'table thead tr th{text-align: start}',
+          onError: (error) => {
+            console.error('Error al imprimir:', error);
+            alert('Ocurrió un error al imprimir el documento');
+          }
+        });
+      }
+    }

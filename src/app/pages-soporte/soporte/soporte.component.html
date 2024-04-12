@@ -1,0 +1,39 @@
+
+<div class="container">
+    <div class="row col-sm-10 offset-sm-1 p-4" id="formulario">
+        <div class="header"><h3>{{titulo}}</h3>
+            <hr id="borde"/>
+            <div class="body col-md-10 offset-sm-1">
+                <form >
+                    <div class="form-group row">
+                        <div class="col-sm-5">
+                          <label for="apellido" class="control-label h5">Marca del Equipo</label>
+                          <input type="text" class="form-control" name="marca">
+                     <div *ngIf="soporte?.controls['apellido']?.invalid && (soporte.controls['apellido']?.dirty || soporte?.controls['apellido']?.touched)" class="text-danger">
+                            <div *ngIf="soporte.controls['apellido']?.errors['required']">
+                              Apellido es requerido.
+                            </div>
+                            <div *ngIf="soporte?.controls['apellido']?.errors['minlength']">
+                              Apellido debe tener al menos 4 caracteres.
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-sm-5">
+                          <label for="apellido" class="control-label h5">Matricula del equipo</label>
+                          <input type="text" class="form-control">
+                          <div *ngIf="soporte?.controls['apellido']?.invalid && (soporte.controls['apellido']?.dirty || soporte?.controls['apellido']?.touched)" class="text-danger">
+                            <div *ngIf="soporte.controls['apellido']?.errors['required']">
+                              Apellido es requerido.
+                            </div>
+                            <div *ngIf="soporte?.controls['apellido']?.errors['minlength']">
+                              Apellido debe tener al menos 4 caracteres.
+                            </div>
+                          </div>
+                        </div>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

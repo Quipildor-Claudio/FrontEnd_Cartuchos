@@ -2,7 +2,6 @@
 
     align-items:start;
     width: 120px;
-    display:inline-block;
 }
 #logoFirma{
     width: 120px;
@@ -18,4 +17,8 @@
 .form-half {
     height: 14.85cm; 
   }
+.final{
+    text-align: end;
+    display: block;
+}
   
