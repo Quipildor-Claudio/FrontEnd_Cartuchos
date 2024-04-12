@@ -102,13 +102,14 @@
       </div>
 
 
-    <div class="form-group row">
+      <div class="form-group row">
         <div class="col-sm-11">
-          <button class="btn float-end " role="button" (click)='create()' *ngIf="!cartucho.id; else elseBlock" [disabled]="impresoraForm.invalid">Crear</button>
+          <button class="btn float-end " role="button" (click)='create()' *ngIf="!cartucho.id; else elseBlock"
+            [disabled]="impresoraForm.invalid">Crear</button>
           <ng-template #elseBlock>
-            <button class="btn float-end" role="button" (click)='update()' >Actualizar</button>
+            <button class="btn float-end" role="button" (click)='update()'>Actualizar</button>
           </ng-template>
-          <button class="btn float-end " role="button" (click)='Volver()' >Volver</button>
+          <button class="btn float-end " role="button" (click)='Volver()'>Volver</button>
 
         </div>
       </div>

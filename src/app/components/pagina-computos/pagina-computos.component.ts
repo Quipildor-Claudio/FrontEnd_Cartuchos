@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pagina-computos',
@@ -10,10 +11,20 @@ import { CommonModule } from '@angular/common';
 export class PaginaComputosComponent implements OnInit{
   
   
-  constructor(){}
+  constructor(private router:Router){}
 
   ngOnInit(): void {
       
+  }
+
+  action1():void{
+    this.router.navigate(['/home']);
+
+  }
+
+  action2():void{
+    this.router.navigate(['/tickets']);
+
   }
 
 }
