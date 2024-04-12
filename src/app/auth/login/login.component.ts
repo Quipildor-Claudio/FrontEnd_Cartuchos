@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.usuario).subscribe(u => {
       this.authService.saveToken(u.token);
       this.authService.saveUser(u.token);
-      this.router.navigate(['/home']);
+      this.router.navigate(['/computos']);
 
 
       Swal.fire('Login', `Hola ${u.persona.nombre} ${u.persona.apellido}, has iniciado sesión con éxito!`, 'success');

@@ -60,6 +60,7 @@ export class HomeComponent implements OnInit {
     let user = this.authService.getUserSession();
     this.userService.getUserbyName(user.username).subscribe(res => {
       this.user = res;
+      //console.log(this.user);
     });
   }
 
