@@ -41,9 +41,7 @@ import { FilterPipe } from './pipes/filter.pipe';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { AyudaComponent } from './components/ayuda/ayuda.component';
 import { CabioContrasenaComponent } from './components/cabio-contrasena/cabio-contrasena.component';
-import { PaginaComputosComponent } from './components/pagina-computos/pagina-computos.component';
-import { PaginaTicketsComponent } from './components/pagina-tickets/pagina-tickets.component';
-import { FormTicketComponent } from './components/form-ticket/form-ticket.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -76,10 +74,6 @@ import { FormTicketComponent } from './components/form-ticket/form-ticket.compon
     PaginatorComponent,
     AyudaComponent,
     CabioContrasenaComponent,
-    PaginaComputosComponent,
-    PaginaTicketsComponent,
-    FormTicketComponent
-
 
   ],
   imports: [

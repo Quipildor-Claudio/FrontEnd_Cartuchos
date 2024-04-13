@@ -65,6 +65,10 @@ export class FormSolicitudComponent implements OnInit{
       this.route.navigate(['/home']);
     });
   }
+
+
+
+  
   comparar(o1: any, o2: any): boolean {
     if (o1 === undefined && o2 === undefined) {
       return true;

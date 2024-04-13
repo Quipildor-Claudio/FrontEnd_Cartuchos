@@ -20,9 +20,9 @@
             <ul class="navbar-nav ps-4">
 
               <li class="nav-item">
-                <a class="nav-link text-light" aria-current="page" href="computos">Home</a>
+                <a class="nav-link text-light" aria-current="page" href="home">Home</a>
               </li>
-              <li class="nav-item">
+              <!--         <li class="nav-item">
                 <a class="nav-link text-light" aria-current="page" href="home">Cartuchos</a>
               </li>
               <li class="nav-item dropdown">
@@ -37,7 +37,7 @@
                 </ul>
               </li>
 
-
+            -->
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle text-light" role="button" data-bs-toggle="dropdown"
                   aria-expanded="false">
@@ -47,7 +47,8 @@
                   <li><a class="dropdown-item" href="solicitudes">Solicitudes</a></li>
                   <li
                     *ngIf="authService.getUserSession().role == 'COMPUTO' || authService.getUserSession().role == 'ADMINISTRADOR' || authService.getUserSession().role == 'JEFE DE SERVICIO' ">
-                    <a class="dropdown-item text-light" href="informes">Informes</a></li>
+                    <a class="dropdown-item text-light" href="informes">Informes</a>
+                  </li>
                   <!-- <li><a class="dropdown-item" href="estados">Estados</a></li> -->
                 </ul>
               </li>
