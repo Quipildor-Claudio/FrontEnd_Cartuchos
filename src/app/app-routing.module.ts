@@ -30,6 +30,7 @@ import { AyudaComponent } from './components/ayuda/ayuda.component';
 import { CabioContrasenaComponent } from './components/cabio-contrasena/cabio-contrasena.component';
 import { HomeSoporteComponent } from './pages-soporte/home-soporte/home-soporte.component';
 import { ListadoTicketsComponent } from './pages-soporte/listado-tickets/listado-tickets.component';
+import { NuevoTicketComponent } from './pages-soporte/nuevo-ticket/nuevo-ticket.component';
 
 
 const routes: Routes = [
@@ -43,6 +44,9 @@ const routes: Routes = [
   { path: 'home-soporte', component: HomeSoporteComponent,canActivate:[authGuard]},
 
   { path: 'soportes', component: ListadoTicketsComponent,canActivate:[authGuard]},
+
+  { path: 'pedido-soporte', component:NuevoTicketComponent,canActivate:[authGuard]},
+
 
 
 

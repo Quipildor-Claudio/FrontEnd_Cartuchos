@@ -15,7 +15,7 @@ export class HomeSoporteComponent {
 
 
   redit():void{
-    this.router.navigateByUrl('');
+    this.router.navigateByUrl('pedido-soporte');
   }
 
   redit2():void{
