@@ -38,7 +38,7 @@ export class CartuchoComponent implements OnInit {
   getData(): void {
     this.cartuchoService.getAllPage(this.page).subscribe((res:any)=>{
       this.cartuchos = res.content as Cartucho[];
-      this.paginador = res;
+      this.paginador = res; 
     });
   }
 

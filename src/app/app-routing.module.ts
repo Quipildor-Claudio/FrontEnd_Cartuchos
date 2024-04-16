@@ -28,14 +28,23 @@ import { LoginComponent } from './auth/login/login.component';
 import { authGuard } from './auth/guards/auth.guard';
 import { AyudaComponent } from './components/ayuda/ayuda.component';
 import { CabioContrasenaComponent } from './components/cabio-contrasena/cabio-contrasena.component';
+import { HomeSoporteComponent } from './pages-soporte/home-soporte/home-soporte.component';
+import { ListadoTicketsComponent } from './pages-soporte/listado-tickets/listado-tickets.component';
 
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component:LoginComponent},
 
+
   { path: 'home', component: HomeComponent ,canActivate:[authGuard]},
   { path: 'home/page/:page', component: HomeComponent ,canActivate:[authGuard]},
+
+  { path: 'home-soporte', component: HomeSoporteComponent,canActivate:[authGuard]},
+
+  { path: 'soportes', component: ListadoTicketsComponent,canActivate:[authGuard]},
+
+
 
 
   { path: 'solicitudes/page/:page', component: HomeComponent ,canActivate:[authGuard]},

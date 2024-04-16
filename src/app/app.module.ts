@@ -41,6 +41,7 @@ import { FilterPipe } from './pipes/filter.pipe';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { AyudaComponent } from './components/ayuda/ayuda.component';
 import { CabioContrasenaComponent } from './components/cabio-contrasena/cabio-contrasena.component';
+import { ListadoTicketsComponent } from './pages-soporte/listado-tickets/listado-tickets.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,8 @@ import { CabioContrasenaComponent } from './components/cabio-contrasena/cabio-co
     PaginatorComponent,
     AyudaComponent,
     CabioContrasenaComponent,
+    ListadoTicketsComponent,
+    
 
   ],
   imports: [
@@ -85,7 +88,7 @@ import { CabioContrasenaComponent } from './components/cabio-contrasena/cabio-co
     MaterialModule,
     DataTablesModule,
     BrowserAnimationsModule,
-    FilterPipe
+    FilterPipe,
 
 
 
