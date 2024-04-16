@@ -93,7 +93,6 @@
                     <th scope="col">Impresora</th>
                     <th scope="col">Justificación</th>
                     <th scope="col">Observación</th>
-                    <th scope="col">Estado</th>
                     <th scope="col">Fecha</th>
 
                 </tr>
@@ -139,9 +138,7 @@
                     <td>
                         {{item.observacion !== null?item.observacion:"---"}}
                     </td>
-                    <td>
-                        <span  [ngClass]="{'aprobada': item.estado.descripcion === 'APROBADA', 'solicitada': item.estado.descripcion === 'SOLICITADA','cancelada': item.estado.descripcion === 'CANCELADA', 'observada': item.estado.descripcion === 'OBSERVADA'}">{{item.estado.descripcion}}</span>
-                    </td>
+                   
                     <td>
                         {{item.fechaCreacion}}
                     </td>

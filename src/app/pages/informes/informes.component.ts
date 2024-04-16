@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import html2canvas from 'html2canvas';
-import { event } from 'jquery';
-import jsPDF from 'jspdf';
+import * as printJS from 'print-js';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Estado } from 'src/app/models/estado';
 import { Solicitud } from 'src/app/models/solicitud';
@@ -151,35 +148,22 @@ export class InformesComponent implements OnInit {
     return o1 === null || o2 === null || o1 === undefined || o2 === undefined ? false : o1.id === o2.id;
   }
 
-  PDF() {
-    this.mostrarInformeDatos = true;
-    setTimeout(() => {
-      const DATA = document.getElementById('tabla');
-      const doc = new jsPDF('p', 'pt', 'a4');
-      const options = {
-        background: 'white',
-        scale: 3
-      }
-
-      html2canvas(DATA, options).then((canvas) => {
-        const img = canvas.toDataURL('image/PNG');
-
-        const bufferX = 15;
-        const bufferY = 15;
-        const imgProps = (doc as any).getImageProperties(img);
-        const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
-        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-        doc.addImage(img, 'PNG', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'FAST');
-        setTimeout(() => {
-          doc.save(`${new Date().toISOString()}informe.pdf`);
-          window.close();
-        }, 5);
-
-        this.mostrarInformeDatos = false;
-      }
-      );
-    }, 20);
-  }
+  PDF() : void {
+      printJS({
+        printable: 'tabla', 
+        type: 'html', 
+        documentTitle: `${new Date().toISOString()}informe_.pdf`, // Título del documento
+        showModal: true, // Mostrar un modal de carga
+        modalMessage: 'Imprimiendo, por favor espere...', // Mensaje del modal
+        style:'th{border:black 1px solid;} td{border:black 1px solid; margin:0px; padding-left:10px; padding-right:10px } table{border-collapse: collapse;}',
+        onError: (error) => {
+          console.error('Error al imprimir:', error);
+          alert('Ocurrió un error al imprimir el documento');
+        }
+      });
+    }
+    
+  
 
 
   validarFechas() {

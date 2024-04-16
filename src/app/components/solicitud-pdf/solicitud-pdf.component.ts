@@ -66,7 +66,7 @@ export class SolicitudPdfComponent implements OnInit {
           documentTitle: `${new Date().toISOString()}solicitud_${this.solicitud.id}.pdf`, // Título del documento
           showModal: true, // Mostrar un modal de carga
           modalMessage: 'Imprimiendo, por favor espere...', // Mensaje del modal
-          style:'table thead tr th{text-align: start}',
+          style:'table thead tr th{text-align: start};',
           onError: (error) => {
             console.error('Error al imprimir:', error);
             alert('Ocurrió un error al imprimir el documento');

@@ -1,14 +1,14 @@
 
-<div class="card">
+<div class="card ">
   <div class="card-header row col-sm-12 ms-0 pe-1">
     <h4 class="col-sm-6">{{ title }}</h4>
     <div class="col-sm-6">
       <button class="btn btn-primary float-end ms-3" role="button" (click)='Volver()'>Cancelar</button>
-      <button class="btn btn-danger float-end" role="button" (click)="PDF()">Generar PDF</button>
+      <button class="btn btn-danger float-end" role="button" (click)="PDF()">Imprimir  <i class=" ms-1 bi bi-printer-fill"></i></button>
     </div>
   </div>
   <div class="card-body" id="body">
-    <table id="tabla" class="col-sm-12 table-responsive print-section ">
+    <table id="tabla" class=" table-responsive print-section offset-1  ">
       <tr>
         <td class="mt-5 mb-5 ">
           <div class="row ">
