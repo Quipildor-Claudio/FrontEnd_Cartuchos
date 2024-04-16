@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
@@ -6,12 +7,16 @@ import { API_URI } from 'config/config';
 import Swal from 'sweetalert2';
 import { Ticket } from '../models/ticket';
 
+=======
+import { Injectable } from '@angular/core';
+>>>>>>> 6d105d8ce9866612819ebf3980784eccb3820908
 
 @Injectable({
   providedIn: 'root'
 })
 export class TicketService {
 
+<<<<<<< HEAD
   constructor(private http: HttpClient, private authService: AuthService) { }
   getAll(): Observable<any[]> {
     return this.http.get(`${API_URI}/ticket`, { headers: this.authService.addAuthorizationHeader() }).pipe(
@@ -121,4 +126,7 @@ export class TicketService {
         })
       );
   }
+=======
+  constructor() { }
+>>>>>>> 6d105d8ce9866612819ebf3980784eccb3820908
 }

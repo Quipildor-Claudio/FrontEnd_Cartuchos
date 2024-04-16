@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
       this.name = this.authService.getUserSession().username;
       Swal.fire(`Hola ${this.name} ya estas logueado !`);
       this.router.navigate(['/home']);
+      
 
     }
   }
@@ -43,7 +44,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.usuario).subscribe(u => {
       this.authService.saveToken(u.token);
       this.authService.saveUser(u.token);
-      this.router.navigate(['/computos']);
+      this.router.navigate(['/home']);
 
 
       Swal.fire('Login', `Hola ${u.persona.nombre} ${u.persona.apellido}, has iniciado sesión con éxito!`, 'success');

@@ -28,20 +28,11 @@ import { LoginComponent } from './auth/login/login.component';
 import { authGuard } from './auth/guards/auth.guard';
 import { AyudaComponent } from './components/ayuda/ayuda.component';
 import { CabioContrasenaComponent } from './components/cabio-contrasena/cabio-contrasena.component';
-import { PaginaComputosComponent } from './components/pagina-computos/pagina-computos.component';
-import { PaginaTicketsComponent } from './components/pagina-tickets/pagina-tickets.component';
-import { FormTicketComponent } from './components/form-ticket/form-ticket.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component:LoginComponent},
-
-  {path:'computos', component:PaginaComputosComponent},
-
-  {path:'tickets',component:PaginaTicketsComponent},
-
-  {path:'form-ticket',component:FormTicketComponent},
-  {path:'form-ticket/:id',component:FormTicketComponent},
 
   { path: 'home', component: HomeComponent ,canActivate:[authGuard]},
   { path: 'home/page/:page', component: HomeComponent ,canActivate:[authGuard]},

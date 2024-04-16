@@ -290,7 +290,7 @@ export class SolicitudComponent implements OnInit {
     this.solicitudService.add(this.solicitud).subscribe(res => {
       Swal.fire(
         'Exito',
-        `Categoria ${res.id}  Creada!`,
+        `Solicitud, de pedido de provisión  ${res.id }  Creada!`,
         'success'
       )
       this.route.navigate(['/home']);
