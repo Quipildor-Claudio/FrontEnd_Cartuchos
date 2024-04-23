@@ -31,6 +31,9 @@ export class ListadoTicketsComponent implements OnInit {
       console.log(res);
     });
   }
+  delete(item:any):void{
+
+  }
 
 
 

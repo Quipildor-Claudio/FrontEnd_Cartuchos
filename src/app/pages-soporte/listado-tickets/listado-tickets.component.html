@@ -26,24 +26,44 @@
                                 </h5>
                                 <p class="card-text">
                                     <strong>Tecnico Asignado:</strong>
-                                    {{item.tecnico_asignado}} <br/>
+                                    {{item.tecnico_asignado}} <br />
                                     <strong>Observacion:</strong>
-                                    {{item.observacion}} <br/>
+                                    {{item.observacion}} <br />
                                     <strong>Diagnostico:</strong>
-                                    {{item.diagnostico}} <br/>
+                                    {{item.diagnostico}} <br />
                                     <strong>Tecnico Asignado:</strong>
-                                    {{item.tecnico_asignado}} <br/>
+                                    {{item.tecnico_asignado}} <br />
                                     <strong>Derivado:</strong>
-                                    {{item.derivado}} <br/>
+                                    {{item.derivado}} <br />
                                     <strong>Tecnico Asignado:</strong>
-                                    {{item.tecnico_asignado}} <br/>
+                                    {{item.tecnico_asignado}} <br />
                                     <strong>Solicitado:</strong>
-                                    {{item.fecha_solicitud}} <br/>
+                                    {{item.fecha_solicitud}} <br />
                                 </p>
+                            </div>
+                            <div class="row">
+                                <div class="btn-group  ">
+
+                                    <button type="button" class="btn">
+                                        <i class="bi bi-pencil-square" aria-hidden="true" [routerLink]="['/form-ticket',item.id]"></i>
+                                    </button>
+                            
+                                    <button type="button" class="btn">
+                                        <i class="fa fa-eye" aria-hidden="true" [routerLink]="['/detalle-ticket',item.id]"></i>
+                                    </button>
+                                    <button type="button" class="btn">
+                                        <i class="bi bi-trash3" aria-hidden="true" (click)="delete(item)"></i>
+                                    </button>
+        
+        
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                  
                 </div>
+
             </div>
 
         </div>

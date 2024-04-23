@@ -43,6 +43,7 @@ import { AyudaComponent } from './components/ayuda/ayuda.component';
 import { CabioContrasenaComponent } from './components/cabio-contrasena/cabio-contrasena.component';
 import { ListadoTicketsComponent } from './pages-soporte/listado-tickets/listado-tickets.component';
 import { NuevoTicketComponent } from './pages-soporte/nuevo-ticket/nuevo-ticket.component';
+import { DetalleTicketComponent } from './pages-soporte/detalle-ticket/detalle-ticket.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { NuevoTicketComponent } from './pages-soporte/nuevo-ticket/nuevo-ticket.
     AyudaComponent,
     CabioContrasenaComponent,
     ListadoTicketsComponent,
-    NuevoTicketComponent
+    NuevoTicketComponent,
+    DetalleTicketComponent
 
   ],
   imports: [
